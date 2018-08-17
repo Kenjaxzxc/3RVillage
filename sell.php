@@ -9,8 +9,8 @@
   $description = $_POST['description'];
   $location = $_POST['location'];
   $price = $_POST['price']; 
-  $images = $_POST['images']; 
-    $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemImages) VALUES ('$title','$category','$description','$location','$price','$images')";
+  $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"])); 
+    $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemImages) VALUES ('$title','$category','$description','$location','$price','$file')";
             $result = mysqli_query ($conn, $sql);
             header("location:home.php");
     }
@@ -35,14 +35,15 @@
     ?> 
 
 
-<section class="col-sm-12 p-0">  
+<section class="col-sm-12 bg-light">  
   
   <div class="row">
    <h4 class="ltext-102 cl5 m-t-100 m-l-100 m-b-30">Sell Item</h4>
       
   </div>
-  
+  <form id="uploadimage" action="" method="POST" enctype="multipart/form-data">
   <div class="row justify-content-center">
+    
     <div class="col-sm-5">
      
       <div class="form-group">    
@@ -66,21 +67,23 @@
 
       <div class="mt-4 m-b-100">
         <button type="submit" class="btn btn-outline-secondary float-right" id="btnCancel">Cancel</button>
-        <button type="submit" class="btn btn-success float-right mr-2" name="btnSave">Save</button>
+        <button type="submit" class="btn btn-success float-right mr-2" id="btnSave" name="btnSave">Save</button>
       </div>
     </div>
 
     <div class="col-sm-5">
       <h5 class=" ltext-101 mt-3">Upload Images</h5>
       <span><b>Note:</b> Only <b><a id="textred">jpeg</a></b>, <b><a id="textred">jpg</a></b> and <b><a id="textred">png</a></b> Images file format are allowed and approximately <b><a id="textred">100kb</a></b> files can be uploaded.</span> 
-      <form id="uploadimage" action="" method="post" enctype="multipart/form-data">     
-        <div id="selectImage">
-        <img src="images/default.jpg" class="img border border-info rounded mt-4" id="previewing1" style="cursor:pointer" width="160" height="200" />
-        <input type="file" id="file1" name="images" style="display:none" multiple/>
-        </div>
-      </form>
+
+             
+            <div id="selectImage">
+            <img src="images/default.jpg" class="img border border-info rounded mt-4" id="previewing1" style="cursor:pointer" width="160" height="200" />
+            <input type="file" id="image" name="image" style="display:none" multiple/>
+            </div>
      </div>
+
     </div> 
+    </form>
 </section>
 
 <?php
@@ -108,6 +111,52 @@
       });
     })
   </script>
+
+  <script type="text/javascript">
+$("#previewing1").click(function () {
+    $("#image").trigger('click');
+});
+
+
+function readURL1(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      $('#previewing1').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$(function(){
+  $("input[name=image]").change(function(){
+    readURL1(this);
+  });
+});
+</script>
+
+<script type="text/javascript">
+ $(document).ready(function(){  
+      $('#btnSave').click(function(){  
+           var image_name = $('#image').val();  
+           if(image_name == '')  
+           {  
+                alert("Please Select Image");  
+                return false;  
+           }  
+           else  
+           {  
+                var extension = $('#image').val().split('.').pop().toLowerCase();  
+                if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)  
+                {  
+                     alert('Invalid Image File');  
+                     $('#image').val('');  
+                     return false;  
+                }  
+           }  
+      });  
+ });  
+</script>
 <!--===============================================================================================-->
   <script src="vendor/daterangepicker/moment.min.js"></script>
   <script src="vendor/daterangepicker/daterangepicker.js"></script>
@@ -142,6 +191,7 @@
       $(".loginDiv").hide();
       $(".registerDiv").hide();
       $("footer:eq(0)").hide();
+      $("footer:eq(1)").hide();
     });
   </script>
   <script>
@@ -198,29 +248,7 @@
     });
   </script>
 
-  <script type="text/javascript">
-$("#previewing1").click(function () {
-    $("#file1").trigger('click');
-});
-
-
-function readURL1(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      $('#previewing1').attr('src', e.target.result);
-    }
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-
-$(function(){
-  $("input[name=image1]").change(function(){
-    readURL1(this);
-  });
-});
-
-</script>
+  
 <!--===============================================================================================-->
   <script src="js/main.js"></script>
 
