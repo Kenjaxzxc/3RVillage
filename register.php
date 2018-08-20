@@ -1,4 +1,8 @@
 <?php 
+  session_start();
+?>
+
+<?php 
 	include('connection.php'); 
 ?>
 
@@ -11,11 +15,17 @@
 	$cpassword = $_POST['cpassword'];
 	$email = $_POST['email'];
 	$contact = $_POST['contact'];
+	if($password != $cpassword){
+		echo "<script>alert('Password did not match.');</script>";
+	}
+	else{
     $sql = "INSERT INTO account (firstname, lastname, username, password, email, contactno) VALUES ('$firstname','$lastname','$username','$password','$email','$contact')";
             $result = mysqli_query ($conn, $sql);
+            $row = mysqli_fetch_assoc($result);
             $_SESSION['accountid'] = $username;
             header("location:home.php");
-    }
+    	}
+  }
  ?>
 
 

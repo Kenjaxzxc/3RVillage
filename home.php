@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,14 +67,7 @@
 	<script src="vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/sweetalert/sweetalert.min.js"></script>
-	<script type="text/javascript">
-    $(function(){
-      $(".loginDiv").hide();
-      $(".registerDiv").hide();
-      $("footer:eq(0)").hide();
-      $("footer:eq(1)").hide();
-    });
-  </script>
+	
 	<script>
 		$('.js-addwish-b2').on('click', function(e){
 			e.preventDefault();

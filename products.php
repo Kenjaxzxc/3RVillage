@@ -1,5 +1,7 @@
 <!-- Product -->
-
+<?php 
+	include('connection.php'); 
+?>
 	<section class="bg0 p-t-23 p-b-140" id="products">
 		<div class="container">
 			<div class="p-b-10">
@@ -250,26 +252,34 @@
 				</div>
 			</div>
 
+			<?php 
+			$sql = "SELECT * FROM itemsell"; 
+		    $result = mysqli_query($conn, $sql);
+		    $row = mysqli_fetch_assoc($result);
+		    {
+			 ?>
+		   
+
 			<div class="row isotope-grid">
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
-							<img src="images/product-01.jpg" alt="IMG-PRODUCT">
+							<?php echo '<img src="data:image/jpeg;base64,'.base64_encode($row['SItemImages']).'" height="334"/>'; ?>
 
 							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-								Quick View
+								Preview Item
 							</a>
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-									Esprit Ruffle Shirt
+								<a class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									<?php echo $row['SItemTitle']; ?>
 								</a>
 
 								<span class="stext-105 cl3">
-									$16.64
+									₱ <?php echo $row['SItemPrice']; ?>
 								</span>
 							</div>
 
@@ -282,6 +292,9 @@
 						</div>
 					</div>
 				</div>
+				<?php 
+					}
+				 ?>
 
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
 					<!-- Block2 -->

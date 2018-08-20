@@ -1,7 +1,6 @@
 <?php 
-session_start();
- ?>
-
+  session_start();
+?>
 <?php 
 	include('connection.php'); 
 ?>
@@ -13,9 +12,14 @@ if(isset($_POST['username']) and isset($_POST['password'])){
     $sql = "SELECT * FROM account WHERE (username='$username' || contactno='$username') and password='$password'"; 
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
+    if (!$row) {  
+    	 echo "<script>alert('Your username or password is incorrect!');</script>";
+	}
+	else{
     $_SESSION['accountid'] = $row['username'];
     header("location:home.php");
 	}
+  }
  ?>
 
 <!DOCTYPE html>

@@ -35,7 +35,7 @@
     ?> 
 
 
-<section class="col-sm-12 bg-light">  
+<section class="col-sm-12 bg-light sellDiv">  
   
   <div class="row">
    <h4 class="ltext-102 cl5 m-t-100 m-l-100 m-b-30">Sell Item</h4>
@@ -186,14 +186,14 @@ $(function(){
   <script src="vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
   <script src="vendor/sweetalert/sweetalert.min.js"></script>
-  <script type="text/javascript">
+  <!-- <script type="text/javascript">
     $(function(){
       $(".loginDiv").hide();
       $(".registerDiv").hide();
       $("footer:eq(0)").hide();
       $("footer:eq(1)").hide();
     });
-  </script>
+  </script> -->
   <script>
     $('.js-addwish-b2').on('click', function(e){
       e.preventDefault();

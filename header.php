@@ -1,8 +1,6 @@
 <?php 
-	include('login.php'); 
-	include('register.php');
+  session_start();
 ?>
-
 <!-- Header -->
 	<header>
 		<!-- Header desktop -->
