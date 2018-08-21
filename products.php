@@ -16,24 +16,31 @@
 						All Products
 					</button>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
-						Women
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".apparels">
+						Apparels
 					</button>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
-						Men
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".accessories">
+						Accessories
 					</button>
 
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
 						Bag
 					</button>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".shoes">
-						Shoes
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".computers">
+						Computers
 					</button>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
-						Watches
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".appliances">
+						Appliances
+					</button>
+
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".gadgets">
+						Gadgets
+					</button>
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".vehicles">
+						Vehicles
 					</button>
 				</div>
 
@@ -256,10 +263,10 @@
 			$builder = $dom = null;
 			$sql = "SELECT * FROM itemsell"; 
 		    $result = mysqli_query($conn, $sql);
-		    while ($row = mysqli_fetch_assoc($result)) {	  
+		    while ($row = mysqli_fetch_assoc($result)){	  
 		    	$builder = 
 		    	'
-		    	<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+		    	<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item accessories">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">

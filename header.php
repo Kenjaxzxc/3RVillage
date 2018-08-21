@@ -17,9 +17,16 @@
 							Help & FAQs
 						</a>
 
-						<a href="" class="flex-c-m trans-04 p-lr-25">
+						<a href="#" class="dropdown-toggle flex-c-m trans-04 p-lr-25" data-toggle="dropdown">
 							<?php echo $_SESSION['accountid'] ?>
 						</a>
+						<div class="dropdown-menu bg-dark ">
+					        <a class="dropdown-item" href="#"><span class="fa fa-user"></span> My Account</a>
+					        <a class="dropdown-item" href="#"><span class="fa fa-plus-circle"></span> My Ads</a>
+					        <a class="dropdown-item" href="#"><span class="fa fa-heart"></span> My Wishlist</a>
+					        <div class="dropdown-divider"></div>
+					        <a class="dropdown-item" href="logout.php"><span class="fa fa-sign-out"></span> Logout</a>
+					     </div>
 					</div>
 				</div>
 			</div>

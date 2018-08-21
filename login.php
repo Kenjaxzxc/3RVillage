@@ -73,7 +73,7 @@ if(isset($_POST['username']) and isset($_POST['password'])){
 							</li>
 
 							<li>
-								<a href="#products">Shop</a>
+								<a href="login.php">Shop</a>
 							</li>
 
 							<li class="label1" data-label1="Hot">
@@ -95,9 +95,7 @@ if(isset($_POST['username']) and isset($_POST['password'])){
 					</div>				
 				</nav>
 			</div>	
-		</div>
-			
-		
+		</div>	
 	</header>
 	
 	<div class="container m-t-100 m-b-50 loginDiv">
@@ -109,12 +107,12 @@ if(isset($_POST['username']) and isset($_POST['password'])){
 			
 		    <div class="input-group mb-3">
 		    	<span class="input-group-addon p-r-25"><i class="fa fa-user"></i></span>
-				<input type="text" name="username" class="form-control input-lg" placeholder="Username or Phone" tabindex="1">
+				<input type="text" name="username" class="form-control input-lg" placeholder="Username or Phone" tabindex="1" required>
 			</div>
 														
 			<div class="input-group mb-3">
 				<span class="input-group-addon p-r-27"><i class="fa fa-lock"></i></span>
-				<input type="password" name="password" class="form-control input-lg" placeholder="Password" tabindex="2">
+				<input type="password" name="password" class="form-control input-lg" placeholder="Password" tabindex="2" required>
 			</div>
 			<div class="form-check m-l-20 mb-3">
 			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">

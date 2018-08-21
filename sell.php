@@ -1,21 +1,6 @@
 <?php 
   include('connection.php'); 
 ?>
-
-<?php 
-  if(isset($_POST['btnSave'])){
-  $title = $_POST['title'];
-  $category = $_POST['category'];
-  $description = $_POST['description'];
-  $location = $_POST['location'];
-  $price = $_POST['price']; 
-  $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"])); 
-    $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemImages) VALUES ('$title','$category','$description','$location','$price','$file')";
-            $result = mysqli_query ($conn, $sql);
-            header("location:home.php");
-    }
- ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +17,19 @@
 
     <?php 
      include('header.php');
+     $sessionID = $_SESSION['accountid']; 
+     $id = mysqli_query($conn,"SELECT accountid FROM `account` WHERE username = '$sessionID'")->fetch_object()->accountid;
+     if(isset($_POST['btnSave'])){
+  $title = $_POST['title'];
+  $category = $_POST['category'];
+  $description = $_POST['description'];
+  $location = $_POST['location'];
+  $price = $_POST['price']; 
+  $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+    $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemImages, accountid) VALUES ('$title','$category','$description','$location','$price','$file','$id')";
+            $result = mysqli_query ($conn, $sql);
+            echo "<script>window.location='home.php'</script>";
+    }
     ?> 
 
 
@@ -48,21 +46,21 @@
      
       <div class="form-group">    
         <label>Title </label>
-        <input class="form-control" type="text" name="title" required="" autofocus>
+        <input class="form-control" type="text" name="title" required autofocus>
       </div>
       <?php 
       include('category.php');
       ?>
       <div class="form-group">
         <label>Description</label>
-        <textarea class="form-control" name="description" rows="3"></textarea>
+        <textarea class="form-control" name="description" rows="3" required></textarea>
       </div>
       <?php 
       include('location.php');
       ?>
       <div class="form-group">
         <label>Price</label>
-        <input class="form-control" type="number" name="price" required="">
+        <input class="form-control" type="number" name="price" required>
       </div>
 
       <div class="mt-4 m-b-100">

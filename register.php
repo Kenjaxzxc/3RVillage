@@ -79,7 +79,7 @@
 							</li>
 
 							<li>
-								<a href="#products">Shop</a>
+								<a href="login.php">Shop</a>
 							</li>
 
 							<li class="label1" data-label1="Hot">
@@ -102,7 +102,6 @@
 				</nav>
 			</div>	
 		</div>
-			
 	</header>
 
 	<div class="container m-t-100 m-b-50 registerDiv">
@@ -114,38 +113,38 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-                        <input type="text" name="firstname" class="form-control input-lg" placeholder="First Name" tabindex="1" autofocus>
+                        <input type="text" name="firstname" class="form-control input-lg" placeholder="First Name" tabindex="1" required autofocus>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="text" name="lastname" class="form-control input-lg" placeholder="Last Name" tabindex="2">
+						<input type="text" name="lastname" class="form-control input-lg" placeholder="Last Name" tabindex="2" required>
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<input type="email" name="email" class="form-control input-lg" placeholder="Email Address" tabindex="3">
+				<input type="email" name="email" class="form-control input-lg" placeholder="Email Address" tabindex="3" required>
 			</div>
 			<div class="form-group">
-				<input type="text" name="username" class="form-control input-lg" placeholder="Username" tabindex="4">
+				<input type="text" name="username" class="form-control input-lg" placeholder="Username" tabindex="4" required>
 			</div>					
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="password" name="password" class="form-control input-lg" placeholder="Password" tabindex="5">
+						<input type="password" name="password" class="form-control input-lg" placeholder="Password" tabindex="5" required>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="password" name="cpassword" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
+						<input type="password" name="cpassword" class="form-control input-lg" placeholder="Confirm Password" tabindex="6" required>
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="input-group">
-				<input type="text" name="contact" class="form-control input-lg" placeholder="Phone Number" tabindex="7">
+				<input type="text" name="contact" class="form-control input-lg border-right-0" placeholder="Phone Number" tabindex="7" required>
 				 <div class="input-group-append">
-				    <button class="btn btn-outline-secondary" type="button">Send</button>
+				    <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" style="border-color: #ccc;" type="button">Send</button>
 				  </div>
 				</div>
 			</div>
