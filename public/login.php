@@ -1,33 +1,26 @@
 <?php 
   session_start();
 ?>
-
 <?php 
 	include('connection.php'); 
 ?>
 
 <?php 
-	if(isset($_POST['btnSubmit'])){
-	$firstname = $_POST['firstname'];
-	$lastname = $_POST['lastname'];
-	$username = $_POST['username'];
-	$password = $_POST['password'];
-	$cpassword = $_POST['cpassword'];
-	$email = $_POST['email'];
-	$contact = $_POST['contact'];
-	if($password != $cpassword){
-		echo "<script>alert('Password did not match.');</script>";
+if(isset($_POST['username']) and isset($_POST['password'])){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $sql = "SELECT * FROM account WHERE (username='$username' || contactno='$username') and password='$password'"; 
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    if (!$row) {  
+    	 echo "<script>alert('Your username or password is incorrect!');</script>";
 	}
 	else{
-    $sql = "INSERT INTO account (firstname, lastname, username, password, email, contactno) VALUES ('$firstname','$lastname','$username','$password','$email','$contact')";
-            $result = mysqli_query ($conn, $sql);
-            $row = mysqli_fetch_assoc($result);
-            $_SESSION['accountid'] = $username;
-            header("location:home.php");
-    	}
+    $_SESSION['accountid'] = $row['username'];
+    header("location:home.php");
+	}
   }
  ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +31,7 @@
 <body class="bg-light">
 
 <!-- Header -->
-	<header class="registerDiv">
+	<header class="loginDiv">
 		<!-- Header desktop -->
 		<div class="container-menu-desktop">
 			<!-- Topbar -->
@@ -63,12 +56,13 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="wrap-menu-desktop">
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
 					<a href="index.php" class="logo">
-						<img src="images/icons/logo-33.png" alt="IMG-LOGO">
+						<img src="../images/icons/logo-33.png" alt="IMG-LOGO">
 					</a>
 
 					<!-- Menu desktop -->
@@ -101,71 +95,42 @@
 					</div>				
 				</nav>
 			</div>	
-		</div>
+		</div>	
 	</header>
-
-	<div class="container m-t-100 m-b-50 registerDiv">
+	
+	<div class="container m-t-100 m-b-50 loginDiv">
 	<div class="row justify-content-center">
     <div class="shadow-lg col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 p-lr-25 p-tb-25 bg-white rounded">
 		<form role="form" method="POST">
-			<h2 class="text-center">Sign up</h2>
+			<h2 class="text-center">Login</h2>
 			<hr>
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-                        <input type="text" name="firstname" class="form-control input-lg" placeholder="First Name" tabindex="1" required autofocus>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-						<input type="text" name="lastname" class="form-control input-lg" placeholder="Last Name" tabindex="2" required>
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<input type="email" name="email" class="form-control input-lg" placeholder="Email Address" tabindex="3" required>
-			</div>
-			<div class="form-group">
-				<input type="text" name="username" class="form-control input-lg" placeholder="Username" tabindex="4" required>
-			</div>					
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-						<input type="password" name="password" class="form-control input-lg" placeholder="Password" tabindex="5" required>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-						<input type="password" name="cpassword" class="form-control input-lg" placeholder="Confirm Password" tabindex="6" required>
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-				<input type="text" name="contact" class="form-control input-lg border-right-0" placeholder="Phone Number" tabindex="7" required>
-				 <div class="input-group-append">
-				    <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" style="border-color: #ccc;" type="button">Send</button>
-				  </div>
-				</div>
-			</div>
-			<div class="form-group">
-				<input type="text" name="verify" class="form-control input-lg" placeholder="Verification Code" tabindex="8">
-			</div>
-			<div class="row">
-				
-				<div class="col-xs-4 col-sm-9 col-md-12 text-center">
-					 By clicking <strong class="label label-primary">Register</strong>, you agree to the <a href="#">Terms and Conditions</a> set out by this site, including our Cookie Use.
-				</div>
-			</div>
 			
-			<hr>
-			<div class="row">
-				<div class="col-xs-12 col-md-6"><input type="submit" value="Register" name="btnSubmit" class="btn btn-primary btn-block btn-lg" tabindex="9"></div>
-				<div class="col-xs-12 col-md-6"><a href="login.php" class="btn btn-success btn-block btn-lg">Sign In</a></div>
+		    <div class="input-group mb-3">
+		    	<span class="input-group-addon p-r-25"><i class="fa fa-user"></i></span>
+				<input type="text" name="username" class="form-control input-lg" placeholder="Username or Phone" tabindex="1" required>
 			</div>
+														
+			<div class="input-group mb-3">
+				<span class="input-group-addon p-r-27"><i class="fa fa-lock"></i></span>
+				<input type="password" name="password" class="form-control input-lg" placeholder="Password" tabindex="2" required>
+			</div>
+			<div class="form-check m-l-20 mb-3">
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label>Remember me on this computer</label>
+			  <a class="float-right mt-2" href="#">Forgot Password?</a>
+			</div>
+    	
+			<div class="row m-t-60">
+				<div class="col-xs-12 col-md-12"><input type="submit" value="Register" name="btnSubmit" class="btn btn-primary btn-block btn-lg" tabindex="3"></div>
+			</div>	
+
 		</form>
 	</div>
 	</div>
+
+
+		
+
 </div>
 
 
@@ -181,14 +146,14 @@
 
 
 <!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
+	<script src="../vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../vendor/bootstrap/js/popper.js"></script>
+	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
+	<script src="../vendor/select2/select2.min.js"></script>
 	<script>
 		$(".js-select2").each(function(){
 			$(this).select2({
@@ -198,18 +163,18 @@
 		})
 	</script>
 <!--===============================================================================================-->
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="../vendor/daterangepicker/moment.min.js"></script>
+	<script src="../vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/slick/slick.min.js"></script>
-	<script src="js/slick-custom.js"></script>
+	<script src="../vendor/slick/slick.min.js"></script>
+	<script src="../js/slick-custom.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/parallax100/parallax100.js"></script>
+	<script src="../vendor/parallax100/parallax100.js"></script>
 	<script>
         $('.parallax100').parallax100();
 	</script>
 <!--===============================================================================================-->
-	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script src="../vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
 	<script>
 		$('.gallery-lb').each(function() { // the containers for all your galleries
 			$(this).magnificPopup({
@@ -223,9 +188,9 @@
 		});
 	</script>
 <!--===============================================================================================-->
-	<script src="vendor/isotope/isotope.pkgd.min.js"></script>
+	<script src="../vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/sweetalert/sweetalert.min.js"></script>
+	<script src="../vendor/sweetalert/sweetalert.min.js"></script>
 	<script>
 		$('.js-addwish-b2').on('click', function(e){
 			e.preventDefault();
@@ -263,7 +228,7 @@
 	
 	</script>
 <!--===============================================================================================-->
-	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
 		$('.js-pscroll').each(function(){
 			$(this).css('position','relative');
@@ -280,5 +245,5 @@
 		});
 	</script>
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
+	<script src="../js/main.js"></script>
 

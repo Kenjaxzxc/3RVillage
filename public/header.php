@@ -36,7 +36,7 @@
 					
 					<!-- Logo desktop -->		
 					<a href="home.php" class="logo">
-						<img src="images/icons/logo-33.png" alt="IMG-LOGO">
+						<img src="../images/icons/logo-33.png" alt="IMG-LOGO">
 					</a>
 
 					<!-- Menu desktop -->
