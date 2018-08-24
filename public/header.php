@@ -14,8 +14,15 @@
 
 					<div class="right-top-bar flex-w h-full">
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							Help & FAQs
+							<span class="fa fa-info-circle">&nbsp;</span> Help & FAQs
 						</a>
+						<a href="#" class="flex-c-m trans-04 p-lr-25">
+							<span class="fa fa-bell">&nbsp;</span> Notification
+						</a>
+						<a href="message.php" class="flex-c-m trans-04 p-lr-25">
+							<span class="fa fa-comments">&nbsp;</span> Messages
+						</a>
+						
 
 						<a href="#" class="dropdown-toggle flex-c-m trans-04 p-lr-25" data-toggle="dropdown">
 							<?php echo $_SESSION['accountid'] ?>
