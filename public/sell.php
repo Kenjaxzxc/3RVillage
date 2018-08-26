@@ -17,23 +17,26 @@
 
     <?php 
      include('header.php');
+    ?>
+
+    <?php
      $sessionID = $_SESSION['accountid']; 
      $id = mysqli_query($conn,"SELECT accountid FROM `account` WHERE username = '$sessionID'")->fetch_object()->accountid;
      if(isset($_POST['btnSave'])){
-  $title = $_POST['title'];
-  $category = $_POST['category'];
-  $description = $_POST['description'];
-  $location = $_POST['location'];
-  $price = $_POST['price']; 
-  $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
-    $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemImages, accountid) VALUES ('$title','$category','$description','$location','$price','$file','$id')";
-            $result = mysqli_query ($conn, $sql);
-            echo "<script>window.location='home.php'</script>";
-    }
-    ?> 
+    $title = $_POST['title'];
+    $category = $_POST['category'];
+    $description = $_POST['description'];
+    $location = $_POST['location'];
+    $price = $_POST['price']; 
+    $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+      $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemImages, accountid) VALUES ('$title','$category','$description','$location','$price','$file','$id')";
+              $result = mysqli_query ($conn, $sql);
+              echo "<script>window.location='home.php'</script>";
+      }
+      ?> 
 
 
-<section class="col-sm-12 bg-light sellDiv">  
+<section class="col-sm-12 bg-light">  
   
   <div class="row">
    <h4 class="ltext-102 cl5 m-t-100 m-l-100 m-b-30">Sell Item</h4>

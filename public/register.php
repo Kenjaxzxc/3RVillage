@@ -38,7 +38,7 @@
 <body class="bg-light">
 
 <!-- Header -->
-	<header class="registerDiv">
+	<header>
 		<!-- Header desktop -->
 		<div class="container-menu-desktop">
 			<!-- Topbar -->
@@ -104,7 +104,7 @@
 		</div>
 	</header>
 
-	<div class="container m-t-100 m-b-50 registerDiv">
+	<div class="container m-t-100 m-b-50">
 	<div class="row justify-content-center">
     <div class="shadow-lg col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 p-lr-25 p-tb-25 bg-white rounded">
 		<form role="form" method="POST">

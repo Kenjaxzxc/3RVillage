@@ -302,7 +302,7 @@
 		 	?>
 		 	<div class="row isotope-grid">
 				<?php echo $dom; ?>
-
+			</div>
 			<!-- Load more -->
 		</div>
 		<div class="flex-c-m flex-w w-full p-t-45">
