@@ -27,8 +27,8 @@ $(function(){
 				category.val(obj.SItemCat);
 				mobile.val(obj.contactno);
 				description.val(obj.SItemDesc);
-				firstimage.html(
-					+'<div class="item-slick3" data-thumb="data:image/png;base64,'+obj.SItemImages+'">'
+				/*firstimage.html(
+					+'<div class="item-slick3" data-thumb="data:image/jpeg;base64,'+obj.SItemImages+'">'
 						+'<div class="wrap-pic-w pos-relative" id="firstImage">'
 							+'<img src="data:image/png;base64,'+obj.SItemImages+'>'
 							+'<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="src="data:image/png;base64,'+obj.SItemImages+'">'
@@ -36,7 +36,7 @@ $(function(){
 							+'</a>'
 						+'</div>'
 					+'</div>'
-					);
+					);*/
 			}
 		});
 	});
