@@ -27,8 +27,8 @@
 						<a href="#" class="dropdown-toggle flex-c-m trans-04 p-lr-25" data-toggle="dropdown">
 							<?php echo $_SESSION['accountid'] ?>
 						</a>
-						<div class="dropdown-menu bg-dark ">
-					        <a class="dropdown-item" href="#"><span class="fa fa-user"></span> My Account</a>
+						<div class="dropdown-menu bg-dark " style="z-index:5000; position: relative;">
+					        <a class="dropdown-item" href="editprofile.php"><span class="fa fa-user"></span> My Account</a>
 					        <a class="dropdown-item" href="#"><span class="fa fa-plus-circle"></span> My Ads</a>
 					        <a class="dropdown-item" href="#"><span class="fa fa-heart"></span> My Wishlist</a>
 					        <div class="dropdown-divider"></div>

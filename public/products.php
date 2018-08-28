@@ -10,6 +10,7 @@
 				</h3>
 			</div>
 
+
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
@@ -271,9 +272,10 @@
 					<div class="block2">
 						<div class="block2-pic hov-img0">
 						<img src="data:image/jpeg;base64,'.base64_encode($row['SItemImages']).'" height="334" width="270"/>
-							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 prevITEM">
 								Preview Item
 							</a>
+							<input type="hidden" name="itemsellID" value="'.$row['ItemSellID'].'">
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">

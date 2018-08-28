@@ -137,3 +137,5 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</div>
 	</footer>
+<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../js/customJS.js"></script>

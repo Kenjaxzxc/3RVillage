@@ -22,7 +22,7 @@
 								<div class="wrap-slick3-dots"></div>
 								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
-								<div class="slick3 gallery-lb">
+								<div class="slick3 gallery-lb"  id="firstImage">
 									<div class="item-slick3" data-thumb="../images/product-detail-01.jpg">
 										<div class="wrap-pic-w pos-relative">
 											<img src="../images/product-detail-01.jpg" alt="IMG-PRODUCT">
@@ -59,12 +59,12 @@
 					
 					<div class="col-md-6 col-lg-5 p-b-30">
 						<div class="p-r-50 p-t-5 p-lr-0-lg">
-							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								Title
+							<h4 class="mtext-105 cl2 js-name-detail p-b-14" id="title">
+								
 							</h4>
 
-							<span class="mtext-104 cl2">
-								$58.79
+							<span class="mtext-104 cl2" id="price">
+								
 							</span>
 
 							
@@ -77,7 +77,7 @@
 
 									<div class="size-204 respon6-next">
 										<div class="stext-102 cl3">
-											<input class="form-control" type="text" name="" value="Kenji Pugoy" disabled>
+											<input class="form-control" type="text" id="sellername" disabled>
 										
 										</div>
 									</div>
@@ -90,7 +90,7 @@
 
 									<div class="size-204 respon6-next">
 										<div class="stext-102 cl3">
-											<input class="form-control" type="text" name="" value="Cebu City" disabled>
+											<input class="form-control" type="text" id="location" disabled>
 										
 										</div>
 									</div>
@@ -103,7 +103,7 @@
 
 									<div class="size-204 respon6-next">
 										<div class="stext-102 cl3"> 
-											<input class="form-control" type="text" name="" value="6/8/2018" disabled>
+											<input class="form-control" type="text" id="date" disabled>
 										
 										</div>
 									</div>
@@ -116,7 +116,7 @@
 
 									<div class="size-204 respon6-next">
 										<div class="stext-102 cl3">
-											<input class="form-control" type="text" name="" value="Sabon" disabled>
+											<input class="form-control" type="text" id="category" disabled>
 										
 										</div>
 									</div>
@@ -130,7 +130,7 @@
 
 									<div class="size-204 respon6-next">
 										<div class="stext-102 cl3">
-											<textarea class="form-control" name="description" rows="3" disabled>GUBA NANI</textarea>
+											<textarea class="form-control" id="description" name="description" rows="3" disabled></textarea>
 										
 										</div>
 									</div>
@@ -143,7 +143,7 @@
 
 									<div class="size-204 respon6-next">
 										<div class="stext-102 cl3">
-											<input class="form-control" type="text" name="" value="09222222222" disabled>
+											<input class="form-control" type="text" id="mobile" disabled>
 										
 										</div>
 									</div>
