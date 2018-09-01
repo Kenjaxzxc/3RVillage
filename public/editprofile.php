@@ -1,5 +1,6 @@
 <?php 
   include('connection.php'); 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,42 +12,74 @@
 <body class="bg-light">
   <?php 
       include('header.php');
+      if(isset($_POST['btnUpdate'])){
+      $email = $_POST['email'];
+      $password = $_POST['password'];
+      $contact = $_POST['contact'];  
+      $id=$_SESSION['accountid'];
+      $sql = "UPDATE account SET email='$email', password='$password', contactno ='$contact' WHERE username = '$id'";
+            $result = mysqli_query ($conn, $sql);
+            echo "<script>alert('Successfully Updated!');</script>";
+            echo '<script>window.location="editprofile.php"</script>'; 
+          }
+
    ?>
   
   <section class="col-sm-12 bg-light">  
-  
-  <div class="row">
-   <h4 class="ltext-102 cl5 m-t-100 m-l-100 m-b-30">Profile</h4>
-      
-  </div>
+  <?php $id=$_SESSION['accountid']?>
+
+     <?php
+          $res = mysqli_query($conn, "SELECT * FROM account where username='$id'");
+          while($row=$res->fetch_array()){
+          
+     ?> 
   <form action="" method="POST">
   <div class="row justify-content-center">
     
-    <div class="col-sm-5">
-     
+    <div class="shadow-lg col-sm-5 m-b-100 m-t-100 p-4 bg-white rounded">
+     <h4 class="ltext-102 cl5 mb-4 mt-2 text-center">Update Profile</h4>
       <div class="form-group">    
-        <label>Title </label>
-        <input class="form-control" type="text" name="title" required autofocus>
+        <label>Name</label>
+        <input class="form-control" type="text" name="name" value="<?php echo $row['firstname']," ",$row ['lastname'] ?>" disabled>
       </div>
-      <?php 
-      include('category.php');
-      ?>
-      <div class="form-group">
-        <label>Description</label>
-        <textarea class="form-control" name="description" rows="3" required></textarea>
+
+       <div class="form-group">    
+        <label>Email Address</label>
+        <input class="form-control" type="email" name="email" value="<?php echo $row['email'] ?>">
       </div>
-      <?php 
-      include('location.php');
-      ?>
+    
       <div class="form-group">
-        <label>Price</label>
-        <input class="form-control" type="number" name="price" required>
+        <label>Password</label>
+        <div class="input-group">
+        <input class="form-control" type="password" name="password" value="<?php echo $row['password'] ?>" disabled>
+         <div class="input-group-append">
+            <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" style="border-color: #ccc;" type="button">Change</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <div class="input-group">
+        <input class="form-control" type="text" name="contact" value="<?php echo $row['contactno'] ?>">
+         <div class="input-group-append">
+            <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" style="border-color: #ccc;" type="button">Send</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">    
+        <label>Verification Code</label>
+        <input class="form-control" type="text" name="verify" value="">
       </div>
 
       <div class="mt-4 m-b-100">
-        <button type="submit" class="btn btn-outline-secondary float-right" id="btnCancel">Cancel</button>
-        <button type="submit" class="btn btn-success float-right mr-2" id="btnSave" name="btnSave">Save</button>
+        <button type="submit" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button>
+        <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnUpdate">Update</button>
       </div>
+      <?php
+        }
+      ?>
     </div>
 
     </div> 

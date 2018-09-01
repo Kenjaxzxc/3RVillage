@@ -67,8 +67,8 @@
       </div>
 
       <div class="mt-4 m-b-100">
-        <button type="submit" class="btn btn-outline-secondary float-right" id="btnCancel">Cancel</button>
-        <button type="submit" class="btn btn-success float-right mr-2" id="btnSave" name="btnSave">Save</button>
+        <button type="submit" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button>
+        <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnSave">Save</button>
       </div>
     </div>
 

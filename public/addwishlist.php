@@ -26,36 +26,33 @@
       ?> 
   
   <section class="col-sm-12 bg-light">  
-  <div class="row">
-   <h4 class="ltext-102 cl5 m-t-100 m-l-100 m-b-30">Add Your Wishlist</h4>
-      
-  </div>
   <form action="" method="POST">
   <div class="row justify-content-center">
     
-    <div class="col-sm-5">
+    <div class="shadow-lg col-sm-5 m-b-100 m-t-100 p-4 bg-white rounded">
+      <h4 class="ltext-102 cl5 mb-4 mt-2 text-center">Add Your Wishlist</h4>
      
       <div class="form-group">    
-        <label>Name</label>
+        <label>Name:</label>
         <input class="form-control" type="text" name="name" required autofocus>
       </div>
       <?php 
       include('category.php');
       ?>
       <div class="form-group">
-        <label>Want</label>
+        <label>Want:</label>
         <input class="form-control" type="text" name="want" required>
       </div>
 
       <div class="form-group">
-        <label>Message</label>
+        <label>Message:</label>
         <textarea class="form-control" name="message" rows="3" required></textarea>
       </div>
       
 
-      <div class="mt-4 m-b-100">
-        <button type="submit" class="btn btn-outline-secondary float-right" id="btnCancel">Cancel</button>
-        <button type="submit" class="btn btn-success float-right mr-2" id="btnSave" name="btnSave">Save</button>
+      <div class="mt-4">
+        <button type="submit" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button>
+        <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnSave">Save</button>
       </div>
     </div>
 
@@ -77,6 +74,10 @@
 <!--===============================================================================================-->
   <script src="../vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-  <script src="../js/main.js"></script>
+  <script src="../vendor/bootstrap/js/popper.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
+  <script src="../vendor/select2/select2.min.js"></script>
+
+  <script src="../js/main.js"></script>
   

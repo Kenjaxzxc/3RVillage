@@ -122,12 +122,15 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="form-group">
 				<input type="email" name="email" class="form-control input-lg" placeholder="Email Address" tabindex="3" required>
 			</div>
+
 			<div class="form-group">
 				<input type="text" name="username" class="form-control input-lg" placeholder="Username" tabindex="4" required>
-			</div>					
+			</div>	
+
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
@@ -140,6 +143,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="form-group">
 				<div class="input-group">
 				<input type="text" name="contact" class="form-control input-lg border-right-0" placeholder="Phone Number" tabindex="7" required>
@@ -148,9 +152,11 @@
 				  </div>
 				</div>
 			</div>
+
 			<div class="form-group">
 				<input type="text" name="verify" class="form-control input-lg" placeholder="Verification Code" tabindex="8">
 			</div>
+			
 			<div class="row">
 				
 				<div class="col-xs-4 col-sm-9 col-md-12 text-center">
