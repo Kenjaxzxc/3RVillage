@@ -1,6 +1,59 @@
-<?php 
+<?php  
+$sql = null;
+$getData = null;
+$linkClass = null;
+  if(!isset($_GET['display'])){
+    header("location: wishlist.php?display=all_products");
+  }
+  
+  if(isset($_GET['display'])){
+    $getData = htmlentities($_GET['display']);
+      switch ($getData) {
+      case 'all_products':
+        $sql = "SELECT * FROM `wishlist`";
+        $linkClass = '*';
+        break;
+      case 'apparels':
+        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Apparels'";
+        $linkClass = '.apparels';
+        break;
+      case 'accessories':
+        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Accessories'";
+        $linkClass = '.accessories';
+        break;
+      case 'bag':
+        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Bag'";
+        $linkClass = '.bag';
+        break;
+      case 'computers':
+        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Computers'";
+        $linkClass = '.computers';
+        break;
+      case 'appliances':
+        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Appliances'";
+        $linkClass = '.appliances';
+        break;
+      case 'gadgets':
+        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Gadgets'";
+        $linkClass = '.gadgets';
+        break;
+      case 'vehicles':
+        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Vehicles'";
+        $linkClass = '.vehicles';
+        break;
+
+      
+      default:
+       header("location: wishlist.php?display=all_products");
+        break;
+      }
+  }
+  ?>
+
+  <?php
   include('connection.php'); 
-?>
+  ?>
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,36 +77,36 @@
 
       <div class="flex-w flex-sb-m p-b-52">
         <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-          <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" href="?display=all_products" data-filter="*">
             All Products
-          </button>
+          </a>
 
-          <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".apparels">
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=apparels" data-filter=".apparels">
             Apparels
-          </button>
+          </a>
 
-          <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".accessories">
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=accessories" data-filter=".accessories">
             Accessories
-          </button>
+          </a>
 
-          <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=bag" data-filter=".bag">
             Bag
-          </button>
+          </a>
 
-          <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".computers">
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=computers" data-filter=".computers">
             Computers
-          </button>
+          </a>
 
-          <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".appliances">
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=appliances" data-filter=".appliances">
             Appliances
-          </button>
+          </a>
 
-          <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".gadgets">
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=gadgets" data-filter=".gadgets">
             Gadgets
-          </button>
-          <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".vehicles">
+          </a>
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=vehicles" data-filter=".vehicles">
             Vehicles
-          </button>
+          </a>
         </div>
 
         <div class="flex-w flex-c-m m-tb-10">
@@ -82,15 +135,14 @@
       </div>
 
       <?php 
-      $builder = $dom = null;
-      $sql = "SELECT * FROM wishlist"; 
+      $builder = $dom = null; 
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_assoc($result)){   
           $builder = 
           '
 
     <div class="row">
-    <div class="shadow-lg col-sm-4 p-2 bg-white rounded mb-5 isotope-item accessories">
+    <div class="shadow-lg col-sm-4 p-2 bg-white rounded mb-5 isotope-item '.$linkClass.'">
         <div class="row stext-105 cl3 p-b-5">
         <div class="col-sm-3">
           <strong><label>Name:</label></strong>

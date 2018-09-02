@@ -7,54 +7,61 @@
   <title>3RVillage</title>
   <?php include('link.php');?>
   </head>
-  
+
 <body class="bg-light">
   <?php 
       include('header.php');
-   ?>
-
-   <?php
-    $sessionID = $_SESSION['accountid'];
-    $id = mysqli_query($conn,"SELECT accountid FROM `account` WHERE username = '$sessionID'")->fetch_object()->accountid;
-    if(isset($_POST['btnSave'])){
-    $name = $_POST['name'];
-    $category = $_POST['category'];
-    $want = $_POST['want'];
-    $message = $_POST['message'];
-    $sql = "INSERT INTO wishlist (WLName, WLWant, WLMessage, WLCategory, accountid) VALUES ('$name','$want','$message','$category','$id')";
-              $result = mysqli_query ($conn, $sql);
-              echo "<script>window.location='wishlist.php'</script>";
+      if(isset($_POST['btnUpdate'])){
+      $old = $_POST['oldpass'];
+      $new = $_POST['newpass'];
+      $cpass = $_POST['cnewpass'];
+      $id=$_SESSION['accountid'];
+      $sql1 = mysqli_query($conn, "SELECT password FROM account WHERE username = '$id'");
+       while($row=$sql1->fetch_array()){
+      $oldpass = $row['password'];
+      if ($old != $oldpass) {
+        echo "<script>alert('Incorrect Old Password!');</script>";
       }
-      ?> 
+      elseif ($new != $cpass) {
+        echo "<script>alert('Password does not match!');</script>";
+      }
+       
+      else{
+      $sql = "UPDATE account SET password='$new' WHERE username = '$id'";
+             mysqli_query ($conn, $sql);
+            echo "<script>alert('Successfully Change Password!');</script>";
+            echo '<script>window.location="editprofile.php"</script>'; 
+          }
+        }
+      } 
+   ?>
   
   <section class="col-sm-12 bg-light">  
   <form action="" method="POST">
   <div class="row justify-content-center">
     
     <div class="shadow-lg col-sm-5 m-b-100 m-t-100 p-4 bg-white rounded">
-      <h4 class="ltext-102 cl5 mb-4 mt-2 text-center">Add Your Wishlist</h4>
+      <h4 class="ltext-102 cl5 mb-4 mt-2 text-center">Change Your Password</h4>
      
       <div class="form-group">    
-        <label>Name:</label>
-        <input class="form-control" type="text" name="name" required autofocus>
+        <label>Old Password:</label>
+        <input class="form-control" type="password" name="oldpass" required autofocus>
       </div>
-      <?php 
-      include('category.php');
-      ?>
+      
       <div class="form-group">
-        <label>Want:</label>
-        <input class="form-control" type="text" name="want" required>
+        <label>New Password:</label>
+        <input class="form-control" type="password" name="newpass" required>
       </div>
 
       <div class="form-group">
-        <label>Message:</label>
-        <textarea class="form-control" name="message" rows="3" required></textarea>
+        <label>Confirm New Password:</label>
+        <input class="form-control" type="password" name="cnewpass" required>
       </div>
       
 
       <div class="mt-4">
         <button type="submit" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button>
-        <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnSave">Save</button>
+        <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnUpdate">Change</button>
       </div>
     </div>
 
@@ -64,8 +71,8 @@
   
   
     <?php
-   include('footer.php');
-?>
+      include('footer.php');
+    ?>
 
  </body>
 </html>  

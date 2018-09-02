@@ -1,5 +1,60 @@
 <!-- Product -->
 <?php 
+	$sql = null;
+	$getData = null;
+	$linkClass = null;
+  if(!isset($_GET['display'])){
+    //header("location: home.php?display=all_products");
+    echo "<script>window.location='home.php?display=all_products'</script>";
+    
+  }
+  
+  if(isset($_GET['display'])){
+    $getData = htmlentities($_GET['display']);
+      switch ($getData) {
+      case 'all_products':
+        $sql = "SELECT * FROM `itemsell`";
+        $linkClass = '*';
+        break;
+      case 'apparels':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Apparels'";
+        $linkClass = '.apparels';
+        break;
+      case 'accessories':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Accessories'";
+        $linkClass = '.accessories';
+        break;
+      case 'bag':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Bag'";
+        $linkClass = '.bag';
+        break;
+      case 'computers':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Computers'";
+        $linkClass = '.computers';
+        break;
+      case 'appliances':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Appliances'";
+        $linkClass = '.appliances';
+        break;
+      case 'gadgets':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Gadgets'";
+        $linkClass = '.gadgets';
+        break;
+      case 'vehicles':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Vehicles'";
+        $linkClass = '.vehicles';
+        break;
+
+      
+      default:
+       header("location: home.php?display=all_products");
+        break;
+      }
+  }
+  ?>
+
+
+  <?php
 	include('connection.php'); 
 ?>
 	<section class="bg0 p-t-23 p-b-140" id="products">
@@ -11,39 +66,39 @@
 			</div>
 
 
-			<div class="flex-w flex-sb-m p-b-52">
-				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-						All Products
-					</button>
+				<div class="flex-w flex-sb-m p-b-52">
+		        <div class="flex-w flex-l-m filter-tope-group m-tb-10">
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" href="?display=all_products" data-filter="*">
+		            All Products
+		          </a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".apparels">
-						Apparels
-					</button>
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=apparels" data-filter=".apparels">
+		            Apparels
+		          </a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".accessories">
-						Accessories
-					</button>
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=accessories" data-filter=".accessories">
+		            Accessories
+		          </a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-						Bag
-					</button>
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=bag" data-filter=".bag">
+		            Bag
+		          </a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".computers">
-						Computers
-					</button>
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=computers" data-filter=".computers">
+		            Computers
+		          </a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".appliances">
-						Appliances
-					</button>
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=appliances" data-filter=".appliances">
+		            Appliances
+		          </a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".gadgets">
-						Gadgets
-					</button>
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".vehicles">
-						Vehicles
-					</button>
-				</div>
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=gadgets" data-filter=".gadgets">
+		            Gadgets
+		          </a>
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=vehicles" data-filter=".vehicles">
+		            Vehicles
+		          </a>
+		        </div>
 
 				<div class="flex-w flex-c-m m-tb-10">
 					<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
@@ -262,12 +317,12 @@
 
 			<?php 
 			$builder = $dom = null;
-			$sql = "SELECT * FROM itemsell"; 
+			// $sql = "SELECT * FROM itemsell"; 
 		    $result = mysqli_query($conn, $sql);
 		    while ($row = mysqli_fetch_assoc($result)){	  
 		    	$builder = 
 		    	'
-		    	<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item accessories">
+		    	<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item '.$linkClass.'">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">

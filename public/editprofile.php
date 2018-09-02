@@ -18,7 +18,7 @@
       $contact = $_POST['contact'];  
       $id=$_SESSION['accountid'];
       $sql = "UPDATE account SET email='$email', password='$password', contactno ='$contact' WHERE username = '$id'";
-            $result = mysqli_query ($conn, $sql);
+            mysqli_query ($conn, $sql);
             echo "<script>alert('Successfully Updated!');</script>";
             echo '<script>window.location="editprofile.php"</script>'; 
           }
@@ -53,7 +53,9 @@
         <div class="input-group">
         <input class="form-control" type="password" name="password" value="<?php echo $row['password'] ?>" disabled>
          <div class="input-group-append">
+            <a class="text-secondary hover-white" href="changepassword.php">
             <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" style="border-color: #ccc;" type="button">Change</button>
+          </a>
           </div>
         </div>
       </div>
