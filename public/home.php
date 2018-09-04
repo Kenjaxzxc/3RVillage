@@ -1,3 +1,60 @@
+<!-- Product -->
+<?php 
+	$sql = null;
+	$getData = null;
+	$linkClass = null;
+  if(!isset($_GET['display'])){
+    	header("location: home.php?display=all_products");
+    
+  }
+  
+  if(isset($_GET['display'])){
+    $getData = htmlentities($_GET['display']);
+      switch ($getData) {
+      case 'all_products':
+        $sql = "SELECT * FROM `itemsell`";
+        $linkClass = '*';
+        break;
+      case 'apparels':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Apparels'";
+        $linkClass = '.apparels';
+        break;
+      case 'accessories':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Accessories'";
+        $linkClass = '.accessories';
+        break;
+      case 'bag':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Bag'";
+        $linkClass = '.bag';
+        break;
+      case 'computers':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Computers'";
+        $linkClass = '.computers';
+        break;
+      case 'appliances':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Appliances'";
+        $linkClass = '.appliances';
+        break;
+      case 'gadgets':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Gadgets'";
+        $linkClass = '.gadgets';
+        break;
+      case 'vehicles':
+        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Vehicles'";
+        $linkClass = '.vehicles';
+        break;
+
+      
+      default:
+       header("location: home.php?display=all_products");
+        break;
+      }
+  }
+  ?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
