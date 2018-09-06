@@ -12,22 +12,35 @@
   <?php 
       include('header.php');
    ?>
+   <?php
+           $sessionID = $_SESSION['accountid'];
+           $id = mysqli_query($conn, "SELECT accountid FROM `account` WHERE username = '$sessionID'")->fetch_object()->accountid;
+           $res = mysqli_query($conn, "SELECT * FROM account where accountid = '$id'");
+              while($row=$res->fetch_array()){
+     ?> 
+   
 
    <?php
     $sessionID = $_SESSION['accountid'];
     $id = mysqli_query($conn,"SELECT accountid FROM `account` WHERE username = '$sessionID'")->fetch_object()->accountid;
     if(isset($_POST['btnSave'])){
-    $name = $_POST['name'];
+    $name = $row['firstname']." ".$row['lastname'];
     $category = $_POST['category'];
     $want = $_POST['want'];
     $message = $_POST['message'];
     $sql = "INSERT INTO wishlist (WLName, WLWant, WLMessage, WLCategory, accountid) VALUES ('$name','$want','$message','$category','$id')";
               $result = mysqli_query ($conn, $sql);
+             
+          
               echo "<script>window.location='wishlist.php'</script>";
       }
       ?> 
   
   <section class="col-sm-12 bg-light">  
+    
+     
+
+    
   <form action="" method="POST">
   <div class="row justify-content-center">
     
@@ -36,7 +49,7 @@
      
       <div class="form-group">    
         <label>Name:</label>
-        <input class="form-control" type="text" name="name" required autofocus>
+        <input class="form-control" type="text" name="name" value="<?php echo $row['firstname']," ",$row ['lastname'] ?>" disabled>
       </div>
       <?php 
       include('category.php');
@@ -57,7 +70,9 @@
         <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnSave">Save</button>
       </div>
     </div>
-
+    <?php
+        }
+      ?>
     </div> 
     </form>
   </section>

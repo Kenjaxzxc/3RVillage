@@ -29,8 +29,8 @@
 						</a>
 						<div class="dropdown-menu bg-dark " style="z-index:5000; position: relative;">
 					        <a class="dropdown-item" href="editprofile.php"><span class="fa fa-user"></span> My Account</a>
-					        <a class="dropdown-item" href="#"><span class="fa fa-plus-circle"></span> My Ads</a>
-					        <a class="dropdown-item" href="#"><span class="fa fa-heart"></span> My Wishlist</a>
+					        <a class="dropdown-item" href="mypost.php"><span class="fa fa-plus-circle"></span> My Ads</a>
+					        <a class="dropdown-item" href="mywishlist.php"><span class="fa fa-heart"></span> My Wishlist</a>
 					        <div class="dropdown-divider"></div>
 					        <a class="dropdown-item" href="logout.php"><span class="fa fa-sign-out"></span> Logout</a>
 					     </div>

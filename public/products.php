@@ -12,34 +12,34 @@
 
 				<div class="flex-w flex-sb-m p-b-52">
 		        <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" href="?display=all_products" data-filter="*">
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" href="?display=all_products#products" data-filter="*">
 		            All Products
 		          </a>
 
-		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=apparels" data-filter=".apparels">
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=apparels#products" data-filter=".apparels">
 		            Apparels
 		          </a>
 
-		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=accessories" data-filter=".accessories">
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=accessories#products" data-filter=".accessories">
 		            Accessories
 		          </a>
 
-		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=bag" data-filter=".bag">
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=bag#products" data-filter=".bag">
 		            Bag
 		          </a>
 
-		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=computers" data-filter=".computers">
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=computers#products" data-filter=".computers">
 		            Computers
 		          </a>
 
-		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=appliances" data-filter=".appliances">
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=appliances#products" data-filter=".appliances">
 		            Appliances
 		          </a>
 
-		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=gadgets" data-filter=".gadgets">
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=gadgets#products" data-filter=".gadgets">
 		            Gadgets
 		          </a>
-		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=vehicles" data-filter=".vehicles">
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=vehicles#products" data-filter=".vehicles">
 		            Vehicles
 		          </a>
 		        </div>

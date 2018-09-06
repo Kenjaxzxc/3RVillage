@@ -12,6 +12,8 @@
 <body class="bg-light">
   <?php 
       include('header.php');
+    ?>
+    <?php 
       if(isset($_POST['btnUpdate'])){
       $email = $_POST['email'];
       $password = $_POST['password'];
