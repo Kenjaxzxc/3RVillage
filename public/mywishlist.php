@@ -36,6 +36,10 @@
             Search
           </div>
 
+           <div class="ml-2">
+            <a href="pending.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">Pending</a>
+          </div>
+
           <div class="ml-2">
             <a href="addwishlist.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">Add Wishlist</a>
           </div>
@@ -53,17 +57,24 @@
         </div>
       </div>
 
+       <?php
+           $sessionID = $_SESSION['accountid'];
+           $id = mysqli_query($conn, "SELECT accountid FROM `account` WHERE username = '$sessionID'")->fetch_object()->accountid;
+           $res = mysqli_query($conn, "SELECT * FROM account WHERE accountid = '$id'");
+              while($row=$res->fetch_array()){
+     ?> 
+
       
       <?php 
-      $builder = $dom = null; 
-        $id = $_SESSION['accountid'];
-        $sql = "SELECT * FROM `wishlist` WHERE accountid = '1'";
+      $builder = $dom = null;  
+        $sql = "SELECT * FROM `wishlist` WHERE (accountid = '$id' && WLStatus = '1')";
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_assoc($result)){  
 
           $builder = 
-          '
-
+       
+         '
+         <form>
     <div class="row">
     <div class="shadow-lg col-sm-4 p-2 bg-white rounded mb-5 isotope-item *">
         <div class="row stext-105 cl3 p-b-5">
@@ -94,18 +105,20 @@
       </div>
 
       <div class="row justify-content-center">
-        <div>
-          <button class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-           <p>Communicate</p> 
-          </button>
+        <div class="row justify-content-center py-3">
+          <a href="updatewishlist.php?id='.$row['WishListID'].'"><button type="button" class="btn btn-success mr-2"
+          onclick="confirm(\'Are you sure to edit ?\')">Edit</button></a>
+          <a href="deactivatewishlist.php?del='.$row['WishListID'].'"><button type="button" class="btn btn-danger mr-2"
+          onclick="confirm(\'Are you sure to delete this post ?\')">Delete</button></a>
         </div>
       </div>
      </div>
     </div>
-
+</form>
     '; 
           $dom = $dom."".$builder;
       }
+    }
       ?>
 
       <div class="row isotope-grid">

@@ -10,35 +10,35 @@ $linkClass = null;
     $getData = htmlentities($_GET['display']);
       switch ($getData) {
       case 'all_products':
-        $sql = "SELECT * FROM `wishlist`";
+        $sql = "SELECT * FROM `wishlist` WHERE WLStatus = '1'";
         $linkClass = '*';
         break;
       case 'apparels':
-        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Apparels'";
+        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Apparels' &&  WLStatus = '1')";
         $linkClass = '.apparels';
         break;
       case 'accessories':
-        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Accessories'";
+        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Accessories' && WLStatus = '1')";
         $linkClass = '.accessories';
         break;
       case 'bag':
-        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Bag'";
+        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Bag' && WLStatus = '1')";
         $linkClass = '.bag';
         break;
       case 'computers':
-        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Computers'";
+        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Computers' && WLStatus = '1')";
         $linkClass = '.computers';
         break;
       case 'appliances':
-        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Appliances'";
+        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Appliances' && WLStatus = '1')";
         $linkClass = '.appliances';
         break;
       case 'gadgets':
-        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Gadgets'";
+        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Gadgets' && WLStatus = '1')";
         $linkClass = '.gadgets';
         break;
       case 'vehicles':
-        $sql = "SELECT * FROM `wishlist` WHERE `WLCategory` = 'Vehicles'";
+        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Vehicles' && WLStatus = '1')";
         $linkClass = '.vehicles';
         break;
 
@@ -135,7 +135,7 @@ $linkClass = null;
       </div>
 
       <?php 
-      $builder = $dom = null; 
+        $builder = $dom = null; 
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_assoc($result)){   
           $builder = 

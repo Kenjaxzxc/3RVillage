@@ -12,64 +12,60 @@
   <?php 
       include('header.php');
    ?>
-   <?php
-           $sessionID = $_SESSION['accountid'];
-           $id = mysqli_query($conn, "SELECT accountid FROM `account` WHERE username = '$sessionID'")->fetch_object()->accountid;
-           $res = mysqli_query($conn, "SELECT * FROM account where accountid = '$id'");
-              while($row=$res->fetch_array()){
-     ?> 
    
-
    <?php
-    if(isset($_POST['btnSave'])){
-    $name = $row['firstname']." ".$row['lastname'];
+    $id = $_GET['id'];
+    if(isset($_POST['btnUpdate'])){
     $category = $_POST['category'];
     $want = $_POST['want'];
     $message = $_POST['message'];
-    $sql = "INSERT INTO wishlist (WLName, WLWant, WLMessage, WLCategory, accountid) VALUES ('$name','$want','$message','$category','$id')";
+    $sql = "UPDATE wishlist SET WLCategory='$category', WLWant='$want', WLMessage ='$message' WHERE WishListID = '$id'";
               $result = mysqli_query ($conn, $sql);
              
-          
-              echo "<script>window.location='wishlist.php'</script>";
+              echo "<script>alert('Successfully Updated!');</script>";
+              echo "<script>window.location='mywishlist.php'</script>";
       }
       ?> 
   
-  <section class="col-sm-12 bg-light">  
-    
+  <section class="col-sm-12 bg-light"> 
+    <?php 
+          $id = $_GET['id'];
+          $res = mysqli_query($conn, "SELECT * FROM wishlist WHERE WishListID = '$id'");
+          while ($row = mysqli_fetch_array($res)){  
+        
+     ?> 
      
-
-    
   <form action="" method="POST">
   <div class="row justify-content-center">
     
     <div class="shadow-lg col-sm-5 m-b-100 m-t-100 p-4 bg-white rounded">
-      <h4 class="ltext-102 cl5 mb-4 mt-2 text-center">Add Your Wishlist</h4>
+      <h4 class="ltext-102 cl5 mb-4 mt-2 text-center">Update Your Wishlist</h4>
      
       <div class="form-group">    
         <label>Name:</label>
-        <input class="form-control" type="text" name="name" value="<?php echo $row['firstname']," ",$row ['lastname'] ?>" disabled>
+        <input class="form-control" type="text" name="name" value="<?php echo $row['WLName'] ?>" disabled>
       </div>
       <?php 
       include('category.php');
       ?>
       <div class="form-group">
         <label>Want:</label>
-        <input class="form-control" type="text" name="want" required>
+        <input class="form-control" type="text" name="want" value="<?php echo $row['WLWant'] ?>" >
       </div>
 
       <div class="form-group">
         <label>Message:</label>
-        <textarea class="form-control" name="message" rows="3" required></textarea>
+        <textarea class="form-control" name="message" rows="3"><?php echo $row['WLMessage'] ?></textarea>
       </div>
       
 
       <div class="mt-4">
-        <button type="submit" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button>
-        <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnSave">Save</button>
+        <a href="mywishlist.php"><button type="button" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button></a>
+        <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnUpdate">Update</button>
       </div>
     </div>
     <?php
-        }
+      }
       ?>
     </div> 
     </form>
