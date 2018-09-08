@@ -1,6 +1,91 @@
   <?php
   include('connection.php'); 
   ?>
+
+  <?php 
+
+  if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+        $page = 1;
+      }else{
+        $page = $_GET['page'];
+      }
+
+  function pagination($table,$field,$field1Ans,$field2,$field2Ans,$page,$offset,$limit,$order,$sort,$add){
+        include('connection.php'); 
+      // $add = (!empty($add)?"&".$add:"");
+      $result = $totalPage = $totalPages = $offset = $sql = null;
+      $arrayData = [];
+      $sql = mysqli_query($conn,"SELECT COUNT(*) FROM $table WHERE $field = '$field1Ans' AND $field2 = '$field2Ans'");
+      $totalPage = mysqli_fetch_array($sql)[0];
+      $totalPages = ceil($totalPage/$limit);
+      $sql = null;
+      $totalPage = null;
+      $offset = ($page-1) * $limit;
+      $first = ($page <= 1)?"disabled":"";
+      $prevLI = ($page <= 1)?"disabled":"";
+      $prevLink = ($prevLI == "disabled")?"#":"?page=".($page-1)."".$add;
+      $nextLI = ($page >= $totalPages)?"disabled":"";
+      $nextLink = ($nextLI == "disabled")?"#":"?page=".($page+1)."".$add;
+      $lastLI = ($page >= $totalPages)?"disabled":"";
+      $lastLink = ($lastLI == "disabled")?"#":"?page=".$totalPages."".$add;
+      $pagination = '
+        <nav>
+          <ul class="pagination">
+            <li class="page-item '.$first.'"><a class="page-link" href="?page=1'.$add.'">First</a></li>
+            <li class="page-item '.$prevLI.'"><a class="page-link" href="'.$prevLink.'">Prev</a></li>
+            <li class="page-item '.$nextLI.'"><a class="page-link" href="'.$nextLink.'">Next</a></li>
+            <li class="page-item '.$lastLI.'"><a class="page-link" href="'.$lastLink.'">Last</a></li>
+          </ul>
+        </nav>
+        ';
+      if(is_numeric($page)){
+         $sql = mysqli_query($conn,"SELECT * FROM $table WHERE $field = '$field1Ans' AND $field2 = '$field2Ans' ORDER BY $order $sort LIMIT $offset,$limit");
+         while ($row = mysqli_fetch_assoc($sql)){ 
+          $arrayData[] = $row;
+         }
+      } 
+      return json_encode(array("pagination"=>$pagination,"data"=>$arrayData));
+    }
+
+    function paginationAll($table,$field,$field1Ans,$page,$offset,$limit,$order,$sort,$add){
+        include('connection.php'); 
+      // $add = (!empty($add)?"&".$add:"");
+      $result = $totalPage = $totalPages = $offset = $sql = null;
+      $arrayData = [];
+      $sql = mysqli_query($conn,"SELECT COUNT(*) FROM $table WHERE $field = '$field1Ans'");
+      $totalPage = mysqli_fetch_array($sql)[0];
+      $totalPages = ceil($totalPage/$limit);
+      $sql = null;
+      $totalPage = null;
+      $offset = ($page-1) * $limit;
+      $first = ($page <= 1)?"disabled":"";
+      $prevLI = ($page <= 1)?"disabled":"";
+      $prevLink = ($prevLI == "disabled")?"#":"?page=".($page-1)."".$add;
+      $nextLI = ($page >= $totalPages)?"disabled":"";
+      $nextLink = ($nextLI == "disabled")?"#":"?page=".($page+1)."".$add;
+      $lastLI = ($page >= $totalPages)?"disabled":"";
+      $lastLink = ($lastLI == "disabled")?"#":"?page=".$totalPages."".$add;
+      $pagination = '
+        <nav>
+          <ul class="pagination">
+            <li class="page-item '.$first.'"><a class="page-link" href="?page=1'.$add.'">First</a></li>
+            <li class="page-item '.$prevLI.'"><a class="page-link" href="'.$prevLink.'">Prev</a></li>
+            <li class="page-item '.$nextLI.'"><a class="page-link" href="'.$nextLink.'">Next</a></li>
+            <li class="page-item '.$lastLI.'"><a class="page-link" href="'.$lastLink.'">Last</a></li>
+          </ul>
+        </nav>
+        ';
+      if(is_numeric($page)){
+         $sql = mysqli_query($conn,"SELECT * FROM $table WHERE $field = '$field1Ans' ORDER BY $order $sort LIMIT $offset,$limit");
+         while ($row = mysqli_fetch_assoc($sql)){ 
+          $arrayData[] = $row;
+         }
+      } 
+      return json_encode(array("pagination"=>$pagination,"data"=>$arrayData));
+    }
+
+      
+   ?>
   
 <!DOCTYPE html>
 <html lang="en">
@@ -60,21 +145,18 @@
        <?php
            $sessionID = $_SESSION['accountid'];
            $id = mysqli_query($conn, "SELECT accountid FROM `account` WHERE username = '$sessionID'")->fetch_object()->accountid;
-           $res = mysqli_query($conn, "SELECT * FROM account WHERE accountid = '$id'");
+            $dataAll = json_decode(pagination("wishlist","WLStatus",1,"accountid","$id",$page,1,9,"WishListID","DESC",""),true);
+            $res = mysqli_query($conn, "SELECT * FROM account WHERE accountid = '$id'");
               while($row=$res->fetch_array()){
      ?> 
 
       
       <?php 
-      $builder = $dom = null;  
-        $sql = "SELECT * FROM `wishlist` WHERE (accountid = '$id' && WLStatus = '1')";
-        $result = mysqli_query($conn, $sql);
-        while ($row = mysqli_fetch_assoc($result)){  
-
-          $builder = 
+      $builder = $dom = null; 
+        foreach ($dataAll['data'] as $value) {
+           $builder =  
        
          '
-         <form>
     <div class="row">
     <div class="shadow-lg col-sm-4 p-2 bg-white rounded mb-5 isotope-item *">
         <div class="row stext-105 cl3 p-b-5">
@@ -82,7 +164,7 @@
           <strong><label>Name:</label></strong>
         </div>
         <div class="col-sm-8 ">
-          <label><strong>'.$row['WLName'].'</strong></label>
+          <label><strong>'.$value['WLName'].'</strong></label>
         </div>
       </div>
 
@@ -91,7 +173,7 @@
           <strong><label>Wanted:</label></strong>
         </div>
         <div class="col-sm-8">
-          <label>'.$row['WLWant'].'</label>
+          <label>'.$value['WLWant'].'</label>
         </div>
       </div>
 
@@ -100,21 +182,20 @@
          <strong><label>Message:</label></strong>
         </div>
         <div class="col-sm-8">
-          <label>'.$row['WLMessage'].'</label>
+          <label>'.$value['WLMessage'].'</label>
         </div>
       </div>
 
       <div class="row justify-content-center">
         <div class="row justify-content-center py-3">
-          <a href="updatewishlist.php?id='.$row['WishListID'].'"><button type="button" class="btn btn-success mr-2"
+          <a href="updatewishlist.php?id='.$value['WishListID'].'"><button type="button" class="btn btn-success mr-2"
           onclick="confirm(\'Are you sure to edit ?\')">Edit</button></a>
-          <a href="deactivatewishlist.php?del='.$row['WishListID'].'"><button type="button" class="btn btn-danger mr-2"
+          <a href="deactivatewishlist.php?del='.$value['WishListID'].'"><button type="button" class="btn btn-danger mr-2"
           onclick="confirm(\'Are you sure to delete this post ?\')">Delete</button></a>
         </div>
       </div>
      </div>
     </div>
-</form>
     '; 
           $dom = $dom."".$builder;
       }
@@ -127,9 +208,9 @@
   
     </div>
     <div class="flex-c-m flex-w w-full p-t-45">
-        <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-          Load More
-        </a>
+      <?php  
+      echo $dataAll['pagination'];
+     ?>
       </div>
   </section>
 

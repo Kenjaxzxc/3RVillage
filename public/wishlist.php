@@ -8,37 +8,45 @@ $linkClass = null;
   
   if(isset($_GET['display'])){
     $getData = htmlentities($_GET['display']);
+      $builder = $dom = null; 
       switch ($getData) {
       case 'all_products':
-        $sql = "SELECT * FROM `wishlist` WHERE WLStatus = '1'";
+        $category = null;
         $linkClass = '*';
         break;
       case 'apparels':
-        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Apparels' &&  WLStatus = '1')";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Apparels' &&  WLStatus = '1')";
+        $category = "Apparels";
         $linkClass = '.apparels';
         break;
       case 'accessories':
-        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Accessories' && WLStatus = '1')";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Accessories' && WLStatus = '1')";
+        $category = "Accessories";
         $linkClass = '.accessories';
         break;
       case 'bag':
-        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Bag' && WLStatus = '1')";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Bag' && WLStatus = '1')";
+        $category = "Bag";
         $linkClass = '.bag';
         break;
       case 'computers':
-        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Computers' && WLStatus = '1')";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Computers' && WLStatus = '1')";
+        $category = "Computers";
         $linkClass = '.computers';
         break;
       case 'appliances':
-        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Appliances' && WLStatus = '1')";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Appliances' && WLStatus = '1')";
+        $category = "Appliances";
         $linkClass = '.appliances';
         break;
       case 'gadgets':
-        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Gadgets' && WLStatus = '1')";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Gadgets' && WLStatus = '1')";
+        $category = "Gadgets";
         $linkClass = '.gadgets';
         break;
       case 'vehicles':
-        $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Vehicles' && WLStatus = '1')";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Vehicles' && WLStatus = '1')";
+        $category = "Vehicles";
         $linkClass = '.vehicles';
         break;
 
@@ -52,6 +60,90 @@ $linkClass = null;
 
   <?php
   include('connection.php'); 
+  if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+        $page = 1;
+      }else{
+        $page = $_GET['page'];
+      }
+
+  function pagination($table,$field,$field1Ans,$field2,$field2Ans,$page,$offset,$limit,$order,$sort,$add){
+        include('connection.php'); 
+      // $add = (!empty($add)?"&".$add:"");
+      $result = $totalPage = $totalPages = $offset = $sql = null;
+      $arrayData = [];
+      $sql = mysqli_query($conn,"SELECT COUNT(*) FROM $table WHERE $field = '$field1Ans' AND $field2 = '$field2Ans'");
+      $totalPage = mysqli_fetch_array($sql)[0];
+      $totalPages = ceil($totalPage/$limit);
+      $sql = null;
+      $totalPage = null;
+      $offset = ($page-1) * $limit;
+      $first = ($page <= 1)?"disabled":"";
+      $prevLI = ($page <= 1)?"disabled":"";
+      $prevLink = ($prevLI == "disabled")?"#":"?page=".($page-1)."".$add;
+      $nextLI = ($page >= $totalPages)?"disabled":"";
+      $nextLink = ($nextLI == "disabled")?"#":"?page=".($page+1)."".$add;
+      $lastLI = ($page >= $totalPages)?"disabled":"";
+      $lastLink = ($lastLI == "disabled")?"#":"?page=".$totalPages."".$add;
+      $pagination = '
+        <nav>
+          <ul class="pagination">
+            <li class="page-item '.$first.'"><a class="page-link" href="?page=1'.$add.'">First</a></li>
+            <li class="page-item '.$prevLI.'"><a class="page-link" href="'.$prevLink.'">Prev</a></li>
+            <li class="page-item '.$nextLI.'"><a class="page-link" href="'.$nextLink.'">Next</a></li>
+            <li class="page-item '.$lastLI.'"><a class="page-link" href="'.$lastLink.'">Last</a></li>
+          </ul>
+        </nav>
+        ';
+      if(is_numeric($page)){
+         $sql = mysqli_query($conn,"SELECT * FROM $table WHERE $field = '$field1Ans' AND $field2 = '$field2Ans' ORDER BY $order $sort LIMIT $offset,$limit");
+         while ($row = mysqli_fetch_assoc($sql)){ 
+          $arrayData[] = $row;
+         }
+      } 
+      return json_encode(array("pagination"=>$pagination,"data"=>$arrayData));
+    }
+
+    function paginationAll($table,$field,$field1Ans,$page,$offset,$limit,$order,$sort,$add){
+        include('connection.php'); 
+      // $add = (!empty($add)?"&".$add:"");
+      $result = $totalPage = $totalPages = $offset = $sql = null;
+      $arrayData = [];
+      $sql = mysqli_query($conn,"SELECT COUNT(*) FROM $table WHERE $field = '$field1Ans'");
+      $totalPage = mysqli_fetch_array($sql)[0];
+      $totalPages = ceil($totalPage/$limit);
+      $sql = null;
+      $totalPage = null;
+      $offset = ($page-1) * $limit;
+      $first = ($page <= 1)?"disabled":"";
+      $prevLI = ($page <= 1)?"disabled":"";
+      $prevLink = ($prevLI == "disabled")?"#":"?page=".($page-1)."".$add;
+      $nextLI = ($page >= $totalPages)?"disabled":"";
+      $nextLink = ($nextLI == "disabled")?"#":"?page=".($page+1)."".$add;
+      $lastLI = ($page >= $totalPages)?"disabled":"";
+      $lastLink = ($lastLI == "disabled")?"#":"?page=".$totalPages."".$add;
+      $pagination = '
+        <nav>
+          <ul class="pagination">
+            <li class="page-item '.$first.'"><a class="page-link" href="?page=1'.$add.'">First</a></li>
+            <li class="page-item '.$prevLI.'"><a class="page-link" href="'.$prevLink.'">Prev</a></li>
+            <li class="page-item '.$nextLI.'"><a class="page-link" href="'.$nextLink.'">Next</a></li>
+            <li class="page-item '.$lastLI.'"><a class="page-link" href="'.$lastLink.'">Last</a></li>
+          </ul>
+        </nav>
+        ';
+      if(is_numeric($page)){
+         $sql = mysqli_query($conn,"SELECT * FROM $table WHERE $field = '$field1Ans' ORDER BY $order $sort LIMIT $offset,$limit");
+         while ($row = mysqli_fetch_assoc($sql)){ 
+          $arrayData[] = $row;
+         }
+      } 
+      return json_encode(array("pagination"=>$pagination,"data"=>$arrayData));
+    }
+    if($_GET['display'] != "all_products"){
+      $dataAll = json_decode(pagination("wishlist","WLStatus",1,"WLCategory",$category,$page,1,9,"WishListID","DESC","&display=".$_GET['display']),true);
+    }else{
+       $dataAll = json_decode(paginationAll("wishlist","WLStatus",1,$page,1,9,"WishListID","DESC","&display=".$_GET['display']),true);
+    }
   ?>
   
 <!DOCTYPE html>
@@ -134,11 +226,10 @@ $linkClass = null;
         </div>
       </div>
 
-      <?php 
+      <?php
         $builder = $dom = null; 
-        $result = mysqli_query($conn, $sql);
-        while ($row = mysqli_fetch_assoc($result)){   
-          $builder = 
+        foreach ($dataAll['data'] as $value) {
+           $builder = 
           '
 
     <div class="row">
@@ -148,7 +239,7 @@ $linkClass = null;
           <strong><label>Name:</label></strong>
         </div>
         <div class="col-sm-8 ">
-          <label><strong>'.$row['WLName'].'</strong></label>
+          <label><strong>'.$value['WLName'].'</strong></label>
         </div>
       </div>
 
@@ -157,7 +248,7 @@ $linkClass = null;
           <strong><label>Wanted:</label></strong>
         </div>
         <div class="col-sm-8">
-          <label>'.$row['WLWant'].'</label>
+          <label>'.$value['WLWant'].'</label>
         </div>
       </div>
 
@@ -166,7 +257,7 @@ $linkClass = null;
          <strong><label>Message:</label></strong>
         </div>
         <div class="col-sm-8">
-          <label>'.$row['WLMessage'].'</label>
+          <label>'.$value['WLMessage'].'</label>
         </div>
       </div>
 
@@ -182,7 +273,7 @@ $linkClass = null;
 
     '; 
           $dom = $dom."".$builder;
-      }
+        }
       ?>
 
       <div class="row isotope-grid">
@@ -191,9 +282,9 @@ $linkClass = null;
   
     </div>
     <div class="flex-c-m flex-w w-full p-t-45">
-        <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-          Load More
-        </a>
+        <?php 
+            echo $dataAll['pagination'];
+        ?>
       </div>
   </section>
 
