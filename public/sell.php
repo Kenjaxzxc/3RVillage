@@ -28,10 +28,15 @@
     $description = $_POST['description'];
     $location = $_POST['location'];
     $price = $_POST['price']; 
-    $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
-      $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemImages, accountid) VALUES ('$title','$category','$description','$location','$price','$file','$id')";
+    $target = "../upload/".basename($_FILES['image']['name']);
+    $image = $_FILES['image']['name'];
+    //$file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+      $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemImages, accountid) VALUES ('$title','$category','$description','$location','$price','$image','$id')";
               $result = mysqli_query ($conn, $sql);
-              echo "<script>window.location='home.php'</script>";
+              if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+                echo "<script>window.location='home.php'</script>";
+              }
+              
       }
       ?> 
 

@@ -3,35 +3,15 @@
 ?>
 <?php 
 	include('connection.php'); 
+
 ?>
 
-<?php 
-if(isset($_POST['username']) and isset($_POST['password'])){
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $sql = "SELECT * FROM account WHERE (username='$username' || contactno='$username') and (password='$password')"; 
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    if (!$row) {  
-    	if($username == "admin" && $password == "admin"){
-    	 $_SESSION['accountid'] = $row['username'];
-    	 $_SESSION['accountid'] = "Admin";
-    	 header("location:home.php");
-    	}
-    	else{
-    		echo "<script>alert('Your username or password is incorrect!');</script>";
-    	}
-	}
-	else{
-    $_SESSION['accountid'] = $row['username'];
-    header("location:home.php");
-	}
-  }
- ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	
 	<title>3RVillage</title>
 	<?php include('link.php');?>
 	</head>
@@ -104,6 +84,31 @@ if(isset($_POST['username']) and isset($_POST['password'])){
 			</div>	
 		</div>	
 	</header>
+
+	<?php 
+if(isset($_POST['username']) and isset($_POST['password'])){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $sql = "SELECT * FROM account WHERE (username='$username' || contactno='$username') and (password='$password')"; 
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    if (!$row) {  
+    	if($username == "admin" && $password == "admin"){
+    	 $_SESSION['accountid'] = $row['username'];
+    	 $_SESSION['accountid'] = "Admin";
+    	 header("location:home.php");
+    	}
+    	else{
+    		echo "<script>toastr.error('Your username or password is incorrect!');</script>";
+    		
+    	}
+	}
+	else{
+    $_SESSION['accountid'] = $row['username'];
+    echo "<script>window.location='home.php'</script>";
+	}
+  }
+ ?>
 	
 	<div class="container m-t-100 m-b-50">
 	<div class="row justify-content-center">

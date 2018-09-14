@@ -263,14 +263,14 @@
 			$builder = $dom = null;
 			// $sql = "SELECT * FROM itemsell"; 
 		    $result = mysqli_query($conn, $sql);
-		    while ($row = mysqli_fetch_assoc($result)){	  
+		    while ($row = mysqli_fetch_assoc($result)){	
 		    	$builder = 
 		    	'
 		    	<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item '.$linkClass.'">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
-						<img src="data:image/jpeg;base64,'.base64_encode($row['SItemImages']).'" height="334" width="270"/>
+						<img src="../upload/'.$row['SItemImages'].'" height="334" width="270"/>
 							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 prevITEM">
 								Preview Item
 							</a>
