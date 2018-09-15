@@ -63,10 +63,6 @@
 								<a href="login.php">Shop</a>
 							</li>
 
-							<li class="label1" data-label1="Hot">
-								<a href="login.php">Features</a>
-							</li>
-
 							<li>
 								<a href="login.php">Sell</a>
 							</li>
@@ -90,6 +86,7 @@ if(isset($_POST['username']) and isset($_POST['password'])){
     $username = $_POST['username'];
     $password = $_POST['password'];
     $sql = "SELECT * FROM account WHERE (username='$username' || contactno='$username') and (password='$password')"; 
+
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     if (!$row) {  

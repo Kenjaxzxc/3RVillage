@@ -108,10 +108,6 @@
 								<a href="#products">Shop</a>
 							</li>
 
-							<li class="label1" data-label1="Hot">
-								<a href="login.php">Features</a>
-							</li>
-
 							<li>
 								<a href="login.php">Sell</a>
 							</li>

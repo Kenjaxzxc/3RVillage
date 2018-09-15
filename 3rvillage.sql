@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 14, 2018 at 03:13 PM
+-- Generation Time: Sep 15, 2018 at 10:27 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -118,8 +118,19 @@ CREATE TABLE `ngo` (
   `NGOEmail` varchar(50) NOT NULL,
   `NGOContactNo` varchar(20) NOT NULL,
   `NGOWebsite` varchar(50) NOT NULL,
-  `BIRCerNo` int(11) NOT NULL
+  `BIRCerNo` int(11) NOT NULL,
+  `DateCert` date NOT NULL,
+  `Expiration` date NOT NULL,
+  `NGOProof` varchar(255) NOT NULL,
+  `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ngo`
+--
+
+INSERT INTO `ngo` (`NGOID`, `NGOName`, `NGODesc`, `NGOAddr`, `NGORegion`, `NGOProvince`, `NGOEmail`, `NGOContactNo`, `NGOWebsite`, `BIRCerNo`, `DateCert`, `Expiration`, `NGOProof`, `password`) VALUES
+(1, 'NGO', 'amping', 'Lahug', '7', 'cebu', 'ngo@gmail.com', '1234', 'ngo.com.ph', 1212313124, '2016-12-29', '2020-04-02', 'Penguins.jpg', 'qwe');
 
 -- --------------------------------------------------------
 
@@ -216,7 +227,7 @@ ALTER TABLE `itemsell`
 -- AUTO_INCREMENT for table `ngo`
 --
 ALTER TABLE `ngo`
-  MODIFY `NGOID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `NGOID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `wishlist`
 --

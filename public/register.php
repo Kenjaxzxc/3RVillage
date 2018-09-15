@@ -82,10 +82,6 @@
 								<a href="login.php">Shop</a>
 							</li>
 
-							<li class="label1" data-label1="Hot">
-								<a href="login.php">Features</a>
-							</li>
-
 							<li>
 								<a href="login.php">Sell</a>
 							</li>
@@ -162,12 +158,16 @@
 				<div class="col-xs-4 col-sm-9 col-md-12 text-center">
 					 By clicking <strong class="label label-primary">Register</strong>, you agree to the <a href="#">Terms and Conditions</a> set out by this site, including our Cookie Use.
 				</div>
+				
 			</div>
 			
 			<hr>
 			<div class="row">
 				<div class="col-xs-12 col-md-6"><input type="submit" value="Register" name="btnSubmit" class="btn btn-primary btn-block btn-lg" tabindex="9"></div>
 				<div class="col-xs-12 col-md-6"><a href="login.php" class="btn btn-success btn-block btn-lg">Sign In</a></div>
+				<div class="col-xs-4 col-sm-9 col-md-12 mt-3 text-center">
+					<a href="donateereg.php" class="btn btn-outline-secondary btn-block btn-lg">Register as a Donatee</a>
+				</div>
 			</div>
 		</form>
 	</div>

@@ -32,7 +32,7 @@
     $image = $_FILES['image']['name'];
     //$file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
       $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemImages, accountid) VALUES ('$title','$category','$description','$location','$price','$image','$id')";
-              $result = mysqli_query ($conn, $sql);
+              mysqli_query ($conn, $sql);
               if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
                 echo "<script>window.location='home.php'</script>";
               }
@@ -72,7 +72,7 @@
       </div>
 
       <div class="mt-4 m-b-100">
-        <button type="submit" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button>
+        <a href="home.php"><button type="button" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button></a>
         <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnSave">Save</button>
       </div>
     </div>
@@ -150,7 +150,7 @@ $(function(){
            var image_name = $('#image').val();  
            if(image_name == '')  
            {  
-                alert("Please Select Image");  
+                alert("Please Upload Photos");  
                 return false;  
            }  
            else  
