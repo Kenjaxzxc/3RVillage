@@ -36,3 +36,24 @@ $(function(){
 		});
 	});
 })
+
+$(function(){
+	$("#sendNumberAbugabayot").click(function(){
+		let contactno = $("input[name=contact]");
+		let verify = $("input[name=verify]");
+		if(contactno.val().length == 11){
+			$.ajax({
+				url:"../public/register.php",
+				method: "POST",
+				data: {"sendToNumber":"","contactnumber":contactno.val()},
+				success: function(a){
+					alert("Please check your phone for verification code");
+					verify.removeAttr("readonly");
+					contactno.attr("readonly","true");
+				}
+			})
+		}else{
+			alert("abuga bayot");
+		}
+	});
+});

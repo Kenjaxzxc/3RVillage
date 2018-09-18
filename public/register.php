@@ -15,57 +15,74 @@
 	$cpassword = $_POST['cpassword'];
 	$email = $_POST['email'];
 	$contact = $_POST['contact'];
+	$verify = $_POST['verify']; 
 	if($password != $cpassword){
 		echo "<script>alert('Password did not match.');</script>";
 	}
 	else{
-    $sql = "INSERT INTO account (firstname, lastname, username, password, email, contactno) VALUES ('$firstname','$lastname','$username','$password','$email','$contact')";
+		if(isset($_SESSION['verificationCode'])){
+			// compare diri
+			$code = $_SESSION['verificationCode'];
+			if($verify == $code){
+			unset($_SESSION['verificationCode']);
+			$sql = "INSERT INTO account (firstname, lastname, username, password, email, contactno) VALUES ('$firstname','$lastname','$username','$password','$email','$contact')";
             $result = mysqli_query ($conn, $sql);
             $row = mysqli_fetch_assoc($result);
             $_SESSION['accountid'] = $username;
             header("location:home.php");
+            }
+            else{
+            	echo "<script>alert('Incorrect Verification Code');</script>";
+            }
+		}
+		else{
+			// wala ni verify
+		}
     	}
-  }
- 
+	}
 
-$rand = rand(111111,999999);
-$message = "Your verification code is: ".$rand;
+	if(isset($_POST['sendToNumber'])){
+		$rand = rand(111111,999999);
+		$message = "Your verification code is: ".$rand;
 
-require 'autoload.php';
+		require 'autoload.php';
 
 
-$array_fields['phone_number'] = '09222817453';
-$array_fields['message'] = 'abuga bayotttttttttttttttttttttttttttttttttttttttttttttt';
-$array_fields['device_id'] = 102126;
+		$array_fields['phone_number'] = $_POST['contactnumber'];
+		$array_fields['message'] = $message;
+		$array_fields['device_id'] = 102126;
 
-$token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTUzNzI0NzUxMiwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjU3ODI0LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.YvuWk34SW-nwZxnKyI7dUUoI1NU57ofA6IJIgmFbsqI";
+		$token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTUzNzI0NzUxMiwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjU3ODI0LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.YvuWk34SW-nwZxnKyI7dUUoI1NU57ofA6IJIgmFbsqI";
 
-$curl = curl_init();
+		$curl = curl_init();
 
-curl_setopt_array($curl, array(
-    CURLOPT_URL => "https://smsgateway.me/api/v4/message/send",
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 30,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "POST",
-    CURLOPT_POSTFIELDS => "[  " . json_encode($array_fields) . "]",
-    CURLOPT_HTTPHEADER => array(
-        "authorization: $token",
-        "cache-control: no-cache"
-    ),
-));
-curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt_array($curl, array(
+		    CURLOPT_URL => "https://smsgateway.me/api/v4/message/send",
+		    CURLOPT_RETURNTRANSFER => true,
+		    CURLOPT_ENCODING => "",
+		    CURLOPT_MAXREDIRS => 10,
+		    CURLOPT_TIMEOUT => 30,
+		    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		    CURLOPT_CUSTOMREQUEST => "POST",
+		    CURLOPT_POSTFIELDS => "[  " . json_encode($array_fields) . "]",
+		    CURLOPT_HTTPHEADER => array(
+		        "authorization: $token",
+		        "cache-control: no-cache"
+		    ),
+		));
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
 
-curl_close($curl);
+		curl_close($curl);
 
-if ($err) {
-    echo "cURL Error #:" . $err;
-}
+		if ($err) {
+		    echo "cURL Error #:" . $err;
+		}else{
+			$_SESSION['verificationCode'] = $rand;
+		}
+	}	
 
 ?>
 
@@ -188,7 +205,7 @@ if ($err) {
 				<div class="input-group">
 				<input type="text" name="contact" class="form-control input-lg border-right-0" placeholder="Phone Number" tabindex="7" required>
 				 <div class="input-group-append">
-				    <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" style="border-color: #ccc;" type="button">Send</button>
+				    <button id="sendNumberAbugabayot" class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" style="border-color: #ccc;" type="button" name="btnSend">Send</button>
 				  </div>
 				</div>
 			</div>

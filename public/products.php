@@ -77,10 +77,11 @@
           $arrayData[] = $row;
          }
       } 
-      return json_encode(array("pagination"=>$pagination,"data"=>$arrayData));
+      return json_encode(array("pagination"=>$pagination,"data"=>$arrayData,"showing"=>$page,"all"=>$totalPages));
     }
     if($_GET['display'] != "all_products"){
       $dataAll = json_decode(pagination("itemsell","SItemStatus",1,"SItemCat",$category,$page,1,12,"ItemSellID","DESC","&display=".$_GET['display']),true);
+
     }else{
        $dataAll = json_decode(paginationAll("itemsell","SItemStatus",1,$page,1,12,"ItemSellID","DESC","&display=".$_GET['display']),true);
     }
@@ -391,8 +392,14 @@
 			<!-- Load more -->
 		</div>
 		<div class="flex-c-m flex-w w-full p-t-45">
-				<?php 
-            echo $dataAll['pagination'];
-        ?>
+				<?php 	
+           			echo "Showing pages ".$dataAll['showing']." of ".$dataAll['all'];
+       			 ?>
+			</div>
+		
+		<div class="flex-c-m flex-w w-full p-t-45">
+				<?php 	
+           			 echo $dataAll['pagination'];
+       			 ?>
 			</div>
 	</section>
