@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2018 at 10:27 AM
+-- Generation Time: Sep 18, 2018 at 07:42 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -77,6 +77,25 @@ INSERT INTO `admin` (`adminid`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `itemdonate`
+--
+
+CREATE TABLE `itemdonate` (
+  `DonateSellID` int(11) NOT NULL,
+  `DItemTitle` varchar(50) NOT NULL,
+  `DItemCat` varchar(50) NOT NULL,
+  `DItemDesc` varchar(255) NOT NULL,
+  `DItemLocation` varchar(255) NOT NULL,
+  `DItemPrice` int(11) NOT NULL,
+  `DItemImages` varchar(255) NOT NULL,
+  `DItemPosted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `accountid` int(11) NOT NULL,
+  `DItemStatus` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `itemsell`
 --
 
@@ -85,7 +104,7 @@ CREATE TABLE `itemsell` (
   `SItemTitle` varchar(50) NOT NULL,
   `SItemCat` varchar(50) NOT NULL,
   `SItemDesc` varchar(255) NOT NULL,
-  `SItemLocation` varchar(50) NOT NULL,
+  `SItemLocation` varchar(255) NOT NULL,
   `SItemPrice` int(11) NOT NULL,
   `SItemImages` varchar(255) NOT NULL,
   `SItemPosted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -100,7 +119,8 @@ CREATE TABLE `itemsell` (
 INSERT INTO `itemsell` (`ItemSellID`, `SItemTitle`, `SItemCat`, `SItemDesc`, `SItemLocation`, `SItemPrice`, `SItemImages`, `SItemPosted`, `accountid`, `SItemStatus`) VALUES
 (1, 'test1', 'Apparels', 'test1', 'Abra', 213, 'Koala.jpg', '2018-09-14 09:35:11', 1, 1),
 (2, 'qweqwe', 'Apparels', 'asdasd', 'Abra', 222, 'Koala.jpg', '2018-09-14 09:48:14', 1, 1),
-(3, 'asda', 'Apparels', '2qweqwe', 'Abra', 222, 'Penguins.jpg', '2018-09-14 09:49:58', 1, 1);
+(3, 'asda', 'Apparels', '2qweqwe', 'Abra', 222, 'Penguins.jpg', '2018-09-14 09:49:58', 1, 1),
+(4, 'Sample', 'Bag', 'Sample', 'Aklan', 2344, 'Tulips.jpg', '2018-09-15 09:51:02', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -185,6 +205,13 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`adminid`);
 
 --
+-- Indexes for table `itemdonate`
+--
+ALTER TABLE `itemdonate`
+  ADD PRIMARY KEY (`DonateSellID`),
+  ADD KEY `accountid` (`accountid`);
+
+--
 -- Indexes for table `itemsell`
 --
 ALTER TABLE `itemsell`
@@ -219,10 +246,15 @@ ALTER TABLE `account`
 ALTER TABLE `admin`
   MODIFY `adminid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `itemdonate`
+--
+ALTER TABLE `itemdonate`
+  MODIFY `DonateSellID` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `itemsell`
 --
 ALTER TABLE `itemsell`
-  MODIFY `ItemSellID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ItemSellID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `ngo`
 --
@@ -236,6 +268,12 @@ ALTER TABLE `wishlist`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `itemdonate`
+--
+ALTER TABLE `itemdonate`
+  ADD CONSTRAINT `itemdonate_ibfk_1` FOREIGN KEY (`accountid`) REFERENCES `account` (`accountid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `itemsell`

@@ -40,6 +40,9 @@
 						<a href="login.php" class="flex-c-m trans-04 p-lr-25">
 							Login
 						</a>
+						<a href="donateereg.php" class="flex-c-m trans-04 p-lr-25">
+							NGO
+						</a>
 					</div>
 				</div>
 			</div>

@@ -26,7 +26,48 @@
             header("location:home.php");
     	}
   }
- ?>
+ 
+
+$rand = rand(111111,999999);
+$message = "Your verification code is: ".$rand;
+
+require 'autoload.php';
+
+
+$array_fields['phone_number'] = '09222817453';
+$array_fields['message'] = 'abuga bayotttttttttttttttttttttttttttttttttttttttttttttt';
+$array_fields['device_id'] = 102126;
+
+$token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTUzNzI0NzUxMiwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjU3ODI0LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.YvuWk34SW-nwZxnKyI7dUUoI1NU57ofA6IJIgmFbsqI";
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+    CURLOPT_URL => "https://smsgateway.me/api/v4/message/send",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "POST",
+    CURLOPT_POSTFIELDS => "[  " . json_encode($array_fields) . "]",
+    CURLOPT_HTTPHEADER => array(
+        "authorization: $token",
+        "cache-control: no-cache"
+    ),
+));
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+if ($err) {
+    echo "cURL Error #:" . $err;
+}
+
+?>
 
 
 <!DOCTYPE html>
@@ -59,6 +100,9 @@
 
 						<a href="login.php" class="flex-c-m trans-04 p-lr-25">
 							Login
+						</a>
+						<a href="donateereg.php" class="flex-c-m trans-04 p-lr-25">
+							NGO
 						</a>
 					</div>
 				</div>
@@ -150,7 +194,7 @@
 			</div>
 
 			<div class="form-group">
-				<input type="text" name="verify" class="form-control input-lg" placeholder="Verification Code" tabindex="8">
+				<input type="text" name="verify" class="form-control input-lg" placeholder="Verification Code" tabindex="8" readonly>
 			</div>
 			
 			<div class="row">
@@ -165,9 +209,6 @@
 			<div class="row">
 				<div class="col-xs-12 col-md-6"><input type="submit" value="Register" name="btnSubmit" class="btn btn-primary btn-block btn-lg" tabindex="9"></div>
 				<div class="col-xs-12 col-md-6"><a href="login.php" class="btn btn-success btn-block btn-lg">Sign In</a></div>
-				<div class="col-xs-4 col-sm-9 col-md-12 mt-3 text-center">
-					<a href="donateereg.php" class="btn btn-outline-secondary btn-block btn-lg">Register as a Donatee</a>
-				</div>
 			</div>
 		</form>
 	</div>

@@ -22,7 +22,7 @@ $(function(){
 				let obj = JSON.parse(a)[0];
 				// console.log(obj);
 				title.html(obj.SItemTitle);
-				price.html(obj.SItemPrice);
+				price.html("₱ "+obj.SItemPrice);
 				sellername.val(obj.firstname +" "+obj.lastname);
 				location.val(obj.SItemLocation);
 				date.val(obj.SItemPosted);

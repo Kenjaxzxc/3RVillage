@@ -3,14 +3,14 @@ $sql = null;
 $getData = null;
 $linkClass = null;
   if(!isset($_GET['display'])){
-    header("location: wishlist.php?display=all_products");
+    header("location: wishlist.php?display=all_wishlist");
   }
   
   if(isset($_GET['display'])){
     $getData = htmlentities($_GET['display']);
       $builder = $dom = null; 
       switch ($getData) {
-      case 'all_products':
+      case 'all_wishlist':
         $category = null;
         $linkClass = '*';
         break;
@@ -52,7 +52,7 @@ $linkClass = null;
 
       
       default:
-       header("location: wishlist.php?display=all_products");
+       header("location: wishlist.php?display=all_wishlist");
         break;
       }
   }
@@ -139,7 +139,7 @@ $linkClass = null;
       } 
       return json_encode(array("pagination"=>$pagination,"data"=>$arrayData));
     }
-    if($_GET['display'] != "all_products"){
+    if($_GET['display'] != "all_wishlist"){
       $dataAll = json_decode(pagination("wishlist","WLStatus",1,"WLCategory",$category,$page,1,9,"WishListID","DESC","&display=".$_GET['display']),true);
     }else{
        $dataAll = json_decode(paginationAll("wishlist","WLStatus",1,$page,1,9,"WishListID","DESC","&display=".$_GET['display']),true);
@@ -169,8 +169,8 @@ $linkClass = null;
 
       <div class="flex-w flex-sb-m p-b-52">
         <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" href="?display=all_products" data-filter="*">
-            All Products
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" href="?display=all_wishlist" data-filter="*">
+            All Wishlist
           </a>
 
           <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=apparels" data-filter=".apparels">

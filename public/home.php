@@ -10,39 +10,48 @@
   
   if(isset($_GET['display'])){
     $getData = htmlentities($_GET['display']);
+      $builder = $dom = null; 
       switch ($getData) {
       case 'all_products':
-        $sql = "SELECT * FROM `itemsell`";
+        $category = null;
         $linkClass = '*';
         break;
       case 'apparels':
-        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Apparels'";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Apparels' &&  WLStatus = '1')";
+        $category = "Apparels";
         $linkClass = '.apparels';
         break;
       case 'accessories':
-        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Accessories'";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Accessories' && WLStatus = '1')";
+        $category = "Accessories";
         $linkClass = '.accessories';
         break;
       case 'bag':
-        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Bag'";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Bag' && WLStatus = '1')";
+        $category = "Bag";
         $linkClass = '.bag';
         break;
       case 'computers':
-        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Computers'";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Computers' && WLStatus = '1')";
+        $category = "Computers";
         $linkClass = '.computers';
         break;
       case 'appliances':
-        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Appliances'";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Appliances' && WLStatus = '1')";
+        $category = "Appliances";
         $linkClass = '.appliances';
         break;
       case 'gadgets':
-        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Gadgets'";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Gadgets' && WLStatus = '1')";
+        $category = "Gadgets";
         $linkClass = '.gadgets';
         break;
       case 'vehicles':
-        $sql = "SELECT * FROM `itemsell` WHERE `SItemCat` = 'Vehicles'";
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Vehicles' && WLStatus = '1')";
+        $category = "Vehicles";
         $linkClass = '.vehicles';
         break;
+
 
       
       default:
@@ -61,13 +70,12 @@
 	<title>3RVillage</title>
 	<?php include('link.php');?>
 	</head>
-<body class="animsition">
+<body>
 
 		<?php 
 		include('header.php');
 		include('cart.php');
 		include('slider.php');
-		include('banner.php');
 	    include('products.php');
 		include('footer.php');
 		include('sub_products.php');
