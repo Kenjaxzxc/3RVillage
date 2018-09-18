@@ -115,7 +115,10 @@ if(isset($_POST['username']) and isset($_POST['password'])){
     <div class="shadow-lg col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 p-lr-25 p-tb-25 bg-white rounded">
 		<form role="form" method="POST">
 			<h2 class="text-center">Sign In</h2>
-			<hr>
+			<div class="stext-105 float-right">
+				<a href="register.php">Sign Up</a>
+			</div>
+			<hr class="mt-5">
 			
 		    <div class="input-group mb-3">
 		    	<span class="input-group-addon p-r-25"><i class="fa fa-user"></i></span>

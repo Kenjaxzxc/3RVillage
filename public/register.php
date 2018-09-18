@@ -35,9 +35,6 @@
             	echo "<script>alert('Incorrect Verification Code');</script>";
             }
 		}
-		else{
-			// wala ni verify
-		}
     	}
 	}
 
@@ -166,7 +163,10 @@
     <div class="shadow-lg col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 p-lr-25 p-tb-25 bg-white rounded">
 		<form role="form" method="POST">
 			<h2 class="text-center">Sign up</h2>
-			<hr>
+			<div class="stext-105 float-right">
+				<a href="login.php">Login</a>
+			</div>
+			<hr class="mt-5">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
@@ -205,7 +205,7 @@
 				<div class="input-group">
 				<input type="text" name="contact" class="form-control input-lg border-right-0" placeholder="Phone Number" tabindex="7" required>
 				 <div class="input-group-append">
-				    <button id="sendNumberAbugabayot" class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" style="border-color: #ccc;" type="button" name="btnSend">Send</button>
+				    <button id="sendNumber" class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" style="border-color: #ccc;" type="button" name="btnSend">Send</button>
 				  </div>
 				</div>
 			</div>
@@ -224,8 +224,7 @@
 			
 			<hr>
 			<div class="row">
-				<div class="col-xs-12 col-md-6"><input type="submit" value="Register" name="btnSubmit" class="btn btn-primary btn-block btn-lg" tabindex="9"></div>
-				<div class="col-xs-12 col-md-6"><a href="login.php" class="btn btn-success btn-block btn-lg">Sign In</a></div>
+				<div class="col-xs-12 col-md-12"><input type="submit" value="Register" name="btnSubmit" class="btn btn-primary btn-block btn-lg" tabindex="9"></div>
 			</div>
 		</form>
 	</div>

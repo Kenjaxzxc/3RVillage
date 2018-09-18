@@ -38,7 +38,7 @@ $(function(){
 })
 
 $(function(){
-	$("#sendNumberAbugabayot").click(function(){
+	$("#sendNumber").click(function(){
 		let contactno = $("input[name=contact]");
 		let verify = $("input[name=verify]");
 		if(contactno.val().length == 11){
@@ -53,7 +53,7 @@ $(function(){
 				}
 			})
 		}else{
-			alert("abuga bayot");
+			alert("Not a valid contact number");
 		}
 	});
 });
