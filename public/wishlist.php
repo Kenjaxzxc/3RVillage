@@ -100,7 +100,7 @@ $linkClass = null;
           $arrayData[] = $row;
          }
       } 
-      return json_encode(array("pagination"=>$pagination,"data"=>$arrayData));
+      return json_encode(array("pagination"=>$pagination,"data"=>$arrayData,"showing"=>$page,"all"=>$totalPages));
     }
 
     function paginationAll($table,$field,$field1Ans,$page,$offset,$limit,$order,$sort,$add){
@@ -137,7 +137,7 @@ $linkClass = null;
           $arrayData[] = $row;
          }
       } 
-      return json_encode(array("pagination"=>$pagination,"data"=>$arrayData));
+      return json_encode(array("pagination"=>$pagination,"data"=>$arrayData,"showing"=>$page,"all"=>$totalPages));
     }
     if($_GET['display'] != "all_wishlist"){
       $dataAll = json_decode(pagination("wishlist","WLStatus",1,"WLCategory",$category,$page,1,9,"WishListID","DESC","&display=".$_GET['display']),true);
@@ -281,11 +281,25 @@ $linkClass = null;
       </div>
   
     </div>
+
+
+
     <div class="flex-c-m flex-w w-full p-t-45">
-        <?php 
-            echo $dataAll['pagination'];
-        ?>
+        <?php   
+                if($dataAll['all'] == 0){
+                  echo '<div class="flex-c-m stext-101 cl5 size-103 bg2 bor1 ">No Data Found</div>';
+                }
+                else{
+                echo "Showing pages ".$dataAll['showing']." of ".$dataAll['all'];
+                ?>
+                <div class="flex-c-m flex-w w-full p-t-45">
+                  <?php 
+                      echo $dataAll['pagination'];
+                  
+                }
+             ?>
       </div>
+  
   </section>
 
   

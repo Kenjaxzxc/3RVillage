@@ -40,7 +40,7 @@
           $arrayData[] = $row;
          }
       } 
-      return json_encode(array("pagination"=>$pagination,"data"=>$arrayData));
+      return json_encode(array("pagination"=>$pagination,"data"=>$arrayData,"showing"=>$page,"all"=>$totalPages));
     }
 
     function paginationAll($table,$field,$field1Ans,$page,$offset,$limit,$order,$sort,$add){
@@ -391,15 +391,21 @@
 			</div>
 			<!-- Load more -->
 		</div>
-		<div class="flex-c-m flex-w w-full p-t-45">
-				<?php 	
-           			echo "Showing pages ".$dataAll['showing']." of ".$dataAll['all'];
-       			 ?>
-			</div>
 		
-		<div class="flex-c-m flex-w w-full p-t-45">
-				<?php 	
-           			 echo $dataAll['pagination'];
-       			 ?>
-			</div>
+			<div class="flex-c-m flex-w w-full p-t-45">
+        <?php   
+                if($dataAll['all'] == 0){
+                  echo '<div class="flex-c-m stext-101 cl5 size-103 bg2 bor1 ">No Data Found</div>';
+                }
+                else{
+                echo "Showing pages ".$dataAll['showing']." of ".$dataAll['all'];
+                ?>
+                <div class="flex-c-m flex-w w-full p-t-45">
+                  <?php 
+                      echo $dataAll['pagination'];
+                  
+                }
+             ?>
+      </div>
+
 	</section>
