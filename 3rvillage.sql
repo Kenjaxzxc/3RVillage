@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 18, 2018 at 07:42 AM
+-- Generation Time: Sep 19, 2018 at 02:26 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -53,7 +53,9 @@ INSERT INTO `account` (`accountid`, `firstname`, `lastname`, `username`, `passwo
 (9, 'ddd', 'ss', '', '', '', '', 0),
 (10, 'qweqwe', 'sdsd', 'zxc', 'eggking', 'sada@sd', '213213', 0),
 (11, 'firstname', 'wqeqwe', 'qwe', 'asd', 'weqwe@wqeqwe', '', 0),
-(12, 'ddddddd', 'aaaa', 'qwe', 'asd', 'sada@sd', '1w111', 0);
+(12, 'ddddddd', 'aaaa', 'qwe', 'asd', 'sada@sd', '1w111', 0),
+(13, 'qweqw', 'qwe', 'qe', 'qwe', 'qweqwe@sad', '09222817453', 1),
+(14, 'qwe', 'qwe', 'qweqwe', 'qweqwe', 'qwe@gmail.com', '09454273493', 1);
 
 -- --------------------------------------------------------
 
@@ -105,7 +107,7 @@ CREATE TABLE `itemsell` (
   `SItemCat` varchar(50) NOT NULL,
   `SItemDesc` varchar(255) NOT NULL,
   `SItemLocation` varchar(255) NOT NULL,
-  `SItemPrice` int(11) NOT NULL,
+  `SItemPrice` decimal(10,2) NOT NULL,
   `SItemImages` varchar(255) NOT NULL,
   `SItemPosted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `accountid` int(11) NOT NULL,
@@ -117,10 +119,14 @@ CREATE TABLE `itemsell` (
 --
 
 INSERT INTO `itemsell` (`ItemSellID`, `SItemTitle`, `SItemCat`, `SItemDesc`, `SItemLocation`, `SItemPrice`, `SItemImages`, `SItemPosted`, `accountid`, `SItemStatus`) VALUES
-(1, 'test1', 'Apparels', 'test1', 'Abra', 213, 'Koala.jpg', '2018-09-14 09:35:11', 1, 1),
-(2, 'qweqwe', 'Apparels', 'asdasd', 'Abra', 222, 'Koala.jpg', '2018-09-14 09:48:14', 1, 1),
-(3, 'asda', 'Apparels', '2qweqwe', 'Abra', 222, 'Penguins.jpg', '2018-09-14 09:49:58', 1, 1),
-(4, 'Sample', 'Bag', 'Sample', 'Aklan', 2344, 'Tulips.jpg', '2018-09-15 09:51:02', 1, 1);
+(1, 'test1', 'Apparels', 'test1', 'Abra', '213.00', 'Koala.jpg', '2018-09-14 09:35:11', 1, 1),
+(2, 'qweqwe', 'Apparels', 'asdasd', 'Abra', '222.00', 'Koala.jpg', '2018-09-14 09:48:14', 5, 1),
+(3, 'asda', 'Apparels', '2qweqwe', 'Abra', '222.00', 'Penguins.jpg', '2018-09-14 09:49:58', 1, 1),
+(4, 'Sample', 'Bag', 'Sample', 'Aklan', '2344.00', 'Tulips.jpg', '2018-09-15 09:51:02', 1, 1),
+(5, 'Gadget', 'Apparels', 'Gadget', 'Abra', '2323.00', 'Desert.jpg', '2018-09-18 22:50:37', 1, 1),
+(6, 'Shoes', 'Apparels', 'test', 'Tarlac', '2324.00', 'product-09.jpg', '2018-09-19 00:19:19', 1, 1),
+(7, 'Watch', 'Apparels', 'secret', 'Cebu', '234.75', 'product-15.jpg', '2018-09-19 00:22:12', 1, 1),
+(8, ' Laptop', 'Apparels', 'NO DEFECT', 'Abra', '10000.00', 'images.jpg', '2018-09-19 00:24:00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -239,7 +245,7 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `accountid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `accountid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `admin`
 --
@@ -254,7 +260,7 @@ ALTER TABLE `itemdonate`
 -- AUTO_INCREMENT for table `itemsell`
 --
 ALTER TABLE `itemsell`
-  MODIFY `ItemSellID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ItemSellID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `ngo`
 --

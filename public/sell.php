@@ -68,7 +68,7 @@
       ?>
       <div class="form-group">
         <label>Price</label>
-        <input class="form-control" type="number" name="price" required>
+        <input class="form-control" type="text" name="price" required>
       </div>
 
       <div class="mt-4 m-b-100">
