@@ -16,14 +16,71 @@
     <?php 
       if(isset($_POST['btnUpdate'])){
       $email = $_POST['email'];
-      $password = $_POST['password'];
       $contact = $_POST['contact'];  
       $id=$_SESSION['accountid'];
-      $sql = "UPDATE account SET email='$email', password='$password', contactno ='$contact' WHERE username = '$id'";
+      $verify = $_POST['verify']; 
+      $sql = "UPDATE account SET email='$email', contactno ='$contact' WHERE username = '$id'";
+      mysqli_query ($conn, $sql);
+      echo "<script>alert('Successfully Updated!');</script>";
+      echo '<script>window.location="editprofile.php"</script>'; 
+
+      if(isset($_SESSION['verificationCode'])){
+          $code = $_SESSION['verificationCode'];
+          if($verify == $code){
+          unset($_SESSION['verificationCode']);
+      $sql = "UPDATE account SET email='$email', contactno ='$contact' WHERE username = '$id'";
             mysqli_query ($conn, $sql);
             echo "<script>alert('Successfully Updated!');</script>";
             echo '<script>window.location="editprofile.php"</script>'; 
           }
+          else{
+            echo "<script>alert('Incorrect Verification Code');</script>";
+          }
+       }
+       }
+
+       if(isset($_POST['sendupdateNumber'])){
+        $rand = rand(111111,999999);
+        $message = "Your verification code is: ".$rand;
+
+        require 'autoload.php';
+
+
+        $array_fields['phone_number'] = $_POST['contactupdate'];
+        $array_fields['message'] = $message;
+        $array_fields['device_id'] = 102126;
+
+        $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTUzNzI0NzUxMiwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjU3ODI0LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.YvuWk34SW-nwZxnKyI7dUUoI1NU57ofA6IJIgmFbsqI";
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://smsgateway.me/api/v4/message/send",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "[  " . json_encode($array_fields) . "]",
+            CURLOPT_HTTPHEADER => array(
+                "authorization: $token",
+                "cache-control: no-cache"
+            ),
+        ));
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        }else{
+          $_SESSION['verificationCode'] = $rand;
+        }
+      }  
 
    ?>
   
@@ -42,7 +99,7 @@
      <h4 class="ltext-102 cl5 mb-4 mt-2 text-center">Update Profile</h4>
       <div class="form-group">    
         <label>Name</label>
-        <input class="form-control" type="text" name="name" value="<?php echo $row['firstname']," ",$row ['lastname'] ?>" disabled>
+        <input class="form-control" type="text" name="name" value="<?php echo $row['firstname']." ".$row ['lastname'] ?>" disabled>
       </div>
 
        <div class="form-group">    
@@ -67,14 +124,14 @@
         <div class="input-group">
         <input class="form-control" type="text" name="contact" value="<?php echo $row['contactno'] ?>">
          <div class="input-group-append">
-            <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" style="border-color: #ccc;" type="button">Send</button>
+            <button id="updateNumber" class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" style="border-color: #ccc;" type="button">Send</button>
           </div>
         </div>
       </div>
 
       <div class="form-group">    
         <label>Verification Code</label>
-        <input class="form-control" type="text" name="verify" value="">
+        <input class="form-control" type="text" name="verify" value="" readonly>
       </div>
 
       <div class="mt-4 m-b-100">

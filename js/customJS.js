@@ -37,6 +37,7 @@ $(function(){
 	});
 })
 
+
 $(function(){
 	$("#sendNumber").click(function(){
 		let contactno = $("input[name=contact]");
@@ -49,7 +50,28 @@ $(function(){
 				success: function(a){
 					alert("Please check your phone for verification code");
 					verify.removeAttr("readonly");
-					contactno.attr("readonly","true");
+				}
+			})
+		}else{
+			alert("Not a valid contact number");
+		}
+	});
+});
+
+
+
+$(function(){
+	$("#updateNumber").click(function(){
+		let contactno = $("input[name=contact]");
+		let verify = $("input[name=verify]");
+		if(contactno.val().length == 11){
+			$.ajax({
+				url:"../public/editprofile.php",
+				method: "POST",
+				data: {"sendupdateNumber":"","contactupdate":contactno.val()},
+				success: function(a){
+					alert("Please check your phone for verification code");
+					verify.removeAttr("readonly");
 				}
 			})
 		}else{

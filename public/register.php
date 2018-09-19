@@ -21,7 +21,6 @@
 	}
 	else{
 		if(isset($_SESSION['verificationCode'])){
-			// compare diri
 			$code = $_SESSION['verificationCode'];
 			if($verify == $code){
 			unset($_SESSION['verificationCode']);
