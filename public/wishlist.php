@@ -49,6 +49,11 @@ $linkClass = null;
         $category = "Vehicles";
         $linkClass = '.vehicles';
         break;
+      case 'others':
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Vehicles' && WLStatus = '1')";
+        $category = "Others";
+        $linkClass = '.others';
+        break;
 
       
       default:
@@ -198,6 +203,9 @@ $linkClass = null;
           </a>
           <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=vehicles" data-filter=".vehicles">
             Vehicles
+          </a>
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=others" data-filter=".others">
+            Others
           </a>
         </div>
 

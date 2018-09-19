@@ -8,5 +8,6 @@
       	 	 <option>Appliances</option>
       	 	 <option>Gadgets</option>
      		 <option>Vehicles</option>
+         <option>Others</option>
    		</select>
     </div>

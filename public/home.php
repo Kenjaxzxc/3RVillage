@@ -51,6 +51,11 @@
         $category = "Vehicles";
         $linkClass = '.vehicles';
         break;
+      case 'others':
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Vehicles' && WLStatus = '1')";
+        $category = "Others";
+        $linkClass = '.others';
+        break;
 
 
       

@@ -128,6 +128,9 @@
 		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=vehicles#products" data-filter=".vehicles">
 		            Vehicles
 		          </a>
+		          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=others#products" data-filter=".others">
+		            Others
+		          </a>
 		        </div>
 
 				<div class="flex-w flex-c-m m-tb-10">
@@ -326,16 +329,11 @@
 								</a>
 
 								<span class="stext-105 cl3">
-									₱ '.$value['SItemPrice'].'
+									₱ '.number_format($value['SItemPrice'], 2, '.', ',').'
 								</span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="../images/icons/icon-heart-01.png" alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="../images/icons/icon-heart-02.png" alt="ICON">
-								</a>
-							</div>
+					
 						</div>
 					</div>
 				</div>

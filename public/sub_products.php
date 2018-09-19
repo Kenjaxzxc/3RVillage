@@ -24,8 +24,8 @@
 
 								<div class="gallery-lb">
 									<div class="firstImage" data-thumb="">
-										<div class="wrap-pic-w pos-relative">
-											<img class="firstImage" src="" height="500" width="100" alt="IMG-PRODUCT">
+										<div>
+											<img class="firstImage" src="" height="500" width="500" alt="IMG-PRODUCT">
 
 											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04 firstImage" href="">
 												<i class="fa fa-expand"></i>
@@ -118,7 +118,7 @@
 
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-203 flex-c-m respon6">
-										Number
+										Contact
 									</div>
 
 									<div class="size-204 respon6-next">
