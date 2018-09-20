@@ -60,17 +60,47 @@
       include('category.php');
       ?>
       <div class="form-group">
-        <label>Description</label>
+        <label>Item Description</label>
         <textarea class="form-control" name="description" rows="3" required></textarea>
       </div>
+      
+       <label>Item Specification</label>
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <label for="validationCustom03">Brand</label>
+        <input type="text" class="form-control" placeholder="Brand" required>
+      </div>
+    
+      <div class="col-md-3 mb-3">
+        <label for="validationCustom03">Style</label>
+        <input type="text" class="form-control" placeholder="Style" required>
+      </div>
+    
+      <div class="col-md-3 mb-3">
+        <label for="validationCustom03">Color</label>
+        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelectPref">
+          <option selected>---</option>
+          <option value="1">RED</option>
+          <option value="2">PINK</option>
+          <option value="3">ORANGE</option>
+          <option value="4">YELLOW</option>
+          <option value="5">PURPLE</option>
+          <option value="6">GREEN</option>
+          <option value="7">BLUE</option>
+          <option value="8">BROWN</option>
+          <option value="9">WHITE</option>
+          <option value="10">GREY</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+          <label for="validationCustom03"> Quantity </label>
+          <input type="text" class="form-control" placeholder="quantity" required>
+        </div>
+      </div>
+
       <?php 
       include('location.php');
       ?>
-      <div class="form-group">
-        <label>Price</label>
-        <input class="form-control" type="number" name="price" required>
-      </div>
-
       <div class="mt-4 m-b-100">
         <a href="home.php"><button type="button" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button></a>
         <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnSave">Save</button>

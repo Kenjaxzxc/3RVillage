@@ -31,6 +31,8 @@
 					        <a class="dropdown-item" href="editprofile.php"><span class="fa fa-user"></span> My Profile</a>
 					        <a class="dropdown-item" href="mypost.php"><span class="fa fa-plus-circle"></span> My Ads</a>
 					        <a class="dropdown-item" href="mywishlist.php"><span class="fa fa-heart"></span> My Wishlist</a>
+					        <!--
+					        <a class="dropdown-item" href="cart.php"><span class="zmdi zmdi-shopping-cart"></span> My Cart</a> -->
 					        <div class="dropdown-divider"></div>
 					        <a class="dropdown-item" href="logout.php"><span class="fa fa-sign-out"></span> Logout</a>
 					     </div>
@@ -70,6 +72,19 @@
 							</li>
 						</ul>
 					</div>	
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+							<i class="zmdi zmdi-search"></i>
+						</div>
+
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+							<i class="zmdi zmdi-shopping-cart"></i>
+						</div>
+
+						<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+							<i class="zmdi zmdi-favorite-outline"></i>
+						</a>
+					</div>
 				</nav>
 			</div>	
 		</div>

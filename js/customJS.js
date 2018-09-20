@@ -29,9 +29,9 @@ $(function(){
 				category.val(obj.SItemCat);
 				mobile.val(obj.contactno);
 				description.val(obj.SItemDesc);
-				firstimageThumb.attr("data-thumb","../upload/"+obj.SItemImages+"");
-				firstimageImage.attr("src","../upload/"+obj.SItemImages+"");
-				firstimageLink.attr("href","../upload/"+obj.SItemImages+"");
+				firstimageThumb.attr("data-thumb","../upload/"+obj.SItemImages1+"");
+				firstimageImage.attr("src","../upload/"+obj.SItemImages1+"");
+				firstimageLink.attr("href","../upload/"+obj.SItemImages1+"");
 			}
 		});
 	});
