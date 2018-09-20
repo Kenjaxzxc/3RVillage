@@ -38,7 +38,7 @@
     $image2 = $_FILES['image2']['name'];
     $image3 = $_FILES['image3']['name'];
     $image4 = $_FILES['image4']['name'];
-    $image5 = $_FILES['image5']['name'];
+    $image5 = $_FILES['image5']['name'];  
     $image6 = $_FILES['image6']['name'];
 
       $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemImages1, SItemImages2, SItemImages3, SItemImages4, SItemImages5, SItemImages6, accountid) VALUES ('$title','$category','$description','$location','$price','$image1','$image2','$image3','$image4','$image5','$image6','$id')";
@@ -72,17 +72,121 @@
       <?php 
       include('category.php');
       ?>
+       <div class="row">
+      <div class="col-md-3 mb-3">
+        <label>Condition</label>
+        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="condition" required>
+          <option>New</option>
+          <option>Used</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label>Brand</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label>Style</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label>Color</label>
+        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="color">
+          <option>RED</option>
+          <option>PINK</option>
+          <option>ORANGE</option>
+          <option>YELLOW</option>
+          <option>PURPLE</option>
+          <option>GREEN</option>
+          <option>BLUE</option>
+          <option>BROWN</option>
+          <option>WHITE</option>
+          <option>GREY</option>
+        </select>
+      </div>
+      </div>
       <div class="form-group">
-        <label>Description</label>
+        <label>Item Description</label>
         <textarea class="form-control" name="description" rows="3" required></textarea>
       </div>
+
+      <label>Selling Details</label>
+      <div class="input-group">
+        <span class="input-group-addon">₱</span>
+        <input class="form-control" type="number" name="price" placeholder="Price" required>
+      </div>
+      <div class="row">
+      <div class="col-md-3 mb-3">
+      <label>Duration</label>
+      <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelectPref">
+          <option selected>---</option>
+          <option value="1">5 days</option>
+          <option value="2">10 days</option>
+          <option value="2">15 days</option>
+        </select>
+        </div>
+      <div class="col-md-3 mb-3">
+        <label for="validationCustom03">Start Schedule</label>
+        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelectPref">
+          <option selected>month</option>
+          <option value="1">JAN</option>
+          <option value="2">FEB</option>
+          <option value="3">MAR</option>
+          <option value="4">APR</option>
+          <option value="5">MAY</option>
+          <option value="6">JUN</option>
+          <option value="7">JUL</option>
+          <option value="8">AUG</option>
+          <option value="9">SEP</option>
+          <option value="10">OCT</option>
+          <option value="11">NOV</option>
+          <option value="12">DEC</option>
+        </select>
+      </div>
+        <div class="col-md-3 mb-3">
+          <label for="validationCustom03"> . </label>
+          <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelectPref">
+            <option selected>date</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+          </select>
+        </div>
+      </div>
+       <div class="col-md-3 mb-3">
+          <label for="validationCustom03"> Quantity </label>
+          <input type="text" class="form-control" placeholder="quantity" required>
+        </div>  
       <?php 
       include('location.php');
       ?>
-      <div class="form-group">
-        <label>Price</label>
-        <input class="form-control" type="text" name="price" required>
-      </div>
 
       <div class="mt-4 m-b-100">
         <a href="home.php"><button type="button" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button></a>
