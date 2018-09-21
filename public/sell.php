@@ -194,7 +194,7 @@
       </div>
     </div>
 
-    <div class="col-sm-5 ml-4">
+    <div class="col-sm-5 mr-5">
       <h5 class=" ltext-101 mt-3">Upload Images</h5>
       <span><b>Note:</b> Only <b><a id="textred">jpeg</a></b>, <b><a id="textred">jpg</a></b> and <b><a id="textred">png</a></b> Images file format are allowed and approximately <b><a id="textred">100kb</a></b> files can be uploaded.</span> 
 

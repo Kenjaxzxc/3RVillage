@@ -20,7 +20,7 @@ $(function(){
 			data: {"itemSellData":"","ItemID":sellID},
 			success: function(a){
 				let obj = JSON.parse(a)[0];
-				html = '<a href="message.php?id='+obj.accountid+'" class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">Message Seller</a>';
+				html = '<a href="message.php?id='+obj.accountid+'" class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">Message Seller</a>';
 				
 				btnMessage.html(html);
 				title.html(obj.SItemTitle);
