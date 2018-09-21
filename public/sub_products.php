@@ -131,9 +131,13 @@
 
 								<div class="flex-w flex-r-m p-t-20">
 									<div class="size-204 flex-w flex-m respon6-next">
-										<button class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+										<div id="message-seller">
+											
+										</div>
+										<!-- <a href="message.php?id=5?>" class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+
 											<p> Message Seller</p> 
-										</button>
+										</a> -->
 									</div>
 								</div>	
 							</div>

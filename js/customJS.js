@@ -1,6 +1,7 @@
 $(function(){
 	$(".prevITEM").click(function(){
 		let sellID = $(this).parent().find("input[name=itemsellID]").val();
+		let btnMessage = $("#message-seller");
 		let title = $("#title");
 		let price = $("#price");
 		let sellername = $("#sellername");
@@ -18,9 +19,10 @@ $(function(){
 			method: "POST",
 			data: {"itemSellData":"","ItemID":sellID},
 			success: function(a){
-				
 				let obj = JSON.parse(a)[0];
-				// console.log(obj);
+				html = '<a href="message.php?id='+obj.accountid+'" class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">Message Seller</a>';
+				
+				btnMessage.html(html);
 				title.html(obj.SItemTitle);
 				price.html("₱ "+obj.SItemPrice);
 				sellername.val(obj.firstname +" "+obj.lastname);

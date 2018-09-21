@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2018 at 11:14 AM
+-- Generation Time: Sep 20, 2018 at 08:10 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -130,6 +130,63 @@ INSERT INTO `itemsell` (`ItemSellID`, `SItemTitle`, `SItemCat`, `SItemDesc`, `SI
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `_from` int(11) NOT NULL,
+  `_to` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `is_read` tinyint(4) NOT NULL DEFAULT '0',
+  `_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `_from`, `_to`, `message`, `is_read`, `_time`) VALUES
+(1, 1, 5, 'hi!', 0, '2018-09-20 14:57:18'),
+(2, 1, 5, 'yow', 0, '2018-09-20 14:59:47'),
+(3, 1, 5, 'gg', 0, '2018-09-20 15:01:08'),
+(4, 1, 5, 'gegeg', 0, '2018-09-20 15:01:19'),
+(5, 1, 5, 'hththt', 0, '2018-09-20 15:02:06'),
+(6, 1, 5, 'grgr', 0, '2018-09-20 15:02:31'),
+(7, 1, 5, 'ggg', 0, '2018-09-20 15:03:14'),
+(8, 1, 5, 'hello', 0, '2018-09-20 15:03:44'),
+(9, 1, 5, 'yowww!', 0, '2018-09-20 15:03:51'),
+(10, 1, 5, 'grgrgr', 0, '2018-09-20 15:07:29'),
+(11, 1, 5, 'tt', 0, '2018-09-20 15:24:42'),
+(12, 5, 1, 'fgh', 0, '2018-09-20 15:31:47'),
+(13, 5, 1, 'hi', 0, '2018-09-20 15:40:32'),
+(14, 5, 1, 'yow', 0, '2018-09-20 15:40:38'),
+(15, 5, 1, 'wew', 0, '2018-09-20 16:02:23'),
+(16, 5, 1, 'pre', 0, '2018-09-20 16:17:29'),
+(17, 5, 1, 'oyyy', 0, '2018-09-20 16:17:39'),
+(18, 5, 2, 'boss', 0, '2018-09-20 16:21:59'),
+(19, 7, 1, 'ghgfh', 1, '2018-09-20 16:24:09'),
+(20, 1, 7, 'pre', 1, '2018-09-20 16:25:03'),
+(21, 7, 1, 'oyyy', 1, '2018-09-20 16:25:30'),
+(22, 7, 1, 'gege', 1, '2018-09-20 16:45:25'),
+(23, 1, 7, 'gegeggg', 1, '2018-09-20 16:45:52'),
+(24, 1, 7, 'oyyy', 1, '2018-09-20 17:19:02'),
+(25, 7, 1, 'dohhh', 1, '2018-09-20 17:19:16'),
+(26, 1, 7, 'ohh', 0, '2018-09-20 17:23:18'),
+(27, 7, 1, 'gege', 0, '2018-09-20 17:29:43'),
+(28, 1, 7, 'hhhh', 0, '2018-09-20 17:29:57'),
+(29, 7, 1, 'gegege', 0, '2018-09-20 17:32:39'),
+(30, 7, 1, 'oyy', 0, '2018-09-20 17:35:48'),
+(31, 1, 7, 'ohh', 0, '2018-09-20 17:38:19'),
+(32, 1, 7, 'gggg', 0, '2018-09-20 17:39:11'),
+(33, 1, 7, 'ggegegegeggrgrgttt', 0, '2018-09-20 17:50:23'),
+(34, 7, 1, 'ggr', 0, '2018-09-20 17:52:29'),
+(35, 7, 1, 'grg', 0, '2018-09-20 17:56:22'),
+(36, 1, 7, 'hhh', 0, '2018-09-20 18:04:16');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ngo`
 --
 
@@ -224,6 +281,12 @@ ALTER TABLE `itemsell`
   ADD KEY `accountid` (`accountid`);
 
 --
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `ngo`
 --
 ALTER TABLE `ngo`
@@ -260,6 +323,11 @@ ALTER TABLE `itemdonate`
 --
 ALTER TABLE `itemsell`
   MODIFY `ItemSellID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `ngo`
 --
