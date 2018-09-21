@@ -92,7 +92,7 @@ if(isset($_POST['username']) and isset($_POST['password'])){
 
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
-    if (!$row) {  
+    if (!$row) { 
     	if($username == "admin" && $password == "admin"){
     	 $_SESSION['accountid'] = $row['username'];
     	 $_SESSION['accountid'] = "Admin";

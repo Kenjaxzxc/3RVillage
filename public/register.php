@@ -28,8 +28,6 @@
             $result = mysqli_query ($conn, $sql);
             $row = mysqli_fetch_assoc($result);
             $_SESSION['accountid'] = $username;
-            $_SESSION['user_id'] = $row['accountid'];
-            header("location:home.php");
             }
             else{
             	echo "<script>alert('Incorrect Verification Code');</script>";

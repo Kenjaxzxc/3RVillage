@@ -7,7 +7,7 @@ $linkClass = null;
   }
   
   if(isset($_GET['display'])){
-    $getData = htmlentities($_GET['display']);
+     $getData = htmlentities($_GET['display']);
       $builder = $dom = null; 
       switch ($getData) {
       case 'all_wishlist':
@@ -271,9 +271,9 @@ $linkClass = null;
 
       <div class="row justify-content-center">
         <div>
-          <button class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+          <a href="message.php?id='.$value['accountid'].'"><button class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
            <p>Communicate</p> 
-          </button>
+           </button></a>
         </div>
       </div>
      </div>

@@ -5,18 +5,17 @@
 	$from = $_POST['from'];
 	$to = $_POST['to'];
 	$count = 0;
-		$sql = "SELECT * FROM messages WHERE (_from='$from' AND _to='$to') OR (_from='$to' AND _to='$from')  "; 
+		$sql = "SELECT * FROM messages WHERE (_from='$from' AND _to='$to') OR (_from='$to' AND _to='$from') AND is_read = 1  "; 
 
 	    $result = mysqli_query($conn, $sql);
 	   while( $row = mysqli_fetch_assoc($result)){
-	   		  
-		    	$id = $row['_to'];
 
-			    $sql2 = "SELECT * FROM account WHERE accountid='$id' "; 
+			    $sql2 = "SELECT * FROM account WHERE accountid='$to' "; 
 			    $result2 = mysqli_query($conn, $sql2);
 			    $row2 = mysqli_fetch_assoc($result2);
 			    $arr = array(
-			    		
+			    		'from'=> $row['_from'],
+			    		'to'=> $row['_to'],
 			    		'messages'=> ($row['_from'] == $from ? 
 			    					'<div class="outgoing_msg">
 						              <div class="sent_msg">

@@ -28,6 +28,14 @@
     $description = $_POST['description'];
     $location = $_POST['location'];
     $price = $_POST['price']; 
+    $condition = $_POST['condition']; 
+    $brand = $_POST['brand']; 
+    $style = $_POST['style']; 
+    $color = $_POST['color']; 
+    $duration = $_POST['duration']; 
+    $month = $_POST['month']; 
+    $date = $_POST['date']; 
+    $quantity = $_POST['quantity']; 
     $target1 = "../upload/".basename($_FILES['image1']['name']);
     $target2 = "../upload/".basename($_FILES['image2']['name']);
     $target3 = "../upload/".basename($_FILES['image3']['name']);
@@ -41,7 +49,7 @@
     $image5 = $_FILES['image5']['name'];  
     $image6 = $_FILES['image6']['name'];
 
-      $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemImages1, SItemImages2, SItemImages3, SItemImages4, SItemImages5, SItemImages6, accountid) VALUES ('$title','$category','$description','$location','$price','$image1','$image2','$image3','$image4','$image5','$image6','$id')";
+      $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemCondition, SItemBrand, SItemStyle, SItemColor, SItemDuration, SItemMonth, SItemDate, SItemQuantity, SItemImages1, SItemImages2, SItemImages3, SItemImages4, SItemImages5, SItemImages6, accountid) VALUES ('$title','$category','$description','$location','$price','$condition','$brand','$style','$color','$duration','$month','$date','$quantity','$image1','$image2','$image3','$image4','$image5','$image6','$id')";
               mysqli_query ($conn, $sql);
               if (move_uploaded_file($_FILES['image1']['tmp_name'], $target1) && move_uploaded_file($_FILES['image2']['tmp_name'], $target2)&& move_uploaded_file($_FILES['image3']['tmp_name'], $target3) && move_uploaded_file($_FILES['image4']['tmp_name'], $target4) && move_uploaded_file($_FILES['image5']['tmp_name'], $target5) && move_uploaded_file($_FILES['image6']['tmp_name'], $target6)) {
                 echo "<script>window.location='home.php'</script>";
@@ -82,25 +90,26 @@
       </div>
       <div class="col-md-3 mb-3">
         <label>Brand</label>
-        <input type="text" class="form-control" required>
+        <input type="text" class="form-control" name="brand" required>
       </div>
       <div class="col-md-3 mb-3">
         <label>Style</label>
-        <input type="text" class="form-control" required>
+        <input type="text" class="form-control" name="style" required>
       </div>
       <div class="col-md-3 mb-3">
         <label>Color</label>
         <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="color">
-          <option>RED</option>
-          <option>PINK</option>
-          <option>ORANGE</option>
-          <option>YELLOW</option>
-          <option>PURPLE</option>
-          <option>GREEN</option>
-          <option>BLUE</option>
-          <option>BROWN</option>
-          <option>WHITE</option>
-          <option>GREY</option>
+          <option>Red</option>
+          <option>Pink</option>
+          <option>Orange</option>
+          <option>Yellow</option>
+          <option>Purple</option>
+          <option>Green</option>
+          <option>Blue</option>
+          <option>Brown</option>
+          <option>White</option>
+          <option>Grey</option>
+          <option>Black</option>
         </select>
       </div>
       </div>
@@ -112,39 +121,39 @@
       <label>Selling Details</label>
       <div class="input-group">
         <span class="input-group-addon">₱</span>
-        <input class="form-control" type="number" name="price" placeholder="Price" required>
+        <input class="form-control" type="text" name="price" placeholder="Price" required>
       </div>
       <div class="row">
       <div class="col-md-3 mb-3">
       <label>Duration</label>
-      <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelectPref">
+      <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="duration">
           <option selected>---</option>
           <option value="1">5 days</option>
           <option value="2">10 days</option>
-          <option value="2">15 days</option>
+          <option value="3">15 days</option>
         </select>
         </div>
       <div class="col-md-3 mb-3">
         <label for="validationCustom03">Start Schedule</label>
-        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelectPref">
+        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="month">
           <option selected>month</option>
-          <option value="1">JAN</option>
-          <option value="2">FEB</option>
-          <option value="3">MAR</option>
-          <option value="4">APR</option>
-          <option value="5">MAY</option>
-          <option value="6">JUN</option>
-          <option value="7">JUL</option>
-          <option value="8">AUG</option>
-          <option value="9">SEP</option>
-          <option value="10">OCT</option>
-          <option value="11">NOV</option>
-          <option value="12">DEC</option>
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
         </select>
       </div>
         <div class="col-md-3 mb-3">
-          <label for="validationCustom03"> . </label>
-          <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelectPref">
+          <label > . </label>
+          <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="date">
             <option selected>date</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -182,7 +191,7 @@
       </div>
        <div class="col-md-3 mb-3">
           <label for="validationCustom03"> Quantity </label>
-          <input type="text" class="form-control" placeholder="quantity" required>
+          <input type="text" class="form-control" name="quantity" placeholder="quantity" required>
         </div>  
       <?php 
       include('location.php');

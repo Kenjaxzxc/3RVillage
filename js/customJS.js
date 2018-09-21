@@ -37,7 +37,31 @@ $(function(){
 			}
 		});
 	});
-})
+});
+
+
+// $(function(){
+// 	$("#msgwishlist").click(function(){
+// 		let wishlistid = $(this).parent().find("input[name=wishlistID]").val();
+// 		let btnWishlist = $("#msgwishlist");
+// 		$.ajax({
+// 			url:"../public/wishlist.php",
+// 			method: "POST",
+// 			data: {},
+// 			sucess: function(e){
+// 				console.log(e);
+// 				btnWishlist.html('<a href="message.php?id='+obj.accountid+'"><button class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"><p>Communicate</p></button></a>');
+
+
+// 			}
+
+
+// 		});
+
+// });
+// });
+
+
 
 
 $(function(){
