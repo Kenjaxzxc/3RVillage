@@ -95,12 +95,11 @@ if(isset($_POST['username']) and isset($_POST['password'])){
     if (!$row) {  
     	if($username == "admin" && $password == "admin"){
     	 $_SESSION['accountid'] = $row['username'];
-    	 $_SESSION['user_id'] = $row['accountid'];
     	 $_SESSION['accountid'] = "Admin";
     	 header("location:home.php");
     	}
     	else{
-    		echo "<script>toastr.error('Your username or password is incorrect!');</script>";
+    		echo "<script>alert('Your username or password is incorrect!');</script>";
     		
     	}
 	}

@@ -1,5 +1,7 @@
   <?php
 	include('connection.php'); 
+	?>
+	<?php 
 	 if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
         $page = 1;
       }else{
@@ -7,7 +9,7 @@
       }
 
   function pagination($table,$field,$field1Ans,$field2,$field2Ans,$page,$offset,$limit,$order,$sort,$add){
-        //include('connection.php'); 
+       include('connection.php'); 
       // $add = (!empty($add)?"&".$add:"");
       $result = $totalPage = $totalPages = $offset = $sql = null;
       $arrayData = [];
