@@ -1,24 +1,9 @@
-<?php include('connection.php'); include('header.php');
-$user_id=''; $seller_id=''; $seller='';
-   if(isset($_SESSION['user_id'])){
-    $user_id = $_SESSION['user_id'];
+<?php 
 
-   }
-   if(isset($_GET['id'])){
-    $seller_id = $_GET['id'];
+include('connection.php');
 
-    $sql = "SELECT * FROM account WHERE accountid='$seller_id'"; 
-
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    if ($row) {  
-      $seller = $row;
-    }
-    else{
-     echo 'Not Found!';
-    }
-   }
 ?>
+<?php  include('header.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

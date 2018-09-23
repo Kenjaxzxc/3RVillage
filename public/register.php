@@ -20,21 +20,32 @@
 		echo "<script>alert('Password did not match.');</script>";
 	}
 	else{
-		if(isset($_SESSION['verificationCode'])){
-			$code = $_SESSION['verificationCode'];
-			if($verify == $code){
-			unset($_SESSION['verificationCode']);
+			// if(isset($_SESSION['verificationCode'])){
+			// $code = $_SESSION['verificationCode'];
+			// if($verify == $code){
+			// unset($_SESSION['verificationCode']);
 			$sql = "INSERT INTO account (firstname, lastname, username, password, email, contactno) VALUES ('$firstname','$lastname','$username','$password','$email','$contact')";
-            $result = mysqli_query ($conn, $sql);
-            $row = mysqli_fetch_assoc($result);
+            mysqli_query ($conn, $sql);
             $_SESSION['accountid'] = $username;
-            }
+            		
+	    	 $sql2 = "SELECT * FROM account WHERE (username='$username' || contactno='$username')";
+	    	  $result2 = mysqli_query($conn, $sql2);
+			    $row2 = mysqli_fetch_assoc($result2); 
+			    	if($row2){
+			    		$sessionNang =  $row2['accountid'];
+			    		$_SESSION['user_id'] = $row2['accountid'];
+			    	
+			    	$sql = mysqli_query($conn,"INSERT INTO subscribed(userid,remaining) VALUES ('$sessionNang',5)");
+            header("location:home.php?display=all_products");
+            	}
             else{
             	echo "<script>alert('Incorrect Verification Code');</script>";
             }
-		}
-    	}
+		// }
+  //   	}
+	 }
 	}
+
 
 	if(isset($_POST['sendToNumber'])){
 		$rand = rand(111111,999999);
@@ -113,9 +124,15 @@
 						<a href="login.php" class="flex-c-m trans-04 p-lr-25">
 							Login
 						</a>
-						<a href="donateereg.php" class="flex-c-m trans-04 p-lr-25">
+						<a href="#" class="dropdown-toggle flex-c-m trans-04 p-lr-25" data-toggle="dropdown">
 							NGO
 						</a>
+						<div class="dropdown-menu bg-dark " style="z-index:5000; position: relative;">
+					        <a class="dropdown-item" href="ngolog.php">Login</a>
+					        <a class="dropdown-item" href="donateereg.php">Register</a>
+					        <!--
+					        <a class="dropdown-item" href="cart.php"><span class="zmdi zmdi-shopping-cart"></span> My Cart</a> -->
+					     </div>
 					</div>
 				</div>
 			</div>

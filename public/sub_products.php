@@ -8,7 +8,7 @@
 	<!-- Modal1 -->
 	<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
 		<div class="overlay-modal1 js-hide-modal1"></div>
-
+			<input type="hidden" name="user_id" value="<?php echo $user_id ?>">
 		<div class="container">
 			<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
 				<button class="how-pos3 hov3 trans-04 js-hide-modal1">
@@ -78,6 +78,20 @@
 
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-203 flex-c-m respon6">
+										Expected Original Price
+									</div>
+
+									<div class="size-204 respon6-next">
+										<div class="stext-102 cl3">
+											<input class="form-control" type="text" id="expprice" disabled>
+										
+										</div>
+									</div>
+								</div>
+
+
+								<div class="flex-w flex-r-m p-b-10">
+									<div class="size-203 flex-c-m respon6">
 										Date Posted
 									</div>
 
@@ -86,6 +100,21 @@
 											<input class="form-control" type="text" id="date" disabled>
 										
 										</div>
+										
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-b-10">
+									<div class="size-203 flex-c-m respon6">
+										Expire Date
+									</div>
+
+									<div class="size-204 respon6-next">
+										<div class="stext-102 cl3"> 
+											<input class="form-control" type="text" id="dateEnd" disabled>
+										
+										</div>
+										
 									</div>
 								</div>
 
@@ -126,6 +155,15 @@
 											<input class="form-control" type="text" id="mobile" disabled>
 										
 										</div>
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-t-20">
+									<div class="size-204 flex-w flex-m respon6-next">
+										<div id="interested">
+										
+										</div>
+										
 									</div>
 								</div>
 

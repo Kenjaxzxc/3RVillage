@@ -1,96 +1,153 @@
-
-<!-- Product -->
 <?php 
-	$sql = null;
-	$getData = null;
-	$linkClass = null;
-  if(!isset($_GET['display'])){
-  	
-    	header("location: home.php?display=all_products");
-
-  }
-  
-  if(isset($_GET['display'])){
-    $getData = htmlentities($_GET['display']);
-      $builder = $dom = null; 
-      switch ($getData) {
-      case 'all_products':
-        $category = null;
-        $linkClass = '*';
-        break;
-      case 'apparels':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Apparels' &&  WLStatus = '1')";
-        $category = "Apparels";
-        $linkClass = '.apparels';
-        break;
-      case 'accessories':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Accessories' && WLStatus = '1')";
-        $category = "Accessories";
-        $linkClass = '.accessories';
-        break;
-      case 'bag':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Bag' && WLStatus = '1')";
-        $category = "Bag";
-        $linkClass = '.bag';
-        break;
-      case 'computers':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Computers' && WLStatus = '1')";
-        $category = "Computers";
-        $linkClass = '.computers';
-        break;
-      case 'appliances':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Appliances' && WLStatus = '1')";
-        $category = "Appliances";
-        $linkClass = '.appliances';
-        break;
-      case 'gadgets':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Gadgets' && WLStatus = '1')";
-        $category = "Gadgets";
-        $linkClass = '.gadgets';
-        break;
-      case 'vehicles':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Vehicles' && WLStatus = '1')";
-        $category = "Vehicles";
-        $linkClass = '.vehicles';
-        break;
-      case 'others':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Vehicles' && WLStatus = '1')";
-        $category = "Others";
-        $linkClass = '.others';
-        break;
-
-
-      
-      default:
-       header("location: home.php?display=all_products");
-        break;
-      }
-  }
-  ?>
-
-
-
+  session_start();
+ 
+?>
+<?php 
+	include('connection.php'); 	
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	
 	<title>3RVillage</title>
 	<?php include('link.php');?>
 	</head>
-<body>
-		<?php 
-		include('header.php');
-		include('cart.php');
-		include('slider.php');
-	    include('products.php');
-		include('footer.php');
-		include('sub_products.php');
+<body class="bg-light">
 
-		?>
+<!-- Header -->
+	<header>
+		<!-- Header desktop -->
+		<div class="container-menu-desktop">
+			<!-- Topbar -->
+			<div class="top-bar">
+				<div class="content-topbar flex-sb-m h-full container">
+					<div class="left-top-bar">
+						
+					</div>
+
+					<div class="right-top-bar flex-w h-full">
+						<a href="#" class="flex-c-m trans-04 p-lr-25">
+							Help & FAQs
+						</a>
+
+						<a href="register.php" class="flex-c-m trans-04 p-lr-25">
+							Register
+						</a>
+
+						<a href="login.php" class="flex-c-m trans-04 p-lr-25">
+							Login
+						</a>
+						<a href="#" class="dropdown-toggle flex-c-m trans-04 p-lr-25" data-toggle="dropdown">
+							NGO
+						</a>
+						<div class="dropdown-menu bg-dark " style="z-index:5000; position: relative;">
+					        <a class="dropdown-item" href="ngolog.php">Login</a>
+					        <a class="dropdown-item" href="donateereg.php">Register</a>
+					        <!--
+					        <a class="dropdown-item" href="cart.php"><span class="zmdi zmdi-shopping-cart"></span> My Cart</a> -->
+					     </div>
+					</div>
+				</div>
+			</div>
+
+			<div class="wrap-menu-desktop">
+				<nav class="limiter-menu-desktop container">
+					
+					<!-- Logo desktop -->		
+					<a href="index.php" class="logo">
+						<img src="../images/icons/logo-33.png" alt="IMG-LOGO">
+					</a>
+
+					<!-- Menu desktop -->
+					<div class="menu-desktop">
+						<ul class="main-menu">
+							<li class="active-menu">
+								<a href="login.php">Home</a>
+							</li>
+
+							<li>
+								<a href="login.php">Wishlist</a>
+							</li>
+						</ul>
+					</div>				
+				</nav>
+			</div>	
+		</div>	
+	</header>
+
+	<?php 
+if(isset($_POST['ngoname']) and isset($_POST['password'])){
+    $ngoname = $_POST['ngoname'];
+    $password = $_POST['password'];
+    $sql = "SELECT * FROM ngo WHERE (NGOName='$ngoname') and (password='$password')"; 
+
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    if (!$row) {  
+    	if($ngoname == "admin" && $password == "admin"){
+    	 $_SESSION['NGOID'] = $row['NGOName'];
+    	 $_SESSION['NGOID'] = "admin";
+    	 header("location:ngohome.php");
+    	}
+    	else{
+    		echo "<script>alert('Your username or password is incorrect!');</script>";
+    		
+    	}
+	}
+	else{
+    $_SESSION['NGOID'] = $row['NGOName'];
+    echo "<script>window.location='ngohome.php'</script>";
+	}
+  }
+ ?>
+	
+	<div class="container m-t-100 m-b-50">
+	<div class="row justify-content-center">
+    <div class="shadow-lg col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 p-lr-25 p-tb-25 bg-white rounded">
+		<form role="form" method="POST">
+			<h2 class="text-center">NGO Sign In</h2>
+			<div class="stext-105 float-right">
+				<a href="donateereg.php">NGO Sign Up</a>
+			</div>
+			<hr class="mt-5">
+			
+		    <div class="input-group mb-3">
+		    	<span class="input-group-addon p-r-25"><i class="fa fa-user"></i></span>
+				<input type="text" name="ngoname" class="form-control input-lg" placeholder="NGO Name" tabindex="1" required>
+			</div>
+														
+			<div class="input-group mb-3">
+				<span class="input-group-addon p-r-27"><i class="fa fa-lock"></i></span>
+				<input type="password" name="password" class="form-control input-lg" placeholder="Password" tabindex="2" required>
+			</div>
+			<div class="form-check m-l-20 mb-3">
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label>Remember me on this computer</label>
+			  <a class="float-right mt-2" href="#">Forgot Password?</a>
+			</div>
+    	
+			<div class="row m-t-60">
+				<div class="col-xs-12 col-md-12"><input type="submit" value="Login" name="btnSubmit" class="btn btn-primary btn-block btn-lg" tabindex="3"></div>
+			</div>	
+
+		</form>
+	</div>
+	</div>
+	
+</div>
 
 
-		</body>
+     	<?php 
+			include('footer.php');
+	 	?>
+
+	
+	</body>
 </html>
+
+
+
 
 <!--===============================================================================================-->	
 	<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -138,7 +195,6 @@
 	<script src="../vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
 	<script src="../vendor/sweetalert/sweetalert.min.js"></script>
-	
 	<script>
 		$('.js-addwish-b2').on('click', function(e){
 			e.preventDefault();
@@ -194,4 +250,4 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="../js/main.js"></script>
-  <script src="../js/chatjs.js"></script>
+

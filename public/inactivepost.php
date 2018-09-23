@@ -149,7 +149,7 @@
       <?php
            $sessionID = $_SESSION['accountid'];
            $id = mysqli_query($conn, "SELECT accountid FROM `account` WHERE username = '$sessionID'")->fetch_object()->accountid;
-           $dataAll = json_decode(pagination("itemsell","SItemStatus",1,"accountid","$id",$page,1,12,"ItemSellID","DESC",""),true);
+           $dataAll = json_decode(pagination("itemsell","SItemStatus",0,"accountid","$id",$page,1,12,"ItemSellID","DESC",""),true);
            $res = mysqli_query($conn, "SELECT * FROM account WHERE accountid = '$id'");
               while($row=$res->fetch_array()){
      ?> 
@@ -157,12 +157,8 @@
 
       <?php 
       $builder = $dom = null;
-       foreach ($dataAll['data'] as $value) { ?>
-
-        <input type="hidden" id="itemsellID" name="itemsellID" value="<?php echo $value['ItemSellID'] ?>">
-        <input type="hidden" id="itemTitle" value="<?php echo $value['SItemTitle'] ?>">
-        <input type="hidden" id="itemCat" value="<?php echo $value['SItemCat'] ?>">
-        <?php $builder = 
+       foreach ($dataAll['data'] as $value) {
+          $builder = 
           '
           <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item *">
           <!-- Block2 -->
@@ -173,8 +169,7 @@
                Preview Item
                </a>
 
-              <input type="hidden" id="itemsellID" name="itemsellID" value="'.$value['ItemSellID'].'">
-             
+              <input type="hidden" name="itemsellID" value="'.$value['ItemSellID'].'">
             </div>
 
             <div class="block2-txt flex-w flex-t p-t-14">
@@ -190,10 +185,9 @@
               
             </div>
             <div class="row justify-content-center py-3">
-              <a href="updatepost.php?id='.$value['ItemSellID'].'"><button type="button" class="btn btn-success mr-2"
-              onclick="confirm(\'Are you sure to edit ?\')">Edit</button></a>
-              <a href="deactivatepost.php?del='.$value['ItemSellID'].'"><button type="button" class="btn btn-danger mr-2"
-              onclick="confirm(\'Are you sure to delete this post ?\')">Delete</button></a>
+              
+              <a href="deactivatepost.php?renew='.$value['ItemSellID'].'"><button type="button" class="btn btn-success mr-2"
+              onclick="confirm(\'Are you sure to renew this post ?\')">Renew</button></a>
             </div>
           </div>
         </div>

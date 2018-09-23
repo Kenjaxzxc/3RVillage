@@ -1,4 +1,5 @@
 <?php 
+$getRemainingPost = $disableButton = null;
   include('connection.php'); 
 ?>
 <!DOCTYPE html>
@@ -20,45 +21,47 @@
     ?>
 
     <?php
+    $trueSession = $_SESSION['user_id'];
+     $sql = "SELECT `remaining` from `subscribed` WHERE `userid` = '$trueSession'";
+      $result = mysqli_query($conn, $sql);
+      $getRemainingPost = mysqli_fetch_assoc($result);
+      $disableButton = ($getRemainingPost['remaining'] <= 0?"disabled":"");
      $sessionID = $_SESSION['accountid']; 
      $id = mysqli_query($conn,"SELECT accountid FROM `account` WHERE username = '$sessionID'")->fetch_object()->accountid;
      if(isset($_POST['btnSave'])){
+
+      if($getRemainingPost['remaining'] > 0){
+
     $title = $_POST['title'];
     $category = $_POST['category'];
     $description = $_POST['description'];
     $location = $_POST['location'];
     $price = $_POST['price']; 
-    $condition = $_POST['condition']; 
+    $expprice = $_POST['expprice']; 
     $brand = $_POST['brand']; 
     $style = $_POST['style']; 
-    $color = $_POST['color']; 
-    $duration = $_POST['duration']; 
-    $month = $_POST['month']; 
-    $date = $_POST['date']; 
-    $quantity = $_POST['quantity']; 
+    $color = $_POST['color'];  
     $target1 = "../upload/".basename($_FILES['image1']['name']);
-    $target2 = "../upload/".basename($_FILES['image2']['name']);
-    $target3 = "../upload/".basename($_FILES['image3']['name']);
-    $target4 = "../upload/".basename($_FILES['image4']['name']);
-    $target5 = "../upload/".basename($_FILES['image5']['name']);
-    $target6 = "../upload/".basename($_FILES['image6']['name']);
     $image1 = $_FILES['image1']['name'];
-    $image2 = $_FILES['image2']['name'];
-    $image3 = $_FILES['image3']['name'];
-    $image4 = $_FILES['image4']['name'];
-    $image5 = $_FILES['image5']['name'];  
-    $image6 = $_FILES['image6']['name'];
-
-      $sql = "INSERT INTO itemsell (SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, SItemCondition, SItemBrand, SItemStyle, SItemColor, SItemDuration, SItemMonth, SItemDate, SItemQuantity, SItemImages1, SItemImages2, SItemImages3, SItemImages4, SItemImages5, SItemImages6, accountid) VALUES ('$title','$category','$description','$location','$price','$condition','$brand','$style','$color','$duration','$month','$date','$quantity','$image1','$image2','$image3','$image4','$image5','$image6','$id')";
-              mysqli_query ($conn, $sql);
-              if (move_uploaded_file($_FILES['image1']['tmp_name'], $target1) && move_uploaded_file($_FILES['image2']['tmp_name'], $target2)&& move_uploaded_file($_FILES['image3']['tmp_name'], $target3) && move_uploaded_file($_FILES['image4']['tmp_name'], $target4) && move_uploaded_file($_FILES['image5']['tmp_name'], $target5) && move_uploaded_file($_FILES['image6']['tmp_name'], $target6)) {
-                echo "<script>window.location='home.php'</script>";
-              }
-              else{
-                echo "<script>window.location='home.php'</script>";
+      unset($sql);
+      $sql = "INSERT INTO itemsell(SItemTitle, SItemCat, SItemDesc, SItemLocation, SItemPrice, ExpectedPrice, SItemBrand, SItemStyle, SItemColor, SItemImages1, accountid) VALUES('$title','$category','$description','$location','$price','$expprice','$brand','$style','$color','$image1','$id')";
+              $insert = mysqli_query($conn, $sql);
+      move_uploaded_file($_FILES['image1']['tmp_name'], $target1);
+              if($insert){
+                $newCount = ($getRemainingPost['remaining'] > 0? $getRemainingPost['remaining']-1:0);
+                $sql = "UPDATE subscribed SET remaining='$newCount' WHERE userid = '$trueSession'";
+                mysqli_query ($conn, $sql);
               }
               
+              
+                echo "<script>window.location='sell.php'</script>";
+
+      unset($sql);     
       }
+      else{
+        echo "you need subscription";
+      }
+}
       ?> 
 
 
@@ -80,21 +83,14 @@
       <?php 
       include('category.php');
       ?>
-       <div class="row">
-      <div class="col-md-3 mb-3">
-        <label>Condition</label>
-        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="condition" required>
-          <option>New</option>
-          <option>Used</option>
-        </select>
-      </div>
+       <div class="row"> 
       <div class="col-md-3 mb-3">
         <label>Brand</label>
         <input type="text" class="form-control" name="brand" required>
       </div>
       <div class="col-md-3 mb-3">
         <label>Style</label>
-        <input type="text" class="form-control" name="style" required>
+        <input type="text" class="form-control" name="style" >
       </div>
       <div class="col-md-3 mb-3">
         <label>Color</label>
@@ -105,7 +101,7 @@
           <option>Yellow</option>
           <option>Purple</option>
           <option>Green</option>
-          <option>Blue</option>
+          <option>Blue</option> 
           <option>Brown</option>
           <option>White</option>
           <option>Grey</option>
@@ -123,87 +119,24 @@
         <span class="input-group-addon">₱</span>
         <input class="form-control" type="text" name="price" placeholder="Price" required>
       </div>
-      <div class="row">
-      <div class="col-md-3 mb-3">
-      <label>Duration</label>
-      <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="duration">
-          <option selected>---</option>
-          <option value="1">5 days</option>
-          <option value="2">10 days</option>
-          <option value="3">15 days</option>
-        </select>
-        </div>
-      <div class="col-md-3 mb-3">
-        <label for="validationCustom03">Start Schedule</label>
-        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="month">
-          <option selected>month</option>
-          <option value="1">January</option>
-          <option value="2">February</option>
-          <option value="3">March</option>
-          <option value="4">April</option>
-          <option value="5">May</option>
-          <option value="6">June</option>
-          <option value="7">July</option>
-          <option value="8">August</option>
-          <option value="9">September</option>
-          <option value="10">October</option>
-          <option value="11">November</option>
-          <option value="12">December</option>
-        </select>
+      <div class="input-group mt-4">
+        <span class="input-group-addon">₱</span>
+        <input class="form-control" type="text" name="expprice" placeholder="Expected Original Price" >
       </div>
-        <div class="col-md-3 mb-3">
-          <label > . </label>
-          <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="date">
-            <option selected>date</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            <option value="27">27</option>
-            <option value="28">28</option>
-            <option value="29">29</option>
-            <option value="30">30</option>
-            <option value="31">31</option>
-          </select>
-        </div>
-      </div>
-       <div class="col-md-3 mb-3">
-          <label for="validationCustom03"> Quantity </label>
-          <input type="text" class="form-control" name="quantity" placeholder="quantity" required>
-        </div>  
+
       <?php 
       include('location.php');
       ?>
 
       <div class="mt-4 m-b-100">
         <a href="home.php"><button type="button" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button></a>
-        <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnSave">Post</button>
+        <button type="submit" class="stext-106 btn btn-success float-right mr-2" <?=$disableButton;?> id="btnSave" name="btnSave">Post</button>
       </div>
     </div>
 
     <div class="col-sm-5 mr-5">
+      <?php $remaining = $getRemainingPost['remaining']; ?>
+      <div class="container h4"><?=($getRemainingPost['remaining'] > 0?"You have $remaining remaining post left.":'You need to subscribe <a href="subscribe.php">here</a> to continue posting' )?></div>
       <h5 class=" ltext-101 mt-3">Upload Images</h5>
       <span><b>Note:</b> Only <b><a id="textred">jpeg</a></b>, <b><a id="textred">jpg</a></b> and <b><a id="textred">png</a></b> Images file format are allowed and approximately <b><a id="textred">100kb</a></b> files can be uploaded.</span> 
 
@@ -211,21 +144,6 @@
             <div class="m-b-150">
             <img src="../images/default.jpg" class="img border border-info rounded mt-4" id="previewing1" style="cursor:pointer" width="170" height="200" />
             <input type="file" id="image1" name="image1" style="display:none"/>
-
-            <img src="../images/default.jpg" class="img border border-info rounded mt-4" id="previewing2" style="cursor:pointer" width="170" height="200" />
-            <input type="file" id="image2" name="image2" style="display:none"/>
-
-            <img src="../images/default.jpg" class="img border border-info rounded mt-4" id="previewing3" style="cursor:pointer" width="170" height="200" />
-            <input type="file" id="image3" name="image3" style="display:none"/>
-
-            <img src="../images/default.jpg" class="img border border-info rounded mt-4" id="previewing4" style="cursor:pointer" width="170" height="200" />
-            <input type="file" id="image4" name="image4" style="display:none"/>
-
-            <img src="../images/default.jpg" class="img border border-info rounded mt-4" id="previewing5" style="cursor:pointer" width="170" height="200" />
-            <input type="file" id="image5" name="image5" style="display:none"/>
-
-            <img src="../images/default.jpg" class="img border border-info rounded mt-4" id="previewing6" style="cursor:pointer" width="170" height="200" />
-            <input type="file" id="image6" name="image6" style="display:none"/>
             </div>
 
 

@@ -93,9 +93,15 @@
 						<a href="login.php" class="flex-c-m trans-04 p-lr-25">
 							Login
 						</a>
-						<a href="donateereg.php" class="flex-c-m trans-04 p-lr-25">
-							NGO
-						</a>
+						<a href="#" class="dropdown-toggle flex-c-m trans-04 p-lr-25" data-toggle="dropdown">
+			              NGO
+			            </a>
+			            <div class="dropdown-menu bg-dark " style="z-index:5000; position: relative;">
+			                  <a class="dropdown-item" href="ngolog.php">Login</a>
+			                  <a class="dropdown-item" href="donateereg.php">Register</a>
+			                  <!--
+			                  <a class="dropdown-item" href="cart.php"><span class="zmdi zmdi-shopping-cart"></span> My Cart</a> -->
+			               </div>
 					</div>
 				</div>
 			</div>

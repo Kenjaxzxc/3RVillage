@@ -1,9 +1,70 @@
-<?php 
+<?php  
+$sql = null;
+$getData = null;
+$linkClass = null;
+  if(!isset($_GET['display'])){
+    header("location: ngohome.php?display=all_wishlist");
+  }
+  
+  if(isset($_GET['display'])){
+     $getData = htmlentities($_GET['display']);
+      $builder = $dom = null; 
+      switch ($getData) {
+      case 'all_wishlist':
+        $category = null;
+        $linkClass = '*';
+        break;
+      case 'apparels':
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Apparels' &&  WLStatus = '1')";
+        $category = "Apparels";
+        $linkClass = '.apparels';
+        break;
+      case 'accessories':
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Accessories' && WLStatus = '1')";
+        $category = "Accessories";
+        $linkClass = '.accessories';
+        break;
+      case 'bag':
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Bag' && WLStatus = '1')";
+        $category = "Bag";
+        $linkClass = '.bag';
+        break;
+      case 'computers':
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Computers' && WLStatus = '1')";
+        $category = "Computers";
+        $linkClass = '.computers';
+        break;
+      case 'appliances':
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Appliances' && WLStatus = '1')";
+        $category = "Appliances";
+        $linkClass = '.appliances';
+        break;
+      case 'gadgets':
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Gadgets' && WLStatus = '1')";
+        $category = "Gadgets";
+        $linkClass = '.gadgets';
+        break;
+      case 'vehicles':
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Vehicles' && WLStatus = '1')";
+        $category = "Vehicles";
+        $linkClass = '.vehicles';
+        break;
+      case 'others':
+        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Vehicles' && WLStatus = '1')";
+        $category = "Others";
+        $linkClass = '.others';
+        break;
+
+      
+      default:
+       header("location: ngohome.php?display=all_wishlist");
+        break;
+      }
+  }
+  ?>
+
+  <?php
   include('connection.php'); 
-?>
-
-  <?php 
-
   if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
         $page = 1;
       }else{
@@ -83,10 +144,13 @@
       } 
       return json_encode(array("pagination"=>$pagination,"data"=>$arrayData,"showing"=>$page,"all"=>$totalPages));
     }
-
-      
-   ?>
-
+    if($_GET['display'] != "all_wishlist"){
+      $dataAll = json_decode(pagination("wishlistngo","WLStatus",1,"WLCategory",$category,$page,1,9,"WishListID","DESC","&display=".$_GET['display']),true);
+    }else{
+       $dataAll = json_decode(paginationAll("wishlistngo","WLStatus",1,$page,1,9,"WishListID","DESC","&display=".$_GET['display']),true);
+    }
+  ?>
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,21 +160,53 @@
   
 <body class="bg-light">
   <?php 
-      include('header.php');
+      include('header2.php');
    ?>
-  
-    <section class="bg0 p-t-23 p-b-140 m-t-100" id="products">
+
+  <!-- Product -->
+   <section class="bg0 p-t-23 p-b-140 m-t-100 bg-light">
     <div class="container">
       <div class="p-b-10">
         <h3 class="ltext-103 cl5">
-          Your Post
+          Wishlist
         </h3>
       </div>
 
-
-        <div class="flex-w flex-sb-m p-b-52">
+      <div class="flex-w flex-sb-m p-b-52">
         <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-         
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" href="?display=all_wishlist" data-filter="*">
+            All Wishlist
+          </a>
+
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=apparels" data-filter=".apparels">
+            Apparels
+          </a>
+
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=accessories" data-filter=".accessories">
+            Accessories
+          </a>
+
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=bag" data-filter=".bag">
+            Bag
+          </a>
+
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=computers" data-filter=".computers">
+            Computers
+          </a>
+
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=appliances" data-filter=".appliances">
+            Appliances
+          </a>
+
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=gadgets" data-filter=".gadgets">
+            Gadgets
+          </a>
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=vehicles" data-filter=".vehicles">
+            Vehicles
+          </a>
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=others" data-filter=".others">
+            Others
+          </a>
         </div>
 
         <div class="flex-w flex-c-m m-tb-10">
@@ -121,16 +217,8 @@
             Search
           </div>
 
-           <div class="ml-2">
-            <a href="pending.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">Pending</a>
-          </div>
-
           <div class="ml-2">
-            <a href="inactivepost.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">Inactive Post</a>
-          </div>
-
-          <div class="ml-2">
-            <a href="sell.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">Add Post</a>
+            <a href="addwishlistNGO.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">Add Wishlist</a>
           </div>
         </div>
         
@@ -141,74 +229,70 @@
               <i class="zmdi zmdi-search"></i>
             </button>
 
-            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
+            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" id="searchNGO" name="search-product" placeholder="Search">
           </div>  
         </div>
       </div>
 
       <?php
-           $sessionID = $_SESSION['accountid'];
-           $id = mysqli_query($conn, "SELECT accountid FROM `account` WHERE username = '$sessionID'")->fetch_object()->accountid;
-           $dataAll = json_decode(pagination("itemsell","SItemStatus",1,"accountid","$id",$page,1,12,"ItemSellID","DESC",""),true);
-           $res = mysqli_query($conn, "SELECT * FROM account WHERE accountid = '$id'");
-              while($row=$res->fetch_array()){
-     ?> 
-
-
-      <?php 
-      $builder = $dom = null;
-       foreach ($dataAll['data'] as $value) { ?>
-
-        <input type="hidden" id="itemsellID" name="itemsellID" value="<?php echo $value['ItemSellID'] ?>">
-        <input type="hidden" id="itemTitle" value="<?php echo $value['SItemTitle'] ?>">
-        <input type="hidden" id="itemCat" value="<?php echo $value['SItemCat'] ?>">
-        <?php $builder = 
+        $builder = $dom = null; 
+        foreach ($dataAll['data'] as $value) {
+           $builder = 
           '
-          <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item *">
-          <!-- Block2 -->
-          <div class="block2">
-            <div class="block2-pic hov-img0">
-            <img src="../upload/'.$value['SItemImages1'].'" height="334" width="270"/>
-               <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 prevITEM">
-               Preview Item
-               </a>
+	    <div class="row">
+	    <div class="shadow-lg col-sm-4 p-2 bg-white rounded mb-5 isotope-item '.$linkClass.'">
+	        <div class="row stext-105 cl3 p-b-5">
+	        <div class="col-sm-3">
+	          <strong><label>Name:</label></strong>
+	        </div>
+	        <div class="col-sm-8 ">
+	          <label><strong>'.$value['WLName'].'</strong></label>
+	        </div>
+	      </div>
 
-              <input type="hidden" id="itemsellID" name="itemsellID" value="'.$value['ItemSellID'].'">
-             
-            </div>
+	      <div class="row stext-105 cl3 p-b-5">
+	        <div class="col-sm-3">
+	          <strong><label>Wanted:</label></strong>
+	        </div>
+	        <div class="col-sm-8">
+	          <label>'.$value['WLWant'].'</label>
+	        </div>
+	      </div>
 
-            <div class="block2-txt flex-w flex-t p-t-14">
-              <div class="block2-txt-child1 flex-col-l ">
-                <a class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                  '.$value['SItemTitle'].'
-                </a>
+	      <div class="row stext-105 cl3 p-b-5">
+	        <div class="col-sm-3">
+	         <strong><label>Description:</label></strong>
+	        </div>
+	        <div class="col-sm-8">
+	          <label>'.$value['WLMessage'].'</label>
+	        </div>
+	      </div>
 
-                <span class="stext-105 cl3">
-                  ₱ '.number_format($value['SItemPrice'], 2, '.', ',').'
-                </span>
-              </div>
-              
-            </div>
-            <div class="row justify-content-center py-3">
-              <a href="updatepost.php?id='.$value['ItemSellID'].'"><button type="button" class="btn btn-success mr-2"
-              onclick="confirm(\'Are you sure to edit ?\')">Edit</button></a>
-              <a href="deactivatepost.php?del='.$value['ItemSellID'].'"><button type="button" class="btn btn-danger mr-2"
-              onclick="confirm(\'Are you sure to delete this post ?\')">Delete</button></a>
-            </div>
-          </div>
-        </div>
-          ';  
+	      <div class="row justify-content-center">
+	        <div>
+	          <a href="message.php?id='.$value['NGOID'].'"><button class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+	           <p>Communicate</p> 
+	           </button></a>
+	        </div>
+	      </div>
+	     </div>
+	    </div>
+    '; 
           $dom = $dom."".$builder;
-          }
         }
       ?>
-      <div class="row isotope-grid">
+
+      <div class="row isotope-grid" id="searchNGORes">
         <?php echo $dom; ?>
       </div>
-      <!-- Load more -->
+  
     </div>
+
+
+
+
     <div class="flex-c-m flex-w w-full p-t-45">
-       <?php   
+        <?php   
                 if($dataAll['all'] == 0){
                   echo '<div class="flex-c-m stext-101 cl5 size-103 bg2 bor1 ">No Data Found</div>';
                 }
@@ -222,19 +306,18 @@
                 }
              ?>
       </div>
+  
   </section>
 
   
   
     <?php
-      include('sub_products.php');
-      include('footer.php');
-    ?>
+   include('footer.php');
+?>
 
  </body>
 </html>  
 
-  
 <!--===============================================================================================-->  
   <script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

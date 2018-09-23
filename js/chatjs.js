@@ -1,6 +1,8 @@
+
 load_messages();
 update_messages();
 update_chatlist();
+update_message_notification();
 $('.mesgs .msg_history').animate({scrollTop: $('.mesgs .msg_history').prop("scrollHeight")}, 0);
 	$('#msg_send_btn').click(function(){
 		let from = $("input[name='from']").val();
@@ -22,6 +24,7 @@ $('.mesgs .msg_history').animate({scrollTop: $('.mesgs .msg_history').prop("scro
 			        $('.mesgs .msg_history').append(li);
 					$('.mesgs .msg_history').animate({scrollTop: $('.mesgs .msg_history').prop("scrollHeight")}, 0);
 					update_chatlist();
+					update_message_notification();
 				}
 			});
 		
@@ -49,6 +52,7 @@ $(document).on('keypress', '.type_msg .input_msg_write .write_msg', function(e){
 			        $('.mesgs .msg_history').append(li);
 					$('.mesgs .msg_history').animate({scrollTop: $('.mesgs .msg_history').prop("scrollHeight")}, 0);
 					update_chatlist();
+					update_message_notification();
 				}
 			});
         }
@@ -96,9 +100,10 @@ function update_messages(){
 									$('.mesgs .msg_history').animate({scrollTop: $('.mesgs .msg_history').prop("scrollHeight")}, 0);
                    					
                    				}
-                   				
+                   				update_chatlist();
+								update_message_notification();
                    			}
-							update_chatlist();
+							
 						}
 						
 					}
@@ -136,6 +141,41 @@ function update_chatlist(){
 						}
 								$('.messaging .inbox_chat').html(html);
 						
+					}
+					
+				}
+		});
+	//}, 2000);	
+}
+
+
+function update_message_notification(){
+	let from = $("input[name='from']").val();
+console.log(from);
+	var html = '';
+	//refresh = setInterval(function(){
+		$.ajax({
+				url:"../public/messages/chat_list.php",
+				method: "POST",
+				data: {from: from},
+				success: function(response){
+					if(response.status == true){
+						thread = response.thread;
+						if(thread.length > 0){
+							for(var i=0; i<thread.length; i++){
+									html += '<a class="dropdown-item" href="message.php?id='+thread[i].id+'"><div class="chat_list'+thread[i].id+'">\
+						              <div class="chat_people">\
+						                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
+						                <div class="chat_ib">\
+						                  <h5>'+thread[i].info+'<span class="chat_date">'+thread[i].time+'</span></h5>\
+						                  <p>'+thread[i].message+'</p>\
+						                </div>\
+						              </div>\
+						            </div></a>';
+							}
+							$('#count_message').html(response.unread_all);
+						}
+						$('#message-notification').html(html);
 					}
 					
 				}

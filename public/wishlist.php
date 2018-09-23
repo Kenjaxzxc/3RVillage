@@ -229,7 +229,7 @@ $linkClass = null;
               <i class="zmdi zmdi-search"></i>
             </button>
 
-            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
+            <input class="mtext-107 cl2 size-114 plh2 p-r-15" id="wishlistSearch" type="text" name="search-product" placeholder="Search">
           </div>  
         </div>
       </div>
@@ -262,7 +262,7 @@ $linkClass = null;
 
       <div class="row stext-105 cl3 p-b-5">
         <div class="col-sm-3">
-         <strong><label>Message:</label></strong>
+         <strong><label>Description:</label></strong>
         </div>
         <div class="col-sm-8">
           <label>'.$value['WLMessage'].'</label>
@@ -284,11 +284,12 @@ $linkClass = null;
         }
       ?>
 
-      <div class="row isotope-grid">
+      <div class="row isotope-grid" id="wishlistRes">
         <?php echo $dom; ?>
       </div>
   
     </div>
+
 
 
 

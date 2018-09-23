@@ -3,9 +3,15 @@
 
 	$thread = array();
 	$from = $_POST['from'];
-	$last_id = 0;$unread = 0;
+	$last_id = 0;$unread = 0;$unread_all = 0;
 	$name='';
-		
+		//UNREAD ALL
+				$sql_unread_all = "SELECT count(id) as unread_all FROM messages WHERE _to = '$from' AND is_read = 0 ";
+			    $result_unread_all = mysqli_query($conn, $sql_unread_all);
+			    $row_unread_all = mysqli_fetch_assoc($result_unread_all);
+			    if($row_unread_all){ $unread_all = $row_unread_all['unread_all']; }
+			    //END
+
 		$sql = "SELECT distinct(_to), _from, _to FROM messages WHERE _to = '$from' "; 
 
 	    $result = mysqli_query($conn, $sql);
@@ -47,7 +53,7 @@
 			    array_push($thread, $arr);
 	   	}
 	   }
-		$response = array('status'=>true, 'thread'=>$thread);
+		$response = array('status'=>true,'unread_all'=>($unread_all > 0 ? 'Message('.$unread_all.')' : 'Message' ), 'thread'=>$thread);
 		header('Content-type: Application/json');
 		echo json_encode( $response );
 
