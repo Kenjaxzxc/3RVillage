@@ -45,8 +45,8 @@ $rating = $new = null;
   <div class="container mb-5">
       <form>
         <div class="mx-auto">
-          <img src="../images/50.png" class="ml-5" width="500" height="500">
-          <img src="../images/100.png" class="ml-5" width="500" height="500">
+          <img src="../images/50.png" onclick="sub1()" class="ml-5 cursor" width="500" height="500">
+          <img src="../images/100.png" onclick="sub2()" class="ml-5 cursor" width="500" height="500">
       </div>
       </form>
     </div>
@@ -56,6 +56,23 @@ $rating = $new = null;
    include('footer.php');
 ?>
 
+<script type="text/javascript">
+  function sub1(){
+    let accept = confirm("Are you sure you want to proceed to this 50 post subscription?");
+    if(accept == true){
+      window.location="?category=1";
+    }
+  }
+
+  function sub2(){
+    let accept = confirm("Are you sure you want to proceed to this 100 post subscription?");
+    if(accept == true){
+      window.location="?category=2";
+    }
+  }
+
+</script>
+  
  </body>
 </html>  
 

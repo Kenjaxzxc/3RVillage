@@ -1,7 +1,7 @@
 inactivePost();
 post_notification();
 my_interestedList();
-
+transaction_notification();
 function getURLData(dataname){
 	return (location.search.split(dataname + '=')[1] || '').split('&')[0];
 }
@@ -32,17 +32,13 @@ $(function(){
 			data: {"ItemID":sellID},
 			success: function(obj){
 				console.log(obj);
-				
-				html_mes = '<a href="message.php?id='+obj.accountid+'" class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">Message Seller</a>';
-				
-				html_int = '<a href="#" class="btnInterested flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">Interested</a>';
-				
-				btnInterested.html(html_int);
-				btnMessage.html(html_mes);
+				if(user_id == obj.accountid){
+				//	btnInterested.html(html_int);
+				//btnMessage.html(html_mes);
 				title.html(obj.SItemTitle);
 				price.html("₱ "+obj.itemPrice);
 				expprice.val("₱ "+obj.expPrice);
-				sellername.val(obj.firstname +" "+obj.lastname);
+				//sellername.html('ME');
 				location.val(obj.SItemLocation);
 				date.val(obj.startDate);
 				dateEnd.val(obj.endDate);
@@ -52,7 +48,31 @@ $(function(){
 				firstimageThumb.attr("data-thumb","../upload/"+obj.SItemImages1+"");
 				firstimageImage.attr("src","../upload/"+obj.SItemImages1+"");
 				firstimageLink.attr("href","../upload/"+obj.SItemImages1+"");
+	
+				}
+				else{
 
+				html_mes = '<a href="message.php?id='+obj.accountid+'" class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">Message Seller</a>';
+				
+				html_int = '<a href="#" class="btnInterested flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">Interested</a>';
+				seller = '<a href="profile.php?id='+obj.accountid+'" class="">'+obj.firstname +" "+obj.lastname+'</a>';
+				btnInterested.html(html_int);
+				btnMessage.html(html_mes);
+				title.html(obj.SItemTitle);
+				price.html("₱ "+obj.itemPrice);
+				expprice.val("₱ "+obj.expPrice);
+				sellername.html(seller);
+				location.val(obj.SItemLocation);
+				date.val(obj.startDate);
+				dateEnd.val(obj.endDate);
+				category.val(obj.SItemCat);
+				mobile.val(obj.contactno);
+				description.val(obj.SItemDesc);
+				firstimageThumb.attr("data-thumb","../upload/"+obj.SItemImages1+"");
+				firstimageImage.attr("src","../upload/"+obj.SItemImages1+"");
+				firstimageLink.attr("href","../upload/"+obj.SItemImages1+"");
+	
+				}
 				$('.btnInterested').click(function(){
 					//alert(user_id+" ---- "+sellID);
 					$.ajax({
@@ -181,7 +201,43 @@ console.log(from);
 							}
 							$('#count_notif').html(response.unread_all);
 						}
-						$('#post-notification').html(html);
+						$('#post-notification').append(html);
+					}
+					
+				}
+		});
+	//}, 2000);	
+}
+function transaction_notification(){
+	let from = $("input[name='from']").val();
+console.log(from);
+	var html = '';
+	//refresh = setInterval(function(){
+		$.ajax({
+				url:"../public/notification/transaction_notification.php",
+				method: "POST",
+				data: {from: from},
+				success: function(response){
+					console.log(response);
+					if(response.status == true){
+						thread = response.thread;
+						if(thread.length > 0){
+							for(var i=0; i<thread.length; i++){
+									html += '<a class="dropdown-item" href="profile.php?id='+thread[i].seller_id+'"><div class="chat_list">\
+						              <div class="chat_people">\
+						                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
+						                <div class="chat_ib">\
+						                  <h5>'+thread[i].seller_name+'<span class="chat_date">'+thread[i].date+'</span></h5>\
+						                  <p>'+thread[i].details+'</p>\
+						                </div>\
+						              </div>\
+						            </div></a>';
+								
+							}
+							$('#count_notif').html(response.unread_all);
+							$('#post-notification').append(html);
+						}
+						
 					}
 					
 				}
@@ -286,6 +342,26 @@ $(function(){
 });
 
 	
+$(function(){
+	$("rateModal").click(function(){
+		// let minProd = $("#minProd").val();
+		// let maxProd = $("#maxProd").val();
+		// let url;
+
+		url = getURLData("display");
+		if(getURLData("display") != "all_products"){
+			if(trim(minProd) == ""){
+				minProd = 0;
+			}
+			if(trim(minProd) == ""){
+				maxProd = 0;
+			}
+
+
+		}
+	});
+});
+
 $(function(){
 	$("button#searchProd").click(function(){
 		let minProd = $("#minProd").val();
@@ -403,3 +479,39 @@ $(function(){
 		}
  	});
  });
+
+ $(function () {
+  
+  function setRating(rating) {
+    $('#rating-input').val(rating);
+    // fill all the stars assigning the '.selected' class
+    $('.rating-star').removeClass('fa-star-o').addClass('selected');
+    // empty all the stars to the right of the mouse
+    $('.rating-star#rating-' + rating + ' ~ .rating-star').removeClass('selected').addClass('fa-star-o');
+  }
+  
+  $('.rating-star')
+  .on('mouseover', function(e) {
+    var rating = $(e.target).data('rating');
+    // fill all the stars
+    $('.rating-star').removeClass('fa-star-o').addClass('fa-star');
+    // empty all the stars to the right of the mouse
+    $('.rating-star#rating-' + rating + ' ~ .rating-star').removeClass('fa-star').addClass('fa-star-o');
+  })
+  .on('mouseleave', function (e) {
+    // empty all the stars except those with class .selected
+    $('.rating-star').removeClass('fa-star').addClass('fa-star-o');
+  })
+  .on('click', function(e) {
+    var rating = $(e.target).data('rating');
+    setRating(rating);
+  })
+  .on('keyup', function(e){
+    // if spacebar is pressed while selecting a star
+    if (e.keyCode === 32) {
+      // set rating (same as clicking on the star)
+      var rating = $(e.target).data('rating');
+      setRating(rating);
+    }
+  });
+});

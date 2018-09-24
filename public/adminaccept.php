@@ -1,5 +1,97 @@
 <?php 
   include('connection.php'); 
+  if(isset($_GET['accept'])){
+    $id = $_GET['accept'];
+    $sql = mysqli_query($conn,"UPDATE ngo SET status = 1 WHERE NGOID = '$id'");
+    if($sql){
+      $rand = rand(111111,999999);
+    $message = "Your verification code is: ".$rand;
+
+    require 'autoload.php';
+
+
+    $array_fields['phone_number'] = $_GET['number'];
+    $array_fields['message'] ="Your application to be verified has been approved. Thanks!";
+    $array_fields['device_id'] = 102126;
+
+    $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTUzNzI0NzUxMiwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjU3ODI0LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.YvuWk34SW-nwZxnKyI7dUUoI1NU57ofA6IJIgmFbsqI";
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://smsgateway.me/api/v4/message/send",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => "[  " . json_encode($array_fields) . "]",
+        CURLOPT_HTTPHEADER => array(
+            "authorization: $token",
+            "cache-control: no-cache"
+        ),
+    ));
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+
+    curl_close($curl);
+
+    if ($err) {
+        echo "cURL Error #:" . $err;
+    }else{
+      $_SESSION['verificationCode'] = $rand;
+    }
+    }
+  }
+  if(isset($_GET['decline'])){
+    $id = $_GET['decline'];
+    $sql = mysqli_query($conn,"UPDATE ngo SET status = 3 WHERE NGOID = '$id'");
+    if($sql){
+      $rand = rand(111111,999999);
+    $message = "Your verification code is: ".$rand;
+
+    require 'autoload.php';
+
+
+    $array_fields['phone_number'] = $_GET['number'];
+    $array_fields['message'] ="Sorry we found that your application is not valid. AGIK!";
+    $array_fields['device_id'] = 102126;
+
+    $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTUzNzI0NzUxMiwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjU3ODI0LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.YvuWk34SW-nwZxnKyI7dUUoI1NU57ofA6IJIgmFbsqI";
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://smsgateway.me/api/v4/message/send",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => "[  " . json_encode($array_fields) . "]",
+        CURLOPT_HTTPHEADER => array(
+            "authorization: $token",
+            "cache-control: no-cache"
+        ),
+    ));
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+
+    curl_close($curl);
+
+    if ($err) {
+        echo "cURL Error #:" . $err;
+    }else{
+      $_SESSION['verificationCode'] = $rand;
+    }
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,145 +106,44 @@
    ?>
   
   <div class="row px-5 py-3 border m-t-100">
-  <div class="col-sm-12">
-    <div class="row border">
-      <div class="col-sm-6  border">
-        <div class="row">
-          <label>Seller:</label>
-        </div>
-        <div class="row">
+      <div class="col-sm-12"  >
+        <?php 
+        $dom = null;
+        $sql = mysqli_query($conn,"SELECT * FROM ngo WHERE status = 0");
+        while ($res = mysqli_fetch_assoc($sql)) {
+          $builder = 
+          '
           <div class="col-sm-2">
             <div class="row justify-content-center" >
-              <i class="fa fa-user-circle" ></i>
             </div>
           </div>
           <div class="col-sm-10">
             <div class="row">
-              <h5>Divina Gracia</h5>
+              <h5>'.$res['NGOName'].'</h5>
             </div>
             <div class="row">
-              <label>Type: Mobile Phone</label>
+              <label>Description: '.$res['NGODesc'].'</label>
             </div>
             <div class="row">
-              <label>Name: Cherry Mobile Phone</label>
+              <label>Address: '.$res['NGOAddr'].'</label>
             </div>
             <div class="row">
-              <label>Item Description: Dual-core processor, GB internal</label>
-            </div>
-            <div class="row">
-              <label>Price: 1,200</label>
+              <img style="width:100px; height:100px;" src="../images/'.$res['NGOProof'].'">
             </div>
           </div>
         </div>
         <div class="row justify-content-center py-3">
-          <button type="button" class="btn btn-success">Accept</button>
-          <button type="button" class="btn btn-dark">View</button>
-          <button type="button" class="btn btn-danger">Decline</button>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-2">
-            <div class="row justify-content-center" >
-              <i class="fa fa-user-circle" ></i>
-            </div>
-          </div>
-          <div class="col-sm-10">
-            <div class="row">
-              <h5>Khim Veer Lee</h5>
-            </div>
-            <div class="row">
-              <label>Type: Mobile Phone</label>
-            </div>
-            <div class="row">
-              <label>Name: Cherry Mobile Phone</label>
-            </div>
-            <div class="row">
-              <label>Item Description: Dual-core processor, GB internal</label>
-            </div>
-            <div class="row">
-              <label>Price: 1,200</label>
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center py-3">
-          <button type="button" class="btn btn-success">Accept</button>
-          <button type="button" class="btn btn-dark">View</button>
-          <button type="button" class="btn btn-danger">Decline</button>
-        </div>
-        <div class="row justify-content-end p-2">
-          <button type="button" class="btn btn-default">Show More</button>
+          <a class="btn btn-success" href="?accept='.$res['NGOID'].'&number='.$res['NGOContactNo'].'">Accept</a>
+          <a class="btn btn-danger" href="?decline='.$res['NGOID'].'&number='.$res['NGOContactNo'].'">Decline</a>
         </div>
       </div>
+          ';
+        $dom .=$builder;
+        }
 
-      <div class="col-sm-6  border">
-        <div class="row">
-          <label>Donor:</label>
-        </div>
-        <div class="row px-3">
-          <label>You have been Awarded by:</label>
-        </div>
-        <div class="row">
-          <div class="col-sm-2">
-            <div class="row justify-content-center" >
-              <i class="fa fa-user-circle" ></i>
-            </div>
-          </div>
-          <div class="col-sm-10">
-            <div class="row">
-              <h5>Francis Carlo Fontanilla</h5>
-            </div>
-            <div class="row">
-              <label>Type: Mobile Phone</label>
-            </div>
-            <div class="row">
-              <label>Name: Cherry Mobile Phone</label>
-            </div>
-            <div class="row">
-              <label>Item Description: Dual-core processor, GB internal</label>
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center py-3">
-          <button type="button" class="btn btn-success">Accept</button>
-          <button type="button" class="btn btn-danger">Decline</button>
-        </div>
+        echo $dom;
+        ?>
 
-        <div class="row">
-          <div class="col-sm-12">
-            <label>You have been Awarded by:</label>
-          </div>
-          <div class="col-sm-2">
-            <div class="row justify-content-center" >
-              <i class="fa fa-user-circle" ></i>
-            </div>
-          </div>
-          <div class="col-sm-10">
-            <div class="row">
-              <h5>Leticia Gempesao</h5>
-            </div>
-            <div class="row">
-              <label>Type: Mobile Phone</label>
-            </div>
-            <div class="row">
-              <label>Name: Cherry Mobile Phone</label>
-            </div>
-            <div class="row">
-              <label>Item Description: Dual-core processor, GB internal</label>
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center py-3">
-          <button type="button" class="btn btn-success">Accept</button>
-          <button type="button" class="btn btn-danger">Decline</button>
-        </div>
-        <div class="row justify-content-end p-2">
-          <button type="button" class="btn btn-default">Show More</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-  
   
     <?php
       include('footer.php');

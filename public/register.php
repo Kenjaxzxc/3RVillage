@@ -152,22 +152,28 @@
 							</li>
 
 							<li>
-								<a href="login.php">Shop</a>
+								<a href="#products">Shop</a>
 							</li>
-
-							<li>
-								<a href="login.php">Sell</a>
-							</li>
-
-							<li>
-								<a href="login.php">Donate</a>
-							</li>
-
-							<li>
+    					<li>
 								<a href="login.php">Wishlist</a>
 							</li>
+			              <li>
+			                <a href="login.php">Donation</a>
+			              </li>
 						</ul>
-					</div>				
+					</div>	
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<div class="menu-desktop">
+		              <ul class="main-menu">
+		                <li>
+		                  <a href="login.php">Donate</a>
+		               
+		                </li>
+		                <li>
+		                   <a href="login.php">Post</a>
+		                </li>
+		              </ul>
+		            </div>			
 				</nav>
 			</div>	
 		</div>

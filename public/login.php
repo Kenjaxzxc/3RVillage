@@ -40,9 +40,15 @@
 						<a href="login.php" class="flex-c-m trans-04 p-lr-25">
 							Login
 						</a>
-						<a href="donateereg.php" class="flex-c-m trans-04 p-lr-25">
-							NGO
-						</a>
+						<a href="#" class="dropdown-toggle flex-c-m trans-04 p-lr-25" data-toggle="dropdown">
+			              NGO
+			            </a>
+			            <div class="dropdown-menu bg-dark " style="z-index:5000; position: relative;">
+			                  <a class="dropdown-item" href="ngolog.php">Login</a>
+			                  <a class="dropdown-item" href="donateereg.php">Register</a>
+			                  <!--
+			                  <a class="dropdown-item" href="cart.php"><span class="zmdi zmdi-shopping-cart"></span> My Cart</a> -->
+			               </div>
 					</div>
 				</div>
 			</div>
@@ -63,22 +69,28 @@
 							</li>
 
 							<li>
-								<a href="login.php">Shop</a>
+								<a href="#products">Shop</a>
 							</li>
-
-							<li>
-								<a href="login.php">Sell</a>
-							</li>
-
-							<li>
-								<a href="login.php">Donate</a>
-							</li>
-
-							<li>
+    					<li>
 								<a href="login.php">Wishlist</a>
 							</li>
+			              <li>
+			                <a href="login.php">Donation</a>
+			              </li>
 						</ul>
-					</div>				
+					</div>	
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<div class="menu-desktop">
+		              <ul class="main-menu">
+		                <li>
+		                  <a href="login.php">Donate</a>
+		               
+		                </li>
+		                <li>
+		                   <a href="login.php">Post</a>
+		                </li>
+		              </ul>
+		            </div>				
 				</nav>
 			</div>	
 		</div>	
@@ -92,21 +104,24 @@ if(isset($_POST['username']) and isset($_POST['password'])){
 
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
-    if (!$row) { 
+    if ($row) { 
     	if($username == "admin" && $password == "admin"){
     	 $_SESSION['accountid'] = $row['username'];
-    	 $_SESSION['accountid'] = "Admin";
-    	 header("location:home.php");
+    	 // $_SESSION['accountid'] = 1;
+    	 echo "<script>window.location='adminaccept.php'</script>";
+    	 // header("location:adminaccept.php");
     	}
     	else{
-    		echo "<script>alert('Your username or password is incorrect!');</script>";
+    		$_SESSION['accountid'] = $row['username'];
+    	$_SESSION['user_id'] = $row['accountid'];
+    	 echo "<script>window.location='home.php'</script>";
+		}
+    		
     		
     	}
-	}
+	
 	else{
-    $_SESSION['accountid'] = $row['username'];
-    $_SESSION['user_id'] = $row['accountid'];
-    echo "<script>window.location='home.php'</script>";
+		echo "<script>alert('Your username or password is incorrect!');</script>";
 	}
   }
  ?>

@@ -52,12 +52,12 @@
 							<div class="p-t-20">
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-203 flex-c-m respon6">
-										Seller
+										
 									</div>
 
 									<div class="size-204 respon6-next">
 										<div class="stext-102 cl3">
-											<input class="form-control" type="text" id="sellername" disabled>
+											<h3 id="sellername"></h3>
 										
 										</div>
 									</div>
@@ -169,9 +169,7 @@
 
 								<div class="flex-w flex-r-m p-t-20">
 									<div class="size-204 flex-w flex-m respon6-next">
-										<div id="message-seller">
 											
-										</div>
 										<!-- <a href="message.php?id=5?>" class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 
 											<p> Message Seller</p> 

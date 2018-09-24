@@ -63,12 +63,9 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="login.php">Home</a>
+								<a href="ngolog.php">Home</a>
 							</li>
 
-							<li>
-								<a href="login.php">Wishlist</a>
-							</li>
 						</ul>
 					</div>				
 				</nav>
@@ -80,7 +77,7 @@
 if(isset($_POST['ngoname']) and isset($_POST['password'])){
     $ngoname = $_POST['ngoname'];
     $password = $_POST['password'];
-    $sql = "SELECT * FROM ngo WHERE (NGOName='$ngoname') and (password='$password')"; 
+    $sql = "SELECT * FROM ngo WHERE (NGOName='$ngoname') and (password='$password') and status=1"; 
 
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);

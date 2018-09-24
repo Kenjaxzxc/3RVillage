@@ -14,11 +14,20 @@
                echo "<script>window.location='mypost.php'</script>";
       
       }
+      //soldItems
+      if (isset($_REQUEST['id'])){
+      $id = $_REQUEST['id'];
+      mysqli_query($conn, "UPDATE itemsell SET SItemStatus='2' WHERE ItemSellID = '$id'");
+      mysqli_query($conn, "UPDATE interested SET status='1' WHERE item_id = '$id'");
+      header('location: mypost.php');
+      }
+      //InactivePost
       if (isset($_REQUEST['inactive'])){
       $id = $_REQUEST['inactive'];
       $res = mysqli_query($conn, "UPDATE itemsell SET SItemStatus='0' WHERE ItemSellID = '$id'");
       header('location: mypost.php');
       }
+      //Renew Post
       if (isset($_GET['renew'])){
       $id = $_GET['renew'];
       $strtime = strtotime('now');

@@ -1,5 +1,15 @@
 <?php 
   session_start();
+  $ngoid = ""; $user_id = ""; $user="";
+  if(isset($_SESSION['NGOID'])){
+    $user = $_SESSION['NGOID'];
+  }
+  if(isset($_SESSION['user_id'])){
+    $user_id = $_SESSION['user_id'];
+  }
+  if(isset($_SESSION['accountid'])){
+    $user = $_SESSION['accountid'];
+  }
 ?>
 <!-- Header -->
   <header>
@@ -25,7 +35,7 @@
             
 
              <a href="#" class="dropdown-toggle flex-c-m trans-04 p-lr-25" data-toggle="dropdown">
-              <?php echo $_SESSION['NGOID']; ?>
+              <?php echo $user; ?>
             </a>
             <div class="dropdown-menu bg-dark " style="z-index:5000; position: relative;">
                   <a class="dropdown-item" href="editngo.php"><span class="fa fa-user"></span> My Profile</a>
@@ -52,6 +62,9 @@
             <ul class="main-menu">
               <li class="active-menu">
                 <a href="ngohome.php">Home</a>
+              </li>
+              <li>
+                <a href="donation.php">Donation</a>
               </li>
             </ul>
           </div>  

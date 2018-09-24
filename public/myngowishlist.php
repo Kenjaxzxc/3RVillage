@@ -1,70 +1,9 @@
-<?php  
-$sql = null;
-$getData = null;
-$linkClass = null;
-  if(!isset($_GET['display'])){
-    header("location: ngohome.php?display=all_wishlist");
-  }
-  
-  if(isset($_GET['display'])){
-     $getData = htmlentities($_GET['display']);
-      $builder = $dom = null; 
-      switch ($getData) {
-      case 'all_wishlist':
-        $category = null;
-        $linkClass = '*';
-        break;
-      case 'apparels':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Apparels' &&  WLStatus = '1')";
-        $category = "Apparels";
-        $linkClass = '.apparels';
-        break;
-      case 'accessories':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Accessories' && WLStatus = '1')";
-        $category = "Accessories";
-        $linkClass = '.accessories';
-        break;
-      case 'bag':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Bag' && WLStatus = '1')";
-        $category = "Bag";
-        $linkClass = '.bag';
-        break;
-      case 'computers':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Computers' && WLStatus = '1')";
-        $category = "Computers";
-        $linkClass = '.computers';
-        break;
-      case 'appliances':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Appliances' && WLStatus = '1')";
-        $category = "Appliances";
-        $linkClass = '.appliances';
-        break;
-      case 'gadgets':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Gadgets' && WLStatus = '1')";
-        $category = "Gadgets";
-        $linkClass = '.gadgets';
-        break;
-      case 'vehicles':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Vehicles' && WLStatus = '1')";
-        $category = "Vehicles";
-        $linkClass = '.vehicles';
-        break;
-      case 'others':
-        // $sql = "SELECT * FROM `wishlist` WHERE (`WLCategory` = 'Vehicles' && WLStatus = '1')";
-        $category = "Others";
-        $linkClass = '.others';
-        break;
-
-      
-      default:
-       header("location: ngohome.php?display=all_wishlist");
-        break;
-      }
-  }
-  ?>
-
   <?php
   include('connection.php'); 
+  ?>
+
+  <?php 
+
   if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
         $page = 1;
       }else{
@@ -144,12 +83,9 @@ $linkClass = null;
       } 
       return json_encode(array("pagination"=>$pagination,"data"=>$arrayData,"showing"=>$page,"all"=>$totalPages));
     }
-    if($_GET['display'] != "all_wishlist"){
-      $dataAll = json_decode(pagination("wishlistngo","WLStatus",1,"WLCategory",$category,$page,1,9,"WishListID","DESC","&display=".$_GET['display']),true);
-    }else{
-       $dataAll = json_decode(paginationAll("wishlistngo","WLStatus",1,$page,1,9,"WishListID","DESC","&display=".$_GET['display']),true);
-    }
-  ?>
+
+      
+   ?>
   
 <!DOCTYPE html>
 <html lang="en">
@@ -168,45 +104,13 @@ $linkClass = null;
     <div class="container">
       <div class="p-b-10">
         <h3 class="ltext-103 cl5">
-          NGO Wishlist
+          Your Wishlist
         </h3>
       </div>
 
       <div class="flex-w flex-sb-m p-b-52">
         <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" href="?display=all_wishlist" data-filter="*">
-            All Wishlist
-          </a>
-
-          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=apparels" data-filter=".apparels">
-            Apparels
-          </a>
-
-          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=accessories" data-filter=".accessories">
-            Accessories
-          </a>
-
-          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=bag" data-filter=".bag">
-            Bag
-          </a>
-
-          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=computers" data-filter=".computers">
-            Computers
-          </a>
-
-          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=appliances" data-filter=".appliances">
-            Appliances
-          </a>
-
-          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=gadgets" data-filter=".gadgets">
-            Gadgets
-          </a>
-          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=vehicles" data-filter=".vehicles">
-            Vehicles
-          </a>
-          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" href="?display=others" data-filter=".others">
-            Others
-          </a>
+         
         </div>
 
         <div class="flex-w flex-c-m m-tb-10">
@@ -229,65 +133,78 @@ $linkClass = null;
               <i class="zmdi zmdi-search"></i>
             </button>
 
-            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" id="searchNGO" name="search-product" placeholder="Search">
+            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
           </div>  
         </div>
       </div>
 
-      <?php
-        $builder = $dom = null; 
+       <?php
+           $sessionID = $_SESSION['NGOID'];
+           $id = mysqli_query($conn, "SELECT NGOID FROM `ngo` WHERE NGOName = '$sessionID'")->fetch_object()->NGOID;
+            $dataAll = json_decode(pagination("wishlistngo","WLStatus",1,"NGOID","$id",$page,1,9,"WishListID","DESC",""),true);
+            $res = mysqli_query($conn, "SELECT * FROM ngo WHERE NGOID = '$id'");
+              while($row=$res->fetch_array()){
+     ?> 
+
+      
+      <?php 
+      $builder = $dom = null; 
         foreach ($dataAll['data'] as $value) {
-           $builder = 
-          '
-	    <div class="row">
-	    <div class="shadow-lg col-sm-4 p-2 bg-white rounded mb-5 isotope-item '.$linkClass.'">
-	        <div class="row stext-105 cl3 p-b-5">
-	        <div class="col-sm-3">
-	          <strong><label>Name:</label></strong>
-	        </div>
-	        <div class="col-sm-8 ">
-	          <label><strong>'.$value['WLName'].'</strong></label>
-	        </div>
-	      </div>
+           $builder =  
+       
+         '
+    <div class="row">
+    <div class="shadow-lg col-sm-4 p-2 bg-white rounded mb-5 isotope-item *">
+        <div class="row stext-105 cl3 p-b-5">
+        <div class="col-sm-3">
+          <strong><label>Name:</label></strong>
+        </div>
+        <div class="col-sm-8 ">
+          <label><strong>'.$value['WLName'].'</strong></label>
+        </div>
+      </div>
 
-	      <div class="row stext-105 cl3 p-b-5">
-	        <div class="col-sm-3">
-	          <strong><label>Wanted:</label></strong>
-	        </div>
-	        <div class="col-sm-8">
-	          <label>'.$value['WLWant'].'</label>
-	        </div>
-	      </div>
+      <div class="row stext-105 cl3 p-b-5">
+        <div class="col-sm-3">
+          <strong><label>Wanted:</label></strong>
+        </div>
+        <div class="col-sm-8">
+          <label>'.$value['WLWant'].'</label>
+        </div>
+      </div>
 
-	      <div class="row stext-105 cl3 p-b-5">
-	        <div class="col-sm-3">
-	         <strong><label>Description:</label></strong>
-	        </div>
-	        <div class="col-sm-8">
-	          <label>'.$value['WLMessage'].'</label>
-	        </div>
-	      </div>
+      <div class="row stext-105 cl3 p-b-5">
+        <div class="col-sm-3">
+         <strong><label>Message:</label></strong>
+        </div>
+        <div class="col-sm-8">
+          <label>'.$value['WLMessage'].'</label>
+        </div>
+      </div>
 
-	      <div class="row justify-content-center">
-	        
-	      </div>
-	     </div>
-	    </div>
+      <div class="row justify-content-center">
+        <div class="row justify-content-center py-3">
+          <a href="updatengowishlist.php?id='.$value['WishListID'].'"><button type="button" class="btn btn-success mr-2"
+          onclick="confirm(\'Are you sure to edit ?\')">Edit</button></a>
+          <a href="deactivengo.php?del='.$value['WishListID'].'"><button type="button" class="btn btn-danger mr-2"
+          onclick="confirm(\'Are you sure to delete this post ?\')">Delete</button></a>
+        </div>
+      </div>
+     </div>
+    </div>
     '; 
           $dom = $dom."".$builder;
-        }
+      }
+    }
       ?>
 
-      <div class="row isotope-grid" id="searchNGORes">
+      <div class="row isotope-grid">
         <?php echo $dom; ?>
       </div>
   
     </div>
-
-
-
-
-    <div class="flex-c-m flex-w w-full p-t-45">
+   
+      <div class="flex-c-m flex-w w-full p-t-45">
         <?php   
                 if($dataAll['all'] == 0){
                   echo '<div class="flex-c-m stext-101 cl5 size-103 bg2 bor1 ">No Data Found</div>';
@@ -302,7 +219,8 @@ $linkClass = null;
                 }
              ?>
       </div>
-  
+
+
   </section>
 
   

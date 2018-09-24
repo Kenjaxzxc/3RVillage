@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2018 at 06:31 PM
+-- Generation Time: Sep 24, 2018 at 07:34 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -42,9 +42,9 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`accountid`, `firstname`, `lastname`, `username`, `password`, `email`, `contactno`, `status`) VALUES
-(1, 'Syrel', 'Prialde', 'qwe', 'qwe', 'qwe@gmail.com', '092228174523', 1),
-(2, 'Marvee', 'Franco', 'asd', 'qwe', 'qwe@gmail.com', '092228174523', 1),
-(3, 'charnilie', 'ouano', 'cha', '1231231', 'cha@yahoo.com', '09491209500', 1);
+(1, 'Admin', 'Admin', 'admin', 'admin', '', '', 1),
+(2, 'AllixaJean', 'Gempesao', 'allixa', 'allixa', 'allixajeang88@yahoo.com', '09491209500', 1),
+(3, 'charnilie', 'Ouano', 'cha', '1231231', 'cha@yahoo.com', '09464278949', 1);
 
 -- --------------------------------------------------------
 
@@ -58,6 +58,13 @@ CREATE TABLE `admin` (
   `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`adminid`, `username`, `password`) VALUES
+(1, 'admin', 'admin');
+
 -- --------------------------------------------------------
 
 --
@@ -68,16 +75,9 @@ CREATE TABLE `interested` (
   `int_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `interested`
---
-
-INSERT INTO `interested` (`int_id`, `user_id`, `item_id`, `date`, `status`) VALUES
-(1, 3, 2, '2018-10-08 07:39:11', 0);
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,9 @@ CREATE TABLE `itemdonate` (
   `DItemCat` varchar(50) NOT NULL,
   `DItemDesc` varchar(255) NOT NULL,
   `DItemLocation` varchar(255) NOT NULL,
-  `DItemPrice` int(11) NOT NULL,
+  `DItemBrand` varchar(50) NOT NULL,
+  `DItemStyle` varchar(50) NOT NULL,
+  `DItemColor` varchar(50) NOT NULL,
   `DItemImages` varchar(255) NOT NULL,
   `DItemPosted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `accountid` int(11) NOT NULL,
@@ -122,19 +124,6 @@ CREATE TABLE `itemsell` (
   `SItemStatus` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `itemsell`
---
-
-INSERT INTO `itemsell` (`ItemSellID`, `SItemTitle`, `SItemCat`, `SItemDesc`, `SItemLocation`, `SItemPrice`, `ExpectedPrice`, `SItemStyle`, `SItemBrand`, `SItemColor`, `SItemImages1`, `SItemPosted`, `UpdatedDate`, `accountid`, `SItemStatus`) VALUES
-(1, 'qwe', 'Apparels', 'qwe', 'Abra', '32.00', '0.00', 'qwe', 'qwe', 'Red', 'banner-09.jpg', '2018-09-23 06:49:03', '2018-09-30 09:14:04', 1, 1),
-(2, 'dress', 'Apparels', 'one used only', 'Abra', '200.00', '0.00', 'casual', 'bny', 'Red', 'images (3).jpg', '2018-09-30 07:21:52', '2018-09-23 02:43:16', 3, 1),
-(3, 'asd', 'Apparels', 'asd', 'Cagayan', '23.00', '0.00', 'asd', 'asd', 'Red', 'download.jpg', '2018-09-23 13:52:56', NULL, 3, 1),
-(4, 'asdasd', 'Accessories', 'qwe', 'Bohol', '213.00', '0.00', 'asd', 'adsad', 'Red', 'gallery-01.jpg', '2018-09-23 13:58:59', NULL, 1, 1),
-(5, 'asd', 'Apparels', 'asd', 'Abra', '23.00', '0.00', 'asd', 'asd', 'Red', 'gallery-07.jpg', '2018-09-23 14:14:33', NULL, 1, 1),
-(6, 'asd', 'Apparels', 'asd', 'Abra', '23.00', '232.00', 'sd', 'asd', 'Red', 'gallery-09.jpg', '2018-09-23 14:18:44', NULL, 1, 1),
-(7, 'asd', 'Apparels', '123', 'Abra', '213.00', '111.00', '23', '213', 'Red', 'gallery-06.jpg', '2018-09-23 14:20:38', NULL, 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -149,15 +138,6 @@ CREATE TABLE `messages` (
   `is_read` tinyint(4) NOT NULL DEFAULT '0',
   `_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `messages`
---
-
-INSERT INTO `messages` (`id`, `_from`, `_to`, `message`, `is_read`, `_time`) VALUES
-(1, 1, 3, 'hey', 1, '2018-09-23 12:44:16'),
-(2, 3, 1, 'yes?', 1, '2018-09-23 12:45:58'),
-(3, 1, 3, 'sadasd', 1, '2018-09-23 12:46:22');
 
 -- --------------------------------------------------------
 
@@ -179,15 +159,9 @@ CREATE TABLE `ngo` (
   `DateCert` date NOT NULL,
   `Expiration` date NOT NULL,
   `NGOProof` varchar(255) NOT NULL,
-  `password` varchar(50) NOT NULL
+  `password` varchar(50) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ngo`
---
-
-INSERT INTO `ngo` (`NGOID`, `NGOName`, `NGODesc`, `NGOAddr`, `NGORegion`, `NGOProvince`, `NGOEmail`, `NGOContactNo`, `NGOWebsite`, `BIRCerNo`, `DateCert`, `Expiration`, `NGOProof`, `password`) VALUES
-(1, 'Ngo', 'asdsa', 'asd', 'asdasd', 'asdasd', 'asdd', 'asdasd', 'asdas', 2323, '2018-10-03', '2018-10-16', 'asd', '123123');
 
 -- --------------------------------------------------------
 
@@ -206,17 +180,19 @@ CREATE TABLE `notification` (
   `is_read` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `notification`
+-- Table structure for table `review`
 --
 
-INSERT INTO `notification` (`notif_id`, `notif_details`, `notif_time`, `table_name`, `table_id`, `user_id`, `status`, `is_read`) VALUES
-(1, 'Your post title qwe on category Apparels has been inactive ! ', '2018-09-30 07:13:42', 'itemsell', 1, 1, 0, 0),
-(2, 'Your post title qwe on category Apparels has been actived now ! ', '2018-09-30 07:14:04', 'itemsell', 1, 1, 1, 0),
-(3, 'Your post title dress on category Apparels has been inactive ! ', '2018-10-08 07:26:53', 'itemsell', 2, 3, 0, 0),
-(4, 'Your post title dress on category Apparels has been inactive ! ', '2018-10-08 07:28:10', 'itemsell', 2, 3, 0, 0),
-(5, 'Your post title dress on category Apparels has been actived now ! ', '2018-10-08 07:28:21', 'itemsell', 2, 3, 1, 0),
-(6, 'Your post title dress on category Apparels has been actived now ! ', '2018-09-23 12:43:17', 'itemsell', 2, 3, 1, 0);
+CREATE TABLE `review` (
+  `review_id` int(11) NOT NULL,
+  `seller_id` int(11) NOT NULL,
+  `buyer_id` int(11) NOT NULL,
+  `rate` int(11) NOT NULL,
+  `feedback` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -229,14 +205,6 @@ CREATE TABLE `subscribed` (
   `userid` int(11) NOT NULL,
   `remaining` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `subscribed`
---
-
-INSERT INTO `subscribed` (`subscribedID`, `userid`, `remaining`) VALUES
-(1, 1, 2),
-(2, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -270,7 +238,8 @@ CREATE TABLE `subscriptiontype` (
 --
 
 INSERT INTO `subscriptiontype` (`subscriptionID`, `subscriptionName`, `postLimit`) VALUES
-(1, 'A', 50);
+(1, 'A', 50),
+(2, 'B', 100);
 
 -- --------------------------------------------------------
 
@@ -358,6 +327,12 @@ ALTER TABLE `notification`
   ADD PRIMARY KEY (`notif_id`);
 
 --
+-- Indexes for table `review`
+--
+ALTER TABLE `review`
+  ADD PRIMARY KEY (`review_id`);
+
+--
 -- Indexes for table `subscribed`
 --
 ALTER TABLE `subscribed`
@@ -385,6 +360,12 @@ ALTER TABLE `wishlist`
   ADD KEY `accountid` (`accountid`);
 
 --
+-- Indexes for table `wishlistngo`
+--
+ALTER TABLE `wishlistngo`
+  ADD PRIMARY KEY (`WishListID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -397,12 +378,12 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `adminid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `adminid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `interested`
 --
 ALTER TABLE `interested`
-  MODIFY `int_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `int_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `itemdonate`
 --
@@ -412,27 +393,32 @@ ALTER TABLE `itemdonate`
 -- AUTO_INCREMENT for table `itemsell`
 --
 ALTER TABLE `itemsell`
-  MODIFY `ItemSellID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ItemSellID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `ngo`
 --
 ALTER TABLE `ngo`
-  MODIFY `NGOID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `NGOID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notif_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `notif_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `review`
+--
+ALTER TABLE `review`
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `subscribed`
 --
 ALTER TABLE `subscribed`
-  MODIFY `subscribedID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `subscribedID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `subscriptionhistory`
 --
@@ -442,7 +428,7 @@ ALTER TABLE `subscriptionhistory`
 -- AUTO_INCREMENT for table `subscriptiontype`
 --
 ALTER TABLE `subscriptiontype`
-  MODIFY `subscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `subscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `wishlist`
 --

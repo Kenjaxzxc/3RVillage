@@ -3,14 +3,14 @@ $sql = null;
 $getData = null;
 $linkClass = null;
   if(!isset($_GET['display'])){
-    header("location: ngohome.php?display=all_wishlist");
+    header("location: donation.php?display=all_donation");
   }
   
   if(isset($_GET['display'])){
      $getData = htmlentities($_GET['display']);
       $builder = $dom = null; 
       switch ($getData) {
-      case 'all_wishlist':
+      case 'all_donation':
         $category = null;
         $linkClass = '*';
         break;
@@ -57,7 +57,7 @@ $linkClass = null;
 
       
       default:
-       header("location: ngohome.php?display=all_wishlist");
+       header("location: donation.php?display=all_donation");
         break;
       }
   }
@@ -144,10 +144,10 @@ $linkClass = null;
       } 
       return json_encode(array("pagination"=>$pagination,"data"=>$arrayData,"showing"=>$page,"all"=>$totalPages));
     }
-    if($_GET['display'] != "all_wishlist"){
-      $dataAll = json_decode(pagination("wishlistngo","WLStatus",1,"WLCategory",$category,$page,1,9,"WishListID","DESC","&display=".$_GET['display']),true);
+    if($_GET['display'] != "all_donation"){
+      $dataAll = json_decode(pagination("itemdonate","DItemStatus",1,"DItemCat",$category,$page,1,9,"DonateSellID","DESC","&display=".$_GET['display']),true);
     }else{
-       $dataAll = json_decode(paginationAll("wishlistngo","WLStatus",1,$page,1,9,"WishListID","DESC","&display=".$_GET['display']),true);
+       $dataAll = json_decode(paginationAll("itemdonate","DItemStatus",1,$page,1,9,"DonateSellID","DESC","&display=".$_GET['display']),true);
     }
   ?>
   
@@ -168,13 +168,13 @@ $linkClass = null;
     <div class="container">
       <div class="p-b-10">
         <h3 class="ltext-103 cl5">
-          NGO Wishlist
+          Donation Overview
         </h3>
       </div>
 
       <div class="flex-w flex-sb-m p-b-52">
         <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" href="?display=all_wishlist" data-filter="*">
+          <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" href="?display=all_donation" data-filter="*">
             All Wishlist
           </a>
 
@@ -216,10 +216,6 @@ $linkClass = null;
             <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
             Search
           </div>
-
-          <div class="ml-2">
-            <a href="addwishlistNGO.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">Add Wishlist</a>
-          </div>
         </div>
         
         <!-- Search product -->
@@ -229,7 +225,7 @@ $linkClass = null;
               <i class="zmdi zmdi-search"></i>
             </button>
 
-            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" id="searchNGO" name="search-product" placeholder="Search">
+            <input class="mtext-107 cl2 size-114 plh2 p-r-15" id="wishlistSearch" type="text" name="search-product" placeholder="Search">
           </div>  
         </div>
       </div>
@@ -239,46 +235,42 @@ $linkClass = null;
         foreach ($dataAll['data'] as $value) {
            $builder = 
           '
-	    <div class="row">
-	    <div class="shadow-lg col-sm-4 p-2 bg-white rounded mb-5 isotope-item '.$linkClass.'">
-	        <div class="row stext-105 cl3 p-b-5">
-	        <div class="col-sm-3">
-	          <strong><label>Name:</label></strong>
-	        </div>
-	        <div class="col-sm-8 ">
-	          <label><strong>'.$value['WLName'].'</strong></label>
-	        </div>
-	      </div>
 
-	      <div class="row stext-105 cl3 p-b-5">
-	        <div class="col-sm-3">
-	          <strong><label>Wanted:</label></strong>
-	        </div>
-	        <div class="col-sm-8">
-	          <label>'.$value['WLWant'].'</label>
-	        </div>
-	      </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item '.$linkClass.'">
+					<!-- Block2 -->
+					<div class="block2">
+						<div class="block2-pic hov-img0">
+						<img src="../upload/'.$value['DItemImages'].'" height="334" width="270"/>
+	
+							<input type="hidden" name="itemsellID" value="'.$value['DonateSellID'].'">
+						</div>
 
-	      <div class="row stext-105 cl3 p-b-5">
-	        <div class="col-sm-3">
-	         <strong><label>Description:</label></strong>
-	        </div>
-	        <div class="col-sm-8">
-	          <label>'.$value['WLMessage'].'</label>
-	        </div>
-	      </div>
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									'.$value['DItemTitle'].'
+								</a>
 
-	      <div class="row justify-content-center">
-	        
-	      </div>
-	     </div>
-	    </div>
+								<span class="stext-105 cl3">
+									Desciption: '.$value['DItemDesc'].'
+								</span>
+							</div>
+               <div class="mx-auto">
+          <a href="#"><button class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+           <p>Communicate</p> 
+           </button></a>
+        </div>
+					
+						</div>
+					</div>
+				</div>
+
     '; 
           $dom = $dom."".$builder;
         }
       ?>
 
-      <div class="row isotope-grid" id="searchNGORes">
+      <div class="row isotope-grid" id="wishlistRes">
         <?php echo $dom; ?>
       </div>
   

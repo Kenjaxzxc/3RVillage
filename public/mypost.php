@@ -120,9 +120,11 @@
             <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
             Search
           </div>
-
            <div class="ml-2">
-            <a href="pending.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">Pending</a>
+            <a href="mypost.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">My Post</a>
+          </div>
+           <div class="ml-2">
+            <a href="sold_items.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">Sold Items</a>
           </div>
 
           <div class="ml-2">
@@ -194,6 +196,9 @@
               onclick="confirm(\'Are you sure to edit ?\')">Edit</button></a>
               <a href="deactivatepost.php?del='.$value['ItemSellID'].'"><button type="button" class="btn btn-danger mr-2"
               onclick="confirm(\'Are you sure to delete this post ?\')">Delete</button></a>
+
+              <a href="deactivatepost.php?id='.$value['ItemSellID'].'"><button type="button" class="btn btn-primary mr-2" style="background: #a0a0a0;"
+              onclick="confirm(\'Are you sure you want to mark this item as sold ?\')">Mark as Sold</button></a>
             </div>
           </div>
         </div>

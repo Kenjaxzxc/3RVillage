@@ -18,27 +18,24 @@
       $province = $_POST['province'];  
       $website = $_POST['website'];  
       $email = $_POST['email'];  
-      $number = $_POST['number'];  
-      $website = $_POST['website'];
-      $bir = $_POST['bir'];  
-      $password = $_POST['password'];
-      $id=$_SESSION['accountid'];
-      $sql = "UPDATE ngo SET NGOAddr='$address', NGODesc = '$description', NGORegion='$region', NGOProvince='$province', NGOEmail='$email', NGOContactNo='$number', password = '$password' NGOWebsite = '$website', BIRCerNo='$bir' WHERE NGOName = '$id'";
+      $number = $_POST['number'];   
+      $id=$_SESSION['NGOID'];
+      $sql = "UPDATE ngo SET NGODesc='$description', NGOAddr='$address', NGORegion='$region',NGOWebsite='$website',NGOEmail='$email',NGOContactNo='$number',NGOProvince='$province' WHERE NGOName = '$id'";
       $update = mysqli_query ($conn, $sql);
       if($update){
         echo "<script>alert('Successfully Updated!');</script>";
-        echo '<script>window.location="ngohome.php"</script>'; 
+        echo '<script>window.location="editngo.php"</script>'; 
       }
   }
     ?>
-
+    
   
   <section class="col-sm-12 bg-light">  
-  <?php $id=$_SESSION['accountid']?>
+  <?php $id=$_SESSION['NGOID']?>
 
      <?php
           $res = mysqli_query($conn, "SELECT * FROM ngo where NGOName='$id'");
-          while($row=$res->fetch_array()){
+          $row = mysqli_fetch_assoc($res);
           
      ?> 
   <form action="" method="POST">
@@ -80,7 +77,7 @@
       <div class="form-group">
         <label>Password</label>
         <div class="input-group">
-        <input class="form-control" type="password" name="password" value="<?php echo $row['password'] ?>">
+        <input class="form-control" type="password" name="password" value="<?php echo $row['password'] ?>" readonly>
          <div class="input-group-append">
             <a class="text-secondary hover-white" href="ngochangepass.php">
             <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" style="border-color: #ccc;" type="button">Change</button>
@@ -104,7 +101,7 @@
 
       <div class="form-group">    
         <label>BIR Certificate Number</label>
-        <input class="form-control" type="text" name="bir" value="<?php echo $row['BIRCerNo'] ?>">
+        <input class="form-control" type="text" name="bir" value="<?php echo $row['BIRCerNo'] ?>" readonly>
       </div>
 
      
@@ -113,9 +110,6 @@
         <a href="ngohome.php"><button type="button" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button></a>
         <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnUpdate">Update</button>
       </div>
-      <?php
-        }
-      ?>
     </div>
 
     </div> 

@@ -184,7 +184,7 @@ img{ max-width:100%;}
               
 						  </a>
 
-						  <div id="post-notification" class="dropdown-menu " style="z-index:5000; position: relative; width: 600px; margin-left: -430px;" aria-labelledby="dropdownMenuLink">
+						  <div id="post-notification" class="dropdown-menu " style="z-index:5000; position: relative; width: 600px; margin-left: -430px;  overflow: auto; max-height: 450px" aria-labelledby="dropdownMenuLink">
 						   <!--  <a class="dropdown-item" href="#">ACTION</a>
 						    <a class="dropdown-item" href="#">Another guiere</a>
 						    <a class="dropdown-item" href="#">Something else here</a> -->
@@ -201,7 +201,7 @@ img{ max-width:100%;}
               
 						  </a>
 
-						  <div id="message-notification" class="dropdown-menu " style="z-index:5000; position: relative; width: 500px; margin-left: -360px;" aria-labelledby="dropdownMenuLink">
+						  <div id="message-notification" class="dropdown-menu " style="z-index:5000; position: relative; width: 500px; margin-left: -360px; overflow: auto; max-height: 450px" aria-labelledby="dropdownMenuLink">
 						   <!--  <a class="dropdown-item" href="#">ACTION</a>
 						    <a class="dropdown-item" href="#">Another guiere</a>
 						    <a class="dropdown-item" href="#">Something else here</a> -->
@@ -214,7 +214,9 @@ img{ max-width:100%;}
 						  </a>
 
 						  <div class="dropdown-menu bg-dark " style="z-index:5000; position: relative;" aria-labelledby="dropdownMenuLink">
-						   	<a class="dropdown-item" href="editprofile.php"><span class="fa fa-user"></span> My Profile</a>
+                <a class="dropdown-item" href="profile.php?id=<?php echo $user_id; ?>"><span class="fa fa-user"></span> My Profile</a>
+						   	<a class="dropdown-item" href="editprofile.php"><span class="fa fa-user"></span> Edit Profile</a>
+
 					        <a class="dropdown-item" href="mypost.php"><span class="fa fa-plus-circle"></span> My Ads</a>
 					        <a class="dropdown-item" href="mywishlist.php"><span class="fa fa-heart"></span> My Wishlist</a>
 					        <!--
@@ -246,29 +248,27 @@ img{ max-width:100%;}
 							<li>
 								<a href="#products">Shop</a>
 							</li>
-
-							<li>
-								<a href="sell.php">Sell</a>
-							</li>
-
-							<li>
-								<a href="donate.php">Donate</a>
-							</li>
-
-							<li>
+    					<li>
 								<a href="wishlist.php">Wishlist</a>
 							</li>
+              
 						</ul>
 					</div>	
 					<div class="wrap-icon-header flex-w flex-r-m">
-						
-
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+						<div class="menu-desktop">
+              <ul class="main-menu">
+                <li>
+                  <a href="donate.php">Donate</a>
+               
+                </li>
+                <li>
+                   <a href="sell.php">Post Item</a>
+                </li>
+              </ul>
+            </div>
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
-
-						
-						</a>
 					</div>
 				</nav>
 			</div>	

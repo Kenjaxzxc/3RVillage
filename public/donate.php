@@ -26,15 +26,17 @@
     $title = $_POST['title'];
     $category = $_POST['category'];
     $description = $_POST['description'];
+    $brand = $_POST['brand'];
+    $style = $_POST['style'];
+    $color = $_POST['color'];
     $location = $_POST['location'];
-    $price = $_POST['price']; 
-    $target = "../upload/".basename($_FILES['image']['name']);
-    $image = $_FILES['image']['name'];
+    $target1 = "../upload/".basename($_FILES['image1']['name']);
+    $image1 = $_FILES['image1']['name'];
     //$file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
-      $sql = "INSERT INTO itemdonate (DItemTitle, DItemCat, DItemDesc, DItemLocation, DItemPrice, DItemImages, accountid) VALUES ('$title','$category','$description','$location','$price','$image','$id')";
+      $sql = "INSERT INTO itemdonate (DItemTitle, DItemCat, DItemDesc,DItemBrand,DItemStyle,DItemColor, DItemLocation, DItemImages, accountid) VALUES ('$title','$category','$description','$brand','$style','$color','$location','$image1','$id')";
               mysqli_query ($conn, $sql);
-              if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-                echo "<script>window.location='home.php'</script>";
+              if (move_uploaded_file($_FILES['image1']['tmp_name'], $target1)) {
+                //echo "<script>window.location='donation.php'</script>";
               }
               
       }
@@ -65,34 +67,31 @@
       </div>
       
        <label>Item Specification</label>
-    <div class="row">
+    <div class="row"> 
       <div class="col-md-3 mb-3">
-        <label for="validationCustom03">Brand</label>
-        <input type="text" class="form-control" placeholder="Brand" required>
+        <label>Brand</label>
+        <input type="text" class="form-control" name="brand" required>
       </div>
-    
       <div class="col-md-3 mb-3">
-        <label for="validationCustom03">Style</label>
-        <input type="text" class="form-control" placeholder="Style" required>
+        <label>Style</label>
+        <input type="text" class="form-control" name="style" >
       </div>
-    
       <div class="col-md-3 mb-3">
-        <label for="validationCustom03">Color</label>
-        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelectPref">
-          <option selected>---</option>
-          <option value="1">RED</option>
-          <option value="2">PINK</option>
-          <option value="3">ORANGE</option>
-          <option value="4">YELLOW</option>
-          <option value="5">PURPLE</option>
-          <option value="6">GREEN</option>
-          <option value="7">BLUE</option>
-          <option value="8">BROWN</option>
-          <option value="9">WHITE</option>
-          <option value="10">GREY</option>
+        <label>Color</label>
+        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="color">
+          <option>Red</option>
+          <option>Pink</option>
+          <option>Orange</option>
+          <option>Yellow</option>
+          <option>Purple</option>
+          <option>Green</option>
+          <option>Blue</option> 
+          <option>Brown</option>
+          <option>White</option>
+          <option>Grey</option>
+          <option>Black</option>
         </select>
       </div>
-      
       </div>
 
       <?php 

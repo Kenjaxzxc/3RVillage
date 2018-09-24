@@ -103,7 +103,7 @@
     <div class="container">
       <div class="p-b-10">
         <h3 class="ltext-103 cl5">
-          Your Post
+          Inactive Post
         </h3>
       </div>
 
@@ -120,9 +120,11 @@
             <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
             Search
           </div>
-
+          <div class="ml-2">
+            <a href="mypost.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">My Post</a>
+          </div>
            <div class="ml-2">
-            <a href="pending.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">Pending</a>
+            <a href="sold_items.php" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">Sold Items</a>
           </div>
 
           <div class="ml-2">

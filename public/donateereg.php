@@ -31,7 +31,7 @@
     $sql = "INSERT INTO ngo (NGOName, NGODesc, NGOAddr, NGORegion, NGOProvince, NGOEmail, NGOContactNo, NGOWebsite, BIRCerNo, DateCert, Expiration, NGOProof, password) VALUES ('$name', '$description', '$address', '$region', '$province', '$email', '$contactno', '$website', '$bir', '$datecer', '$dateexp', '$image', '$password')";
         mysqli_query($conn, $sql);
         if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-        $_SESSION['accountid'] = $name;
+        echo "<script>alert('Thank you for registering. Please wait to be confirm!');</script>";
         echo "<script>window.location='ngolog.php'</script>";
         }
     }
@@ -128,7 +128,7 @@
 <section class="col-sm-12 bg-light">  
   
   <div class="row">
-   <h4 class="ltext-102 cl5 m-t-100 m-l-100 m-b-30">NGO Register</h4>
+   <h4 class="ltext-102 cl5 m-t-100 mx-auto m-b-30 ">NGO Register</h4>
       
   </div>
   <form id="uploadimage" action="" method="POST" enctype="multipart/form-data">
@@ -194,7 +194,7 @@
 
 
       <div class="mt-4 m-b-100">
-        <a href="register.php"><button type="button" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button></a>
+        <a href="index.php"><button type="button" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button></a>
         <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnReg">Register</button>
       </div>
     </div>
