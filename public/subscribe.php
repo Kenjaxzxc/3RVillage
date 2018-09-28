@@ -19,24 +19,7 @@
 <?php 
 $rating = $new = null;
   include('connection.php');
-  $trueID = $_SESSION['user_id'];
-  if(!empty($_GET['category'])){
-    $subID = $_GET['category'];
-    $sql = mysqli_query($conn,"SELECT * FROM `subscriptiontype` WHERE `subscriptionID` = '$subID'");
-    $res = mysqli_fetch_assoc($sql);
-    $postLimit = $res['postLimit'];
-    unset($sql);
-    $sql = "SELECT `remaining` from `subscribed` WHERE `userid` = '$trueID'";
-    $result = mysqli_query($conn, $sql);
-    $getRemainingPost = mysqli_fetch_assoc($result)["remaining"];
-    $new = $getRemainingPost + $postLimit;
-    $history = "INSERT INTO `subscriptionhistory`(userid,subscriptiontype,oldRemain,newRemain) VALUES('$trueID','$subID','$getRemainingPost','$new')";
-    mysqli_query($conn,$history);
-    $sql = "UPDATE subscribed SET remaining='$new' WHERE userid = '$trueID'";
-    mysqli_query ($conn, $sql);
-    echo "<script>window.location='sell.php';</script>";
-
-  }
+  
 ?>
 
 
@@ -60,14 +43,14 @@ $rating = $new = null;
   function sub1(){
     let accept = confirm("Are you sure you want to proceed to this 50 post subscription?");
     if(accept == true){
-      window.location="?category=1";
+      window.location="payments.php?category=1";
     }
   }
 
   function sub2(){
     let accept = confirm("Are you sure you want to proceed to this 100 post subscription?");
     if(accept == true){
-      window.location="?category=2";
+      window.location="payments.php?category=2";
     }
   }
 

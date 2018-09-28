@@ -214,4 +214,3 @@ img{ max-width:100%;}
   <script src="../vendor/select2/select2.min.js"></script>
 
   <script src="../js/main.js"></script>
-  <script src="../js/chatjs.js"></script>

@@ -78,7 +78,7 @@
 
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-203 flex-c-m respon6">
-										Expected Original Price
+										Original Price
 									</div>
 
 									<div class="size-204 respon6-next">
@@ -106,7 +106,7 @@
 
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-203 flex-c-m respon6">
-										Expire Date
+										Post Valid Until
 									</div>
 
 									<div class="size-204 respon6-next">

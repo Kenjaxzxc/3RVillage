@@ -33,7 +33,7 @@
 						            : 
 
 						            '<div class="incoming_msg">
-						              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+						              <div class="incoming_msg_img"> <img src="../images/'.$info['userpic'].'"> </div>
 						              <div class="received_msg">
 						                <p>'.$info['firstname'].' '.$info['lastname'].'</p>
 						                <div class="received_withd_msg">

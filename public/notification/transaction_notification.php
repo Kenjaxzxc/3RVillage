@@ -21,6 +21,7 @@
 	   		$arr = array(
 			    		'n_status'=>$row2['status'],
 			    		'seller_id'=>$row2['accountid'],
+			    		'image'=>$row2['userpic'],
 			    		'seller_name'=>$row2['firstname'],
 			    		'date'=>date('F j, Y g:i:A', strtotime($row2['_date'])),
 			    		'details'=>'Thank you for the smooth transaction. Please rate me. Thanks!'

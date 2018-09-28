@@ -136,47 +136,58 @@
     
     <div class="col-sm-5">
      
-      <div class="form-group">    
+      <div class="form-group">
+      <label>NGO Name</label>    
         <input class="form-control" type="text" name="name" placeholder="NGO Name" required autofocus>
       </div>
 
-      <div class="form-group">    
+      <div class="form-group">
+      <label>Address</label>    
         <input class="form-control" type="text" name="address" placeholder="Address" required>
       </div>
 
-       <div class="form-group">    
+       <div class="form-group">
+       <label>Region</label>    
         <input class="form-control" type="text" name="region" placeholder="Region" required>
       </div>
 
-       <div class="form-group">    
+       <div class="form-group">
+       <label>Province</label>    
         <input class="form-control" type="text" name="province" placeholder="Province" required>
       </div>
 
       <div class="form-group">
+        <label>Description</label>
         <textarea class="form-control" name="description" rows="3" placeholder="Description" required></textarea>
       </div>
 
-      <div class="form-group">    
+      <div class="form-group">
+      <label>Password</label>    
         <input class="form-control" type="password" name="password" placeholder="Password" required>
       </div>
 
-      <div class="form-group">    
+      <div class="form-group">
+      <label>Confirm Password</label>    
         <input class="form-control" type="password" name="cpassword" placeholder="Confirm Password" required>
       </div>
 
-       <div class="form-group">    
+       <div class="form-group">
+       <label>Email</label>    
         <input class="form-control" type="email" name="email" placeholder="Email" required>
       </div>
 
-       <div class="form-group">    
+       <div class="form-group">
+       <label>Contact Number</label>    
         <input class="form-control" type="number" name="contactno" placeholder="Contact Number" required>
       </div>
 
-       <div class="form-group">    
+       <div class="form-group">
+       <label>Website</label>    
         <input class="form-control" type="text" name="website" placeholder="Website" required>
       </div>
 
-       <div class="form-group">    
+       <div class="form-group">
+       <label>BIR Certificate Number</label>    
         <input class="form-control" type="number" name="bir" placeholder="BIR Certificate Number" required>
       </div>
 
@@ -185,7 +196,7 @@
         <input class="form-control" type="date" name="datecer" placeholder="Date Certified" required>
       </div>
 
-      <div class="form-group">  
+      <div class="form-group"> 
       <label>Date Expire</label>  
         <input class="form-control" type="date" name="dateexp" placeholder="Date Expire" required>
       </div>

@@ -253,7 +253,7 @@ $linkClass = null;
 
       <div class="row stext-105 cl3 p-b-5">
         <div class="col-sm-3">
-          <strong><label>Wanted:</label></strong>
+          <strong><label>Desired Item:</label></strong>
         </div>
         <div class="col-sm-8">
           <label>'.$value['WLWant'].'</label>

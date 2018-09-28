@@ -1,5 +1,8 @@
+
+
 <?php 
   include('connection.php'); 
+  include 'admin_header.php';
   if(isset($_GET['accept'])){
     $id = $_GET['accept'];
     $sql = mysqli_query($conn,"UPDATE ngo SET status = 1 WHERE NGOID = '$id'");
@@ -101,9 +104,6 @@
   </head>
   
 <body class="bg-light">
-  <?php 
-      include('header.php');
-   ?>
   
   <div class="row px-5 py-3 border m-t-100">
       <div class="col-sm-12"  >

@@ -12,4 +12,5 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</footer>
 <script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
-	<!-- <script src="../js/customJS.js"></script> -->
+	<script src="../js/customJS.js"></script>
+  <script src="../js/chatjs.js"></script>

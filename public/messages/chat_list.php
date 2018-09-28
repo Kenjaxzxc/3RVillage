@@ -46,6 +46,7 @@
 			    		'to'=>$row2['_to'],
 			    		'from'=>$row2['_from'],
 			    		'id'=>$id,
+			    		
 			    		'time'=>date('F j, Y g:i:A', strtotime($row2['_time'])),
 			    		'message'=>($unread > 0 && $id == $row2['_from'] ? '<strong>'.$message.'</strong>' : $message),
 			    		'info'=>($unread > 0 && $id == $row2['_from'] ? $info['firstname'].' '.$info['lastname'].'('.$unread.')' : $info['firstname'].' '.$info['lastname'] )

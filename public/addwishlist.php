@@ -53,19 +53,19 @@
       include('category.php');
       ?>
       <div class="form-group">
-        <label>Want:</label>
+        <label>Desired Item:</label>
         <input class="form-control" type="text" name="want" required>
       </div>
 
       <div class="form-group">
-        <label>Message:</label>
+        <label>Description:</label>
         <textarea class="form-control" name="message" rows="3" required></textarea>
       </div>
       
 
       <div class="mt-4">
         <a href="wishlist.php"><button type="button" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button></a>
-        <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnSave">Save</button>
+        <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnSave">Post</button>
       </div>
     </div>
     <?php

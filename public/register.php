@@ -20,12 +20,13 @@
 		echo "<script>alert('Password did not match.');</script>";
 	}
 	else{
-			// if(isset($_SESSION['verificationCode'])){
-			// $code = $_SESSION['verificationCode'];
-			// if($verify == $code){
-			// unset($_SESSION['verificationCode']);
+			if(isset($_SESSION['verificationCode'])){
+			$code = $_SESSION['verificationCode'];
+			if($verify == $code){
+			unset($_SESSION['verificationCode']);
 			$sql = "INSERT INTO account (firstname, lastname, username, password, email, contactno) VALUES ('$firstname','$lastname','$username','$password','$email','$contact')";
             mysqli_query ($conn, $sql);
+
             $_SESSION['accountid'] = $username;
             		
 	    	 $sql2 = "SELECT * FROM account WHERE (username='$username' || contactno='$username')";
@@ -34,15 +35,15 @@
 			    	if($row2){
 			    		$sessionNang =  $row2['accountid'];
 			    		$_SESSION['user_id'] = $row2['accountid'];
-			    	
+			    		
 			    	$sql = mysqli_query($conn,"INSERT INTO subscribed(userid,remaining) VALUES ('$sessionNang',5)");
             header("location:home.php?display=all_products");
             	}
             else{
             	echo "<script>alert('Incorrect Verification Code');</script>";
             }
-		// }
-  //   	}
+		}
+    	}
 	 }
 	}
 

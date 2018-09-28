@@ -25,7 +25,7 @@ $getRemainingPost = $disableButton = null;
      $sql = "SELECT `remaining` from `subscribed` WHERE `userid` = '$trueSession'";
       $result = mysqli_query($conn, $sql);
       $getRemainingPost = mysqli_fetch_assoc($result);
-      $disableButton = ($getRemainingPost['remaining'] <= 0?"disabled":"");
+      $disableButton = ($getRemainingPost['remaining'] <= 0 ? "disabled":"");
      $sessionID = $_SESSION['accountid']; 
      $id = mysqli_query($conn,"SELECT accountid FROM `account` WHERE username = '$sessionID'")->fetch_object()->accountid;
      if(isset($_POST['btnSave'])){
@@ -77,24 +77,25 @@ $getRemainingPost = $disableButton = null;
     <div class="col-sm-5">
      
       <div class="form-group">    
-        <label>Title </label>
-        <input class="form-control" type="text" name="title" required autofocus>
+        <label>Item Name </label>
+        <input class="form-control" type="text" name="title" required autofocus <?=$disableButton;?>>
       </div>
+
       <?php 
       include('category.php');
       ?>
        <div class="row"> 
       <div class="col-md-3 mb-3">
         <label>Brand</label>
-        <input type="text" class="form-control" name="brand" required>
+        <input type="text" class="form-control" name="brand" required <?=$disableButton;?>>
       </div>
       <div class="col-md-3 mb-3">
         <label>Style</label>
-        <input type="text" class="form-control" name="style" >
+        <input type="text" class="form-control" name="style" <?=$disableButton;?> >
       </div>
       <div class="col-md-3 mb-3">
         <label>Color</label>
-        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="color">
+        <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="color" <?=$disableButton;?> >
           <option>Red</option>
           <option>Pink</option>
           <option>Orange</option>
@@ -111,17 +112,28 @@ $getRemainingPost = $disableButton = null;
       </div>
       <div class="form-group">
         <label>Item Description</label>
-        <textarea class="form-control" name="description" rows="3" required></textarea>
+        <textarea class="form-control" name="description" rows="3" required <?=$disableButton;?>></textarea>
       </div>
 
-      <label>Selling Details</label>
-      <div class="input-group">
+        <!-- <div class="form-group">    
+        <label>Item Name </label>
+        <input class="form-control" type="text" name="title" required autofocus <?=$disableButton;?>>
+      </div> -->
+
+<label>Price</label>
+        <div class="input-group form-group">
+
+        
+        
         <span class="input-group-addon">₱</span>
-        <input class="form-control" type="text" name="price" placeholder="Price" required>
+        <input class="form-control" type="text" name="price" placeholder="Price" required <?=$disableButton;?>>
       </div>
-      <div class="input-group mt-4">
+
+      <label>Original Price</label>
+      <div class="input-group">
+        
         <span class="input-group-addon">₱</span>
-        <input class="form-control" type="text" name="expprice" placeholder="Expected Original Price" >
+        <input class="form-control" type="text" name="expprice" placeholder="Original Price" <?=$disableButton;?>>
       </div>
 
       <?php 
@@ -136,8 +148,8 @@ $getRemainingPost = $disableButton = null;
 
     <div class="col-sm-5 mr-5">
       <?php $remaining = $getRemainingPost['remaining']; ?>
-      <div class="container h4"><?=($getRemainingPost['remaining'] > 0?"You have $remaining remaining post left.":'You need to subscribe <a href="subscribe.php">here</a> to continue posting' )?></div>
-      <h5 class=" ltext-101 mt-3">Upload Images</h5>
+      <div class="container h4"><?=($getRemainingPost['remaining'] > 0 ?"You have $remaining remaining post left." : 'You need to subscribe to continue posting' )?> <a href="subscribe.php" class="btn btn-danger">Click Here to Subscribe</a></div>
+      <h5 class=" ltext-101 mt-3">Upload Image</h5>
       <span><b>Note:</b> Only <b><a id="textred">jpeg</a></b>, <b><a id="textred">jpg</a></b> and <b><a id="textred">png</a></b> Images file format are allowed and approximately <b><a id="textred">100kb</a></b> files can be uploaded.</span> 
 
              

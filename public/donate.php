@@ -55,7 +55,7 @@
     <div class="col-sm-5">
      
       <div class="form-group">    
-        <label>Title </label>
+        <label>Item Name </label>
         <input class="form-control" type="text" name="title" required autofocus>
       </div>
       <?php 

@@ -14,104 +14,124 @@
       include('header.php');
       $name="";$id='';$rate=''; $all_rate=0;$seller_rate=0;$ave_rate=0;$feedback='';
       if(isset($_GET['id']) ){
-      	$id = $_GET['id'];
-      	//USER INFO
-      	$sql = "SELECT * FROM account WHERE accountid = '$id'"; 
-	    $result = mysqli_query($conn, $sql);
-		$row = mysqli_fetch_assoc($result);
-		if($row){
-			$name = $row['firstname'].' '.$row['lastname'];
-		}
+        $id = $_GET['id'];
+        //USER INFO
+        $sql = "SELECT * FROM account WHERE accountid = '$id'"; 
+      $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    if($row){
+      $name = $row['firstname'].' '.$row['lastname'];
+    }
 
-		//All Rate
-		$sql1 = "SELECT SUM(rate) as ratings, COUNT(buyer_id) as count_user FROM review WHERE seller_id = '$id' ";
-		$res1 = mysqli_query($conn, $sql1);
-		$row1 = mysqli_fetch_assoc($res1);
-		if($row1){ 
-			$all_rate = $row1['ratings'];
-			$count_user = $row1['count_user'];	
-		}
-		//Rate by seller
-		$sql2 = "SELECT SUM(rate) as seller_rate FROM review WHERE seller_id = '$id'";
-		$res2 = mysqli_query($conn, $sql2);
-		$row2 = mysqli_fetch_assoc($res2);
-		if($row2){ 
-			$seller_rate = $row2['seller_rate'];	
-		}
+    //All Rate
+    $sql1 = "SELECT SUM(rate) as ratings, COUNT(buyer_id) as count_user FROM review WHERE seller_id = '$id' ";
+    $res1 = mysqli_query($conn, $sql1);
+    $row1 = mysqli_fetch_assoc($res1);
+    if($row1){ 
+      $all_rate = $row1['ratings'];
+      $count_user = $row1['count_user'];  
+    }
+    //Rate by seller
+    $sql2 = "SELECT SUM(rate) as seller_rate FROM review WHERE seller_id = '$id'";
+    $res2 = mysqli_query($conn, $sql2);
+    $row2 = mysqli_fetch_assoc($res2);
+    if($row2){ 
+      $seller_rate = $row2['seller_rate'];  
+    }
     if($seller_rate > 0 && $count_user > 0 ){
       $ave_rate = $seller_rate / $count_user;
     }
-		
+    
 
-		$sql3 = "SELECT * FROM review a, account b WHERE a.buyer_id=b.accountid and a.seller_id = '$id'";
-		$res3 = mysqli_query($conn, $sql3);
-		
-		while($row3 = mysqli_fetch_assoc($res3)){ 
-			$feedback .= '<li class="list list-group-item " ><img src="../images/profile_img.png" width="30" alt="sunil" > '.$row3['firstname'].' : '.$row3['feedback'].'</li>';
-		}
-		//BUYER RATE
+    $sql3 = "SELECT * FROM review a, account b WHERE a.buyer_id=b.accountid and a.seller_id = '$id'";
+    $res3 = mysqli_query($conn, $sql3);
+    
+    while($row3 = mysqli_fetch_assoc($res3)){ 
+      $feedback .= '<div class="col-md-12 mb-3" ><img src="../images/'.$row3['userpic'].'" class="rounded-circle" width="25" height="25"> '.$row3['firstname'].' : '.$row3['feedback'].'</div>';
+    }
+    //BUYER RATE
         $sql = "SELECT * FROM review  WHERE buyer_id = '$user_id' AND seller_id = '$id'";
-		$res = mysqli_query($conn, $sql);
-			    $row = mysqli_fetch_assoc($res);
-			    if($row){ 
-			    	if($row['rate'] > 0){
-			    		$rate = '<button type="button" class="btn btn-info btn-lg" >You Rate: '.$row['rate'].' 
-					<span class="fa fa-star checked"></span></button>'; 
-			    	}
-			    	
-			    }
-			    else{
-			    	$sqll = "SELECT * FROM interested  WHERE user_id = '$user_id'";
-					$ress = mysqli_query($conn, $sqll);
-					$roww = mysqli_fetch_assoc($ress);
-						if($roww){
+    $res = mysqli_query($conn, $sql);
+          $row = mysqli_fetch_assoc($res);
+          if($row){ 
+            if($row['rate'] > 0){
+              $rate = '<button type="button" class="btn btn-info btn-lg" >You Rate: '.$row['rate'].' 
+          <span class="fa fa-star checked"></span></button>'; 
+            }
+            
+          }
+          else{
+            $sqll = "SELECT * FROM interested  WHERE user_id = '$user_id'";
+          $ress = mysqli_query($conn, $sqll);
+          $roww = mysqli_fetch_assoc($ress);
+            if($roww){
               if ($id != $user_id) {
                 $rate = '<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Rate</button>';
               }
-				    		
-						}
-			    }
+                
+            }
+          }
 
-	
+  
       }
-      	
-		
+      
    ?>
-   <div class="container" style="margin-top: 110px;">
-   	
-  	<div class="row">
-  		<div class="col-md-12 ">
-  			<div class="row">
-          <div class="col-md-4"></div>
-          <div class="col-md-4 mb-5">
-		        <h3 class="ltext-103 cl5">
-		          <?php echo $name ?>
-		        </h3>
-	        	<div class="col-md-12 ">
-	        		<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star"></span>
-	        	</div>
-	        	<div class="col-md-12 "><p><?php echo number_format($ave_rate,2); ?> Average rate base on <?php echo $count_user; ?> reviews.</p></div>
-	        	<div class="col-md-12"><?php echo $rate; ?></div>
+   <div class="container-fluid m-t-100">
+        <div class="ltext-102 cl5 m-l-100">
+          <h4>User Profile</h4>
+        </div>
+    <div class="row justify-content-center ">
+
+      <div class="col-md-5 ">
+        
+        <div class="row border mt-5">
+          <div class="col-md-3 p-2 " style="height: 150px;"> 
+            <?php
+            $sql23 = "SELECT * FROM account WHERE accountid = '$id'";
+            $res23 = mysqli_query($conn, $sql23);
+            while ($row23 = mysqli_fetch_assoc($res23)){ 
+           ?>
+            <img src="../images/<?php echo $row23['userpic']  ?>" class="rounded-circle">
+            <?php 
+              }
+             ?>
+          </div>
+          <div class="offset-md-1 ml-5">
+            <div class="row justify-content-center">
+              <label class=""><h4><?php echo $name ?></h4></label>  
             </div>
+            <div class="row justify-content-center">
+               <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+            </div>  
+              <div class="row justify-content-center">
+                  <label class="text-center"><p><?php echo number_format($ave_rate,2); ?> Average rate base on <?php echo $count_user; ?> reviews.</p></label>
+                  
+              </div>
+              <div class="text-center">
+                  <p><?php echo $rate; ?></p>
+                  </div>
+          </div>
+        </div>  
+        <hr class="mt-5">
+        <div class="row mt-2">
+          <label>Feedback:</label>
+        </div>          
+        <div class="row">
+          <div class="col d-flex ">
+            
+            <div class="row offset-md-0">
+              <?php echo $feedback; ?>
+            </div>  
+          </div>
+        </div>  
+      </div>
+    </div>
+  </div>
 
-	        </div>
-
-  		</div>
-  		<div class="col-md-12">
-
-        <h3 class="mb-4">Comments:</h3>
-  			<ul>
-          	<?php echo $feedback; ?>
-          </ul>
-  		</div>
-  	</div>
-   </div>
-
-    <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog" style="margin-top: 100px">
 
@@ -126,7 +146,19 @@
             <div class="row">
               <div class="col-md-3"></div>
               <div class="col-md-6">
-                <h3 class="ltext-103 cl5">
+                <div class="text-center">
+                  <?php
+                $sql5 = "SELECT * FROM account WHERE accountid = '$id'";
+                $res5 = mysqli_query($conn, $sql5);
+                while ($row5 = mysqli_fetch_assoc($res5)){ 
+               ?>
+                <img src="../images/<?php echo $row5['userpic']  ?>" class="rounded-circle" width="100" height="100">
+                <?php 
+                  }
+                 ?>
+
+                </div>
+                <h3 class="ltext-103 cl5 text-center">
                   <?php echo $name ?>
                 </h3><br>
                 <div class="rating" role="optgroup">
@@ -138,8 +170,15 @@
                   <i class="fa fa-star-o fa-2x rating-star" id="rating-5" data-rating="5" tabindex="0" aria-label="Rate as five out of 5 stars" role="radio"></i>
             </div>
                 <!-- hide the input -->  
-                
-                <p>Rate: <input type="number" name="rating" id="rating-input" min="1" max="5" required="" /></p>
+                <div class="row">
+                    <div class="col-md-3">
+                    <p>Rate:</p>
+                    </div>
+                    <div class="col-md-3">
+                      <input type="number" name="rating" id="rating-input" min="1" max="5" required="" />
+                    </div>
+
+                </div>
                 <input type="hidden" name="buyer_id" value="<?php echo $user_id ?>" />
                 <input type="hidden" name="seller_id" value="<?php echo $id ?>" />
                 <p>Feed Back</p>
@@ -162,8 +201,9 @@
 
       </div>
     </div>
-        
-    <div style="margin-top: 80px"></div>
+
+   
+       <div style="margin-top: 80px"></div>
     <?php
       include('sub_products.php');
       include('footer.php');
@@ -254,24 +294,24 @@
         swal(nameProduct, "is added to cart !", "success");
       });
     });
-  	
+    
   </script>
   <script type="text/javascript">
-  	
+    
  $(document).ready(function () {
   
   function setRating(rating) {
-  	if(rating > 0){
-  		 $('#rating-input').val(rating);
-	    $('#rating-span').html('Rate: '+rating);
-	    // fill all the stars assigning the '.selected' class
-	    $('.rating-star').removeClass('fa-star-o').addClass('selected');
-	    // empty all the stars to the right of the mouse
-	    $('.rating-star#rating-' + rating + ' ~ .rating-star').removeClass('selected').addClass('fa-star-o');
-  	}
-  	else{
-  		alert('Please rate atleast 1');
-  	}
+    if(rating > 0){
+       $('#rating-input').val(rating);
+      $('#rating-span').html('Rate: '+rating);
+      // fill all the stars assigning the '.selected' class
+      $('.rating-star').removeClass('fa-star-o').addClass('selected');
+      // empty all the stars to the right of the mouse
+      $('.rating-star#rating-' + rating + ' ~ .rating-star').removeClass('selected').addClass('fa-star-o');
+    }
+    else{
+      alert('Please rate atleast 1');
+    }
    
   }
   

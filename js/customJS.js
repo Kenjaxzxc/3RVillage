@@ -2,6 +2,9 @@ inactivePost();
 post_notification();
 my_interestedList();
 transaction_notification();
+wish_notification();
+subscribe_notification();
+
 function getURLData(dataname){
 	return (location.search.split(dataname + '=')[1] || '').split('&')[0];
 }
@@ -181,7 +184,7 @@ console.log(from);
 						                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
 						                <div class="chat_ib">\
 						                  <h5>'+thread[i].info+'<span class="chat_date">'+thread[i].time+'</span></h5>\
-						                  <p>'+thread[i].details+'</p>\
+						                  <p>'+thread[i].details +'</p>\
 						                </div>\
 						              </div>\
 						            </div></a>';
@@ -200,6 +203,40 @@ console.log(from);
 									
 							}
 							$('#count_notif').html(response.unread_all);
+						}
+						$('#post-notification').append(html);
+					}
+					
+				}
+		});
+	//}, 2000);	
+}
+
+function subscribe_notification(){
+	//let from = $("input[name='from']").val();
+//console.log(from);
+	var html = '';
+	//refresh = setInterval(function(){
+		$.ajax({
+				url:"../public/notification/subscribe_notification.php",
+				method: "POST",
+				success: function(response){
+					console.log(response);
+					if(response.status == true){
+						thread = response.thread;
+						if(thread.length > 0){
+							for(var i=0; i<thread.length; i++){
+									html += '<a class="dropdown-item" href="user_subscription.php?id='+thread[i].seller_id+'"><div class="chat_list">\
+						              <div class="chat_people">\
+						                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
+						                <div class="chat_ib">\
+						                  <h5>'+thread[i].seller_name+'<span class="chat_date">'+thread[i].date+'</span></h5>\
+						                  <p>'+thread[i].details +'</p>\
+						                </div>\
+						              </div>\
+						            </div></a>';
+							}
+							//$('#count_notif').html(response.unread_all);
 						}
 						$('#post-notification').append(html);
 					}
@@ -235,6 +272,42 @@ console.log(from);
 								
 							}
 							$('#count_notif').html(response.unread_all);
+							$('#post-notification').append(html);
+						}
+						
+					}
+					
+				}
+		});
+	//}, 2000);	
+}
+function wish_notification(){
+	let from = $("input[name='from']").val();
+console.log(from);
+	var html = '';
+	//refresh = setInterval(function(){
+		$.ajax({
+				url:"../public/notification/wish_notification.php",
+				method: "POST",
+				data: {from: from},
+				success: function(response){
+					console.log(response);
+					if(response.status == true){
+						thread = response.thread;
+						if(thread.length > 0){
+							for(var i=0; i<thread.length; i++){
+									html += '<a class="dropdown-item" href="wishitem.php?id='+thread[i].buyer_id+'"><div class="chat_list">\
+						              <div class="chat_people">\
+						                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>\
+						                <div class="chat_ib">\
+						                  <h5>'+thread[i].buyer_name+'<span class="chat_date">'+thread[i].date+'</span></h5>\
+						                  <p>'+thread[i].details+'</p>\
+						                </div>\
+						              </div>\
+						            </div></a>';
+								
+							}
+							//$('#count_notif').html(response.unread_all);
 							$('#post-notification').append(html);
 						}
 						

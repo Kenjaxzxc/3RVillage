@@ -1,4 +1,5 @@
 <?php 
+include('connection.php');
   session_start();
   $user_id=''; $seller_id=''; $seller='';
    if(isset($_SESSION['user_id'])){
@@ -22,7 +23,7 @@
 ?>
 <style type="text/css">
 	   
-    .container{max-width:1170px; margin:auto;}
+.container{max-width:1170px; margin:auto;}
 img{ max-width:100%;}
 .inbox_people {
   background: #f8f8f8 none repeat scroll 0 0;
@@ -210,7 +211,19 @@ img{ max-width:100%;}
 
 						<div class="dropdown show">
 						  <a class="dropdown-toggle flex-c-m trans-04 p-lr-25" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    <?php echo $_SESSION['accountid'] ?>
+						    <?php 
+                $id = $_SESSION['user_id'];
+                  $res = mysqli_query($conn, "SELECT * FROM account WHERE accountid = '$id'");
+                  $row = mysqli_fetch_assoc($res);
+                
+               ?>
+               <div>
+               <img src="../images/<?php echo $row['userpic']  ?>" class="rounded-circle" width="25 " height="25">
+               </div>
+               <div class="ml-1">
+               <p><?php echo $row['username'];  
+               ?></p>
+               </div>
 						  </a>
 
 						  <div class="dropdown-menu bg-dark " style="z-index:5000; position: relative;" aria-labelledby="dropdownMenuLink">
@@ -219,6 +232,7 @@ img{ max-width:100%;}
 
 					        <a class="dropdown-item" href="mypost.php"><span class="fa fa-plus-circle"></span> My Ads</a>
 					        <a class="dropdown-item" href="mywishlist.php"><span class="fa fa-heart"></span> My Wishlist</a>
+                  <a class="dropdown-item" href="subscriptionrecords.php"><span class="fa fa-heart"></span> Subscription Records</a>
 					        <!--
 					        <a class="dropdown-item" href="cart.php"><span class="zmdi zmdi-shopping-cart"></span> My Cart</a> -->
 					        <div class="dropdown-divider"></div>

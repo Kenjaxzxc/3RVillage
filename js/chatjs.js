@@ -58,6 +58,7 @@ $(document).on('keypress', '.type_msg .input_msg_write .write_msg', function(e){
         }
 });
 function load_messages(){
+	console.log("load_messages");
 	let from = $("input[name='from']").val();
 	let to = $("input[name='to']").val();
 		$.ajax({
@@ -80,9 +81,10 @@ function load_messages(){
 }
 
 function update_messages(){
+	console.log("update_messages");
 	let from = $("input[name='from']").val();
 	let to = $("input[name='to']").val();
-	refresh = setInterval(function(){
+	// refresh = setInterval(function(){
 		$.ajax({
 				url:"../public/messages/update_messages.php",
 				method: "POST",
@@ -110,10 +112,11 @@ function update_messages(){
 					
 				}
 		});
-	}, 2000);
+	// }, 2000);
 		
 }
 function update_chatlist(){
+	console.log("update_chatlist");
 	let from = $("input[name='from']").val();
 	let to = $("input[name='to']").val();
 	var html = '';
@@ -150,6 +153,7 @@ function update_chatlist(){
 
 
 function update_message_notification(){
+	console.log("update_message_notification");
 	let from = $("input[name='from']").val();
 console.log(from);
 	var html = '';

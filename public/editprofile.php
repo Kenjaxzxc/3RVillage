@@ -17,9 +17,11 @@
       $email = $_POST['email'];
       $contact = $_POST['contact'];  
       $id=$_SESSION['accountid'];
-      $verify = $_POST['verify']; 
-      $sql = "UPDATE account SET email='$email', contactno ='$contact' WHERE username = '$id'";
+      $target1 = "../images/".basename($_FILES['image']['name']);
+      $image1 = $_FILES['image']['name'];
+      $sql = "UPDATE account SET email='$email', userpic='$image1', contactno ='$contact' WHERE username = '$id'";
       mysqli_query ($conn, $sql);
+      move_uploaded_file($_FILES['image']['tmp_name'], $target1);
       echo "<script>alert('Successfully Updated!');</script>";
       echo '<script>window.location="editprofile.php"</script>'; 
 
@@ -73,7 +75,7 @@
         $err = curl_error($curl);
 
         curl_close($curl);
-
+        
         if ($err) {
             echo "cURL Error #:" . $err;
         }else{
@@ -91,11 +93,25 @@
           while($row=$res->fetch_array()){
           
      ?> 
-  <form action="" method="POST">
+  <form method="post" enctype="multipart/form-data">
   <div class="row justify-content-center">
     
-    <div class="shadow-lg col-sm-5 m-b-100 m-t-100 p-4 bg-white rounded">
-     <h4 class="ltext-102 cl5 mb-4 mt-2 text-center">Update Profile</h4>
+    <div class="shadow-lg col-sm-8 m-b-100 m-t-100 p-4 bg-white rounded">
+      <h4 class="ltext-102 cl5 mb-4 mt-2 text-center">Update Profile</h4>
+    <div class="row col-md-12">
+
+
+      <div class="col-md-4 text-center">
+        <div>
+      <img src="../images/<?php echo $row['userpic']  ?>" class="rounded-circle" id="previewing1" width="150" height="150">
+      </div>
+      <div class="mt-5">
+        <input type="file" name="image">
+      </div>
+    </div>
+    <div class="col-md-8">
+      
+     
       <div class="form-group">    
         <label>Name</label>
         <input class="form-control" type="text" name="name" value="<?php echo $row['firstname']." ".$row ['lastname'] ?>" disabled>
@@ -134,13 +150,15 @@
       </div>
 
       <div class="mt-4 m-b-100">
-        <a href="home.php"><button type="button" class="stext-106 btn btn-outline-secondary float-right" id="btnCancel">Cancel</button></a>
-        <button type="submit" class="stext-106 btn btn-success float-right mr-2" id="btnSave" name="btnUpdate">Update</button>
+        <a href="home.php"><button type="button" class="stext-106 btn btn-outline-secondary ml-2" id="btnCancel">Cancel</button></a>
+        <button type="submit" class="stext-106 btn btn-success float-left" id="btnSave" name="btnUpdate">Update</button>
       </div>
       <?php
         }
       ?>
     </div>
+  </div>
+</div>
 
     </div> 
     </form>
@@ -167,3 +185,20 @@
 
   <script src="../js/main.js"></script>
   
+<script type="text/javascript">
+  function readURL1(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      $('#previewing1').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$(function(){
+  $("input[name=image]").change(function(){
+    readURL1(this);
+  });
+});
+</script>
