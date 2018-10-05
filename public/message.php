@@ -180,15 +180,70 @@ img{ max-width:100%;}
           </div>
           <div class="type_msg">
             <div class="input_msg_write">
+
+              <form id="uploadPhotoForm" method="POST" enctype="multipart/form-data">
               <input type="hidden" name="to" value="<?php echo $seller['accountid'] ?>" />
               <input type="hidden" name="from" value="<?php echo $user_id ?>" />
-              <input type="text" name="message" class="write_msg" placeholder="Type a message" />
-              <button id="msg_send_btn" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+              <input type="hidden" id="message_img" name="message_img" value="" />
+              <div class="row">
+                <div class="col-sm-1">
+                  <div class="pull-right">
+                     <i id="upload-img" class="fa fa-camera" style="margin-top: 20px;"></i>
+                    <input type="file" id="image1" name="upimage[]" style="display: none;" multiple="" />
+                  </div>
+                </div> 
+                <div class="col-sm-9 message-box">
+                    <input id="input-message" type="text" name="message" class="write_msg" placeholder="Type a message" />
+                    <div class="preview-img" style="padding: 2px 2px 10px 2px;">
+                      
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                  <button id="msg_send_btn" class="msg_send_btn" type="button" name="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                </div>
+              </div>
+              
+              </form>
             </div>
           </div>
         </div>
       </div>
       
+    </div>
+    <!-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="..." alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="..." alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="..." alt="Third slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div> -->
+
+<!-- Button trigger modal-->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalYT">Launch modal</button> -->
+    <div class="shared-content">
+      <h1>SHARED CONTENT</h1>
+      <div class="row">
+        
+      </div>
     </div>
   </div>
 </div>  
@@ -199,7 +254,37 @@ img{ max-width:100%;}
     <?php
    include('footer.php');
 ?>
+<script type="text/javascript">
+  $("#upload-img").click(function () {
+      $("#image1").trigger('click');
+  });
 
+function readURL2(input) {
+  var img = "";
+ if (input.files) {
+    for(var i=0; i<input.files.length; i++){
+      var reader = new FileReader();
+      reader.onload = function(e) {
+         $('.preview-img').append('<img src="'+e.target.result+'" width="100" style="margin-bottom: 3px;" /> ');
+      }
+      reader.readAsDataURL(input.files[i]);
+      img += ","+input.files[i].name;
+      //console.log(input.files[i].name);
+    }
+  }
+  $('#message_img').val(img);
+ //  link = $(input).val();
+ // $('.preview-img').append(link);
+}
+
+$(function(){
+  $("input[id=image1]").change(function(){
+    $('#message_img').val('');
+    $(".message-box .preview-img").html('');
+    readURL2(this);
+  });
+});
+</script>
  </body>
 </html>  
 

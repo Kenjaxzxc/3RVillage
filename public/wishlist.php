@@ -236,12 +236,20 @@ $linkClass = null;
 
       <?php
         $builder = $dom = null; 
+        $button  = null;
         foreach ($dataAll['data'] as $value) {
+          if($user_id != $value['accountid']){
+            $button = '<a href="message.php?id='.$value['accountid'].'"><button class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+           <p>Communicate</p> 
+           </button></a>';
+
+          }
            $builder = 
+          
           '
 
     <div class="row">
-    <div class="shadow-lg col-sm-4 p-2 bg-white rounded mb-5 isotope-item '.$linkClass.'">
+    <div class="shadow-lg col-sm-4 p-2 bg-white rounded mb-5 isotope-item '.$linkClass.'" style="height:190px;">
         <div class="row stext-105 cl3 p-b-5">
         <div class="col-sm-3">
           <strong><label>Name:</label></strong>
@@ -271,9 +279,7 @@ $linkClass = null;
 
       <div class="row justify-content-center">
         <div>
-          <a href="message.php?id='.$value['accountid'].'"><button class="flex-c-m mtext-104 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-           <p>Communicate</p> 
-           </button></a>
+          '.$button.'
         </div>
       </div>
      </div>

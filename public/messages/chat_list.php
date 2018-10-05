@@ -38,15 +38,15 @@
 			    $sql2 = "SELECT * FROM account WHERE accountid='$id' "; 
 			    $result2 = mysqli_query($conn, $sql2);
 			    $info = mysqli_fetch_assoc($result2);
-			   
-			    $message = ($row2['_from'] == $from ? 'You: '.$row2['message'] : $row2['message']);
+			   	$mes = unserialize($row2['message']);
+			   	
+			    $message = ($row2['_from'] == $from ? (count($mes['photo']) > 0 ? 'You: sent a photo. ' : 'You: '.$mes['message']) : (count($mes['photo']) > 0 ? 'Send a photo. ' : $mes['message'] ));
 
 	   		$arr = array(
 			    		'msg_id'=>$row2['id'],
 			    		'to'=>$row2['_to'],
 			    		'from'=>$row2['_from'],
 			    		'id'=>$id,
-			    		
 			    		'time'=>date('F j, Y g:i:A', strtotime($row2['_time'])),
 			    		'message'=>($unread > 0 && $id == $row2['_from'] ? '<strong>'.$message.'</strong>' : $message),
 			    		'info'=>($unread > 0 && $id == $row2['_from'] ? $info['firstname'].' '.$info['lastname'].'('.$unread.')' : $info['firstname'].' '.$info['lastname'] )
