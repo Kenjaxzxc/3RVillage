@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 28, 2018 at 05:02 AM
+-- Generation Time: Oct 05, 2018 at 02:47 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -46,7 +46,7 @@ INSERT INTO `account` (`accountid`, `firstname`, `lastname`, `username`, `passwo
 (1, 'Admin', 'Admin', 'admin', 'admin', '', '', '', 1),
 (2, 'AllixaJean', 'Gempesao', 'allixa', 'allixa', 'allixajeang88@yahoo.com', 'gallery-09.jpg', '09491209500', 1),
 (3, 'charnilie', 'Ouano', 'cha', '1231231', 'cha@yahoo.com', 'item-cart-01.jpg', '09464278949', 1),
-(4, 'kenji', 'pugoy', 'kenji', 'kenji', 'kenji@gmail.com', 'blog-04.jpg', '1231321', 1),
+(4, 'kenji', 'pugoy', 'kenji', 'kenji', 'kenji@gmail.com', 'gallery-07.jpg', '1231321', 1),
 (6, 'Heubert', 'Ferolino', 'heubert', 'ferolino', 'heubert@gmail.com', 'profile_img.png', '09276168497', 1);
 
 -- --------------------------------------------------------
@@ -87,7 +87,10 @@ CREATE TABLE `interested` (
 --
 
 INSERT INTO `interested` (`int_id`, `user_id`, `item_id`, `_date`, `status`) VALUES
-(1, 4, 2, '2018-09-25 09:07:19', 1);
+(1, 4, 2, '2018-09-25 09:07:19', 1),
+(2, 4, 4, '2018-10-04 09:35:46', 1),
+(3, 4, 11, '2018-10-04 09:41:06', 0),
+(4, 4, 11, '2018-10-04 09:57:25', 0);
 
 -- --------------------------------------------------------
 
@@ -139,16 +142,17 @@ CREATE TABLE `itemsell` (
 --
 
 INSERT INTO `itemsell` (`ItemSellID`, `SItemTitle`, `SItemCat`, `SItemDesc`, `SItemLocation`, `SItemPrice`, `ExpectedPrice`, `SItemStyle`, `SItemBrand`, `SItemColor`, `SItemImages1`, `SItemPosted`, `UpdatedDate`, `accountid`, `SItemStatus`) VALUES
-(1, 'Bag', 'Bag', 'Bag for sale', 'Bukidnon', '324.00', '234.00', 'sdfdsf', 'dfdsf', 'Red', 'banner-06.jpg', '2018-09-24 17:40:42', NULL, 3, 1),
-(2, 'heheh', 'Apparels', 'hfhdyfeheg', 'Abra', '567.00', '3452.00', 'gegr', 'hehege', 'Red', 'banner-07.jpg', '2018-09-24 17:41:34', NULL, 3, 2),
-(3, 'Watch', 'Bag', 'watch', 'Abra', '123.00', '343.00', '', 'Casio', 'Black', 'product-15.jpg', '2018-09-25 10:16:49', NULL, 2, 1),
-(4, 'Cabinet', 'Others', 'slightly used.', 'Abra', '600.00', '300.00', 'native', 'mandaue foam', 'Brown', 'cabinet.jpg', '2018-09-25 11:32:18', NULL, 3, 1),
-(5, 'Table', 'Others', 'Table', 'Abra', '5000.00', '7000.00', '', 'Wood', 'Brown', 'table.jpg', '2018-09-25 11:41:35', NULL, 3, 1),
+(1, 'Bag', 'Bag', 'Bag for sale', 'Bukidnon', '324.00', '234.00', 'sdfdsf', 'dfdsf', 'Red', 'banner-06.jpg', '2018-09-24 17:40:42', NULL, 3, 0),
+(2, 'heheh', 'Apparels', 'hfhdyfeheg', 'Abra', '567.00', '3452.00', 'gegr', 'hehege', 'Red', 'banner-07.jpg', '2018-09-24 17:41:34', NULL, 3, 0),
+(3, 'Watch', 'Bag', 'watch', 'Abra', '123.00', '343.00', '', 'Casio', 'Black', 'product-15.jpg', '2018-09-25 10:16:49', NULL, 2, 0),
+(4, 'Cabinet', 'Others', 'slightly used.', 'Abra', '600.00', '300.00', 'native', 'mandaue foam', 'Brown', 'cabinet.jpg', '2018-09-25 11:32:18', '2018-10-04 11:38:16', 3, 2),
+(5, 'Table', 'Others', 'Table', 'Abra', '5000.00', '7000.00', '', 'Wood', 'Brown', 'table.jpg', '2018-09-25 11:41:35', NULL, 3, 0),
 (6, 'PHONE', 'Gadgets', 'ASD', 'Abra', '23.00', '123.00', '', 'Cherry Mobile', 'Blue', 'images1.jpg', '2018-09-25 11:56:18', NULL, 6, 1),
 (7, 'ASD', 'Apparels', 'SAD', 'Abra', '343.00', '3434.00', 'ASD', 'ASDAS', 'Red', 'blog-05.jpg', '2018-09-25 11:56:30', NULL, 6, 1),
 (8, 'ASDAS', 'Apparels', 'ASDASD', 'Abra', '13123.00', '3434.00', 'asdad', 'AD', 'Red', 'gallery-08.jpg', '2018-09-25 11:56:42', NULL, 6, 1),
 (9, 'asdasdas', 'Apparels', 'ASD', 'Abra', '343.00', '3434.00', 'ASD', 'ASD', 'Red', 'gallery-09.jpg', '2018-09-25 11:56:52', NULL, 6, 1),
-(10, 'ASDAS', 'Accessories', 'ASD', 'Abra', '434.00', '3333.00', '', '123', 'Red', 'banner-05.jpg', '2018-09-25 11:57:03', NULL, 6, 1);
+(10, 'ASDAS', 'Accessories', 'ASD', 'Abra', '434.00', '3333.00', '', '123', 'Red', 'banner-05.jpg', '2018-09-25 11:57:03', NULL, 6, 1),
+(11, 'Cellphone', 'Apparels', 'Cherry mobile phone', 'Abra', '3434.00', '6000.00', '', 'Cherry Mobile', 'Red', 'images1.jpg', '2018-10-04 09:40:50', NULL, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -170,23 +174,15 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`id`, `_from`, `_to`, `message`, `is_read`, `_time`) VALUES
-(1, 3, 2, 'wew', 1, '2018-10-01 18:58:19'),
-(2, 2, 3, 'huh', 1, '2018-10-01 18:59:24'),
-(3, 3, 2, 'hyhy', 1, '2018-10-01 18:59:32'),
-(4, 3, 2, '23456rty', 1, '2018-09-25 09:23:03'),
-(5, 2, 3, 'asd', 1, '2018-09-25 10:25:00'),
-(6, 2, 3, 'qwe', 1, '2018-09-25 10:36:47'),
-(7, 3, 2, 'hello hehe', 1, '2018-09-25 10:37:18'),
-(8, 3, 2, 'hi', 1, '2018-09-25 10:37:33'),
-(9, 2, 3, 'hi', 1, '2018-09-25 10:37:38'),
-(10, 3, 2, 'qweqweqweq', 1, '2018-09-25 10:37:50'),
-(11, 3, 2, 'helo', 1, '2018-09-25 10:42:12'),
-(12, 2, 3, 'hehe', 1, '2018-09-25 10:42:49'),
-(13, 2, 3, 'hehe', 1, '2018-09-25 10:43:49'),
-(14, 3, 2, 'hi', 1, '2018-09-25 10:43:59'),
-(15, 3, 2, 'hi', 1, '2018-09-25 10:44:28'),
-(16, 2, 3, 'he', 1, '2018-09-25 10:44:31'),
-(17, 6, 6, 'hi', 1, '2018-09-25 11:52:54');
+(1, 4, 3, 'a:2:{s:5:\"photo\";a:0:{}s:7:\"message\";s:3:\"hey\";}', 1, '2018-10-04 09:57:39'),
+(2, 4, 3, 'a:2:{s:5:\"photo\";a:1:{i:0;s:36:\"4236aaabaffcf4915479ab00608d9714.jpg\";}s:7:\"message\";s:0:\"\";}', 1, '2018-10-04 09:58:02'),
+(3, 3, 4, 'a:2:{s:5:\"photo\";a:1:{i:0;s:36:\"4be782c12cdd38b14e32e3d4531a5c7f.jpg\";}s:7:\"message\";s:0:\"\";}', 1, '2018-10-04 09:58:12'),
+(4, 3, 4, 'a:2:{s:5:\"photo\";a:1:{i:0;s:36:\"4c0ca5cf00610448fe7739d7711a3ba2.jpg\";}s:7:\"message\";s:10:\"mao ni sya\";}', 1, '2018-10-04 09:58:31'),
+(5, 4, 3, 'a:2:{s:5:\"photo\";a:3:{i:0;s:36:\"f70ef3ec4a8f5b4aa79bab3bea0ee264.jpg\";i:1;s:36:\"f70ef3ec4a8f5b4aa79bab3bea0ee264.jpg\";i:2;s:36:\"b18c1b34d83295b38e9f595a434dd906.jpg\";}s:7:\"message\";s:7:\"comment\";}', 1, '2018-10-04 09:58:50'),
+(6, 4, 3, 'a:2:{s:5:\"photo\";a:1:{i:0;s:36:\"a61e72fd2433eb6ae0ca7e3592d71e0f.jpg\";}s:7:\"message\";s:0:\"\";}', 1, '2018-10-04 10:30:21'),
+(7, 4, 3, 'a:2:{s:5:\"photo\";a:0:{}s:7:\"message\";s:3:\"hey\";}', 1, '2018-10-04 10:30:47'),
+(8, 4, 3, 'a:2:{s:5:\"photo\";a:1:{i:0;s:36:\"8abd29d77ef24fd49836cd9494f45b1e.jpg\";}s:7:\"message\";s:0:\"\";}', 1, '2018-10-04 10:31:03'),
+(9, 4, 3, 'a:2:{s:5:\"photo\";a:1:{i:0;s:36:\"9fb20c2a3e0bcae04111ab86adc90d75.jpg\";}s:7:\"message\";s:0:\"\";}', 1, '2018-10-04 11:00:38');
 
 -- --------------------------------------------------------
 
@@ -236,6 +232,23 @@ CREATE TABLE `notification` (
   `is_read` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`notif_id`, `notif_details`, `notif_time`, `table_name`, `table_id`, `user_id`, `status`, `is_read`) VALUES
+(1, 'Your post title ASDAS on category Accessories has been inactive ! ', '2018-10-03 02:33:39', 'itemsell', 10, 6, 0, 0),
+(2, 'Your post title ASDAS on category Accessories has been inactive ! ', '2018-10-04 09:34:45', 'itemsell', 10, 6, 0, 0),
+(3, 'Your post title asdasdas on category Apparels has been inactive ! ', '2018-10-04 09:35:03', 'itemsell', 9, 6, 0, 0),
+(4, 'Your post title ASDAS on category Apparels has been inactive ! ', '2018-10-04 09:35:06', 'itemsell', 8, 6, 0, 0),
+(5, 'Your post title Cabinet on category Others has been inactive ! ', '2018-10-04 09:35:42', 'itemsell', 4, 3, 0, 0),
+(6, 'Your post title heheh on category Apparels has been inactive ! ', '2018-10-04 09:37:55', 'itemsell', 2, 3, 0, 0),
+(7, 'Your post title Table on category Others has been inactive ! ', '2018-10-04 09:37:58', 'itemsell', 5, 3, 0, 0),
+(8, 'Your post title Cabinet on category Others has been inactive ! ', '2018-10-04 09:38:00', 'itemsell', 4, 3, 0, 0),
+(9, 'Your post title Bag on category Bag has been inactive ! ', '2018-10-04 09:38:03', 'itemsell', 1, 3, 0, 0),
+(10, 'Your post title Bag on category Bag has been inactive ! ', '2018-10-04 09:38:05', 'itemsell', 1, 3, 0, 0),
+(11, 'Your post title Cabinet on category Others has been actived now ! ', '2018-10-04 09:38:16', 'itemsell', 4, 3, 1, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -274,7 +287,7 @@ CREATE TABLE `subscribed` (
 --
 
 INSERT INTO `subscribed` (`subscribedID`, `userid`, `remaining`) VALUES
-(1, 3, 101),
+(1, 3, 100),
 (2, 4, 255),
 (3, 2, 54),
 (4, 6, 50);
@@ -374,17 +387,7 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`WishListID`, `WLName`, `WLWant`, `WLMessage`, `WLCategory`, `accountid`, `WLStatus`, `_date`) VALUES
-(1, 'AllixaJean Gempesao', 'Jansport Bag', 'I want bag', 'Bag', 2, 1, '2018-09-24 18:09:05'),
-(2, 'AllixaJean Gempesao', 'Jacket', 'I want jacket ', 'Apparels', 2, 1, '2018-09-24 19:03:13'),
-(3, 'AllixaJean Gempesao', 'Shoes', 'I want shoes', 'Apparels', 2, 1, '2018-09-25 02:34:54'),
-(4, 'kenji pugoy', 'Nike Shoes', 'Nike', 'Apparels', 4, 1, '2018-09-25 09:11:26'),
-(5, 'kenji pugoy', 'TARONG', 'TARONG', 'Vehicles', 4, 1, '2018-09-25 09:13:47'),
-(6, 'kenji pugoy', 'Test', 'test', 'Apparels', 4, 1, '2018-09-25 09:46:40'),
-(7, 'kenji pugoy', 'test123', 'test123', 'Apparels', 4, 1, '2018-09-25 10:19:52'),
-(8, 'charnilie Ouano', 'GTR', 'I WANT CAR', 'Vehicles', 3, 1, '2018-09-25 11:08:23'),
-(9, 'AllixaJean Gempesao', 'Cellphone', 'i want cellphone\r\n', 'Gadgets', 2, 1, '2018-09-25 11:15:18'),
-(10, 'charnilie Ouano', 'halk bag', 'color: green; ', 'Bag', 3, 1, '2018-09-25 11:33:16'),
-(11, 'Heubert Ferolino', 'Phone', 'Smart Phone', 'Gadgets', 6, 1, '2018-09-25 11:51:27');
+(1, 'charnilie Ouano', 'I want Cellphone', 'Cellphone', 'Apparels', 3, 1, '2018-10-04 10:03:24');
 
 -- --------------------------------------------------------
 
@@ -518,7 +521,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `interested`
 --
 ALTER TABLE `interested`
-  MODIFY `int_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `int_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `itemdonate`
 --
@@ -528,12 +531,12 @@ ALTER TABLE `itemdonate`
 -- AUTO_INCREMENT for table `itemsell`
 --
 ALTER TABLE `itemsell`
-  MODIFY `ItemSellID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ItemSellID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `ngo`
 --
@@ -543,7 +546,7 @@ ALTER TABLE `ngo`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notif_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `notif_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `review`
 --
@@ -573,7 +576,7 @@ ALTER TABLE `subscription_payment`
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `WishListID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `WishListID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
